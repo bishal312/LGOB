@@ -48,9 +48,12 @@ export class Signup implements OnInit {
   ngOnInit(): void {
       this.auth.getAdmin().subscribe((res)=>{
         
-      if(res){
-
+      if(res.adminExists){
+        
         this.sellerAlreadyRegistered=true
+      }
+      else{
+        this.sellerAlreadyRegistered=false
       }
      
     },error =>{

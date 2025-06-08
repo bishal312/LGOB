@@ -17,6 +17,6 @@ export class Auth {
   }
 
   getAdmin(){
-    return this.http.get(`${this.api}/secureadmin`)
+    return this.http.get<any>(`${this.api}/secureadmin`)
   }
 }
