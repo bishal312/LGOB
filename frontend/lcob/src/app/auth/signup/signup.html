@@ -1,1 +1,75 @@
-<p>signup works!</p>
+<div class="bg-[#EBF2FA] min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-md w-full max-w-md">
+    <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-6">Sign Up</h2>
+    
+    <form [formGroup]="userSignupObj">
+      <div class="mb-4 ">
+        <label class="block text-gray-700 font-medium mb-1" for="fullName">Full Name</label>
+        <input formControlName="fullName"  autocomplete="off" type="text" id="fullName" name="fullName" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+        <!-- error messages -->
+         @if(userSignupObj.get('fullName')?.touched && userSignupObj.get('fullName')?.invalid){
+            <div class="text-red-500 text-sm mt-1">
+                      <p *ngIf="userSignupObj.get('fullName')?.errors?.['required']">Full name is required</p>
+                      <p *ngIf="userSignupObj.get('fullName')?.errors?.['pattern']">First letter must be uppercase and follow the format like: John Doe</p>
+            </div>
+         }
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-medium mb-1" for="phone">Phone Number</label>
+        <input formControlName="phoneNumber" autocomplete="off" type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+        <!-- error messages -->
+         @if(userSignupObj.get('phoneNumber')?.touched && userSignupObj.get('phoneNumber')?.invalid){
+            <div class="text-red-500 text-sm mt-1">
+                      <p *ngIf="userSignupObj.get('phoneNumber')?.errors?.['required']">Phone number is required</p>
+                      <p *ngIf="userSignupObj.get('phoneNumber')?.errors?.['pattern']">Phone number must be 10 digits, starting with 97 or 98</p>
+            </div>
+         }
+      </div>
+
+      @if(sellerAlreadyRegistered == false){
+      <div class="mb-4">
+          
+          <label class="block text-gray-700 font-medium mb-1" for="role">Role</label>
+            <select id="role" name="role" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+        </div>
+    }
+
+      <div class="mb-6">
+        <label class="block text-gray-700 font-medium mb-1" for="password">Password</label>
+        <input formControlName="password" autocomplete="off" type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        
+        <!-- error messages -->
+         @if(userSignupObj.get('password')?.touched && userSignupObj.get('password')?.invalid){
+            <div class="text-red-500 text-sm mt-1">
+                      <p *ngIf="userSignupObj.get('password')?.errors?.['required']">Password is required</p>
+                      <p *ngIf="userSignupObj.get('password')?.errors?.['minlength']">Password must be at least 8 characters</p>
+                      <p *ngIf="userSignupObj.get('password')?.errors?.['pattern']">Password must contain at least one lowercase letter, one digit, and one special character</p>
+            </div>
+         }
+    </div>
+      @if(sellerAlreadyRegistered == true){
+         <button (click)="userSignUp()" [disabled]="userSignupObj.invalid"
+           [ngClass]="{'cursor-not-allowed': userSignupObj.invalid, 'opacity-50': userSignupObj.invalid,
+            'cursor-pointer':userSignupObj.valid
+           }"
+            type="submit" class="w-full  bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">Sign Up</button>
+          
+        } 
+        @else{
+          <button type="submit"  class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">Seller Sign Up</button>
+
+      }
+    </form>
+
+    <p class="text-center text-sm text-gray-600 mt-4">
+      Already have an account? <a href="/login" class="text-blue-600 hover:underline">Login</a>
+    </p>
+  </div>
+</div>
+

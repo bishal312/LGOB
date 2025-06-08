@@ -35,7 +35,7 @@
         </svg>
       </div>
 
-      <button 
+      <button (click)="onLogin(this.btnText())"
         class="bg-green-600 text-white cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300"
       >
         {{this.btnText()}}
