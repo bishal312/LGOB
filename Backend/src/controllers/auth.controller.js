@@ -64,5 +64,51 @@ export async function signup(req, res) {
 }
 
 export async function login(req, res) {
-  res.status(200).json({ message: "welcome to the authentication /login" });
+  const { phoneNumber, password } = req.body;
+  try {
+    if (!phoneNumber || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
+    }
+    const user = await User.findOne({ phoneNumber });
+    console.log(user);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid phone number or password" });
+    }
+    const isPasswordCorrect = await user.matchPassword(password);
+    if (!isPasswordCorrect) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid phonenumber or password" });
+    }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY);
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+    res.status(200).json({
+      success: true,
+      message: "User Logged in Successfully",
+      user: {
+        _id: user._id,
+        fullName: user.fullName,
+        phoneNumber: user.phoneNumber,
+        role: user.role,
+      }
+    });
+  } catch (error) {
+    console.log("Error occured while login");
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+}
+
+export async function logout(req, res) {
+  res.clearCookie("jwt");
+  res
+    .status(200)
+    .json({ success: true, message: "User Logged out successfully" });
 }
