@@ -3,14 +3,22 @@ import { Auth } from '../../services/auth/auth';
 import {  SellerLogin } from '../../models/model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { Api } from '../../services/api/api';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule,NgIf,NgClass],
+  imports: [ReactiveFormsModule,NgIf,NgClass,RouterLink],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })
 export class Signup implements OnInit {
+
+  //api service inject
+  api=inject(Api)
+
+  router=inject(Router)
+
 
   auth=inject(Auth)
 
@@ -56,11 +64,21 @@ export class Signup implements OnInit {
   userSignUp(){
     const userSignUpObj=this.userSignupObj.value
     console.log(userSignUpObj)
+    this.api.userSignup(userSignUpObj).subscribe((res)=>{
+      console.log(res)
+      if(res){
+        alert("user registered successfully");
+        this.router.navigate(['/login'])
+      }
+    })
+    
   }
+
 
   sellerSignUp(){
     console.log("seller sign up")
   }
+
   
 
 }
