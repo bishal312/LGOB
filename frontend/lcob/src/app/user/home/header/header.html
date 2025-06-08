@@ -1,15 +1,15 @@
-<header class="bg-[#DDB892] text-black shadow-md">
+<header class="bg-[#DDB892] text-black shadow-md max-w-[1640px] w-full mx-auto">
   <div class="max-w-[1440px] mx-auto px-4 py-3 flex items-center text-black justify-between">
     
     <!-- Logo -->
-    <div class="text-xl font-bold ">
-      MyLogo
+    <div class="left-side flex items-center space-x-4">
+      <img src="./../../../../assets/LogoofLCOB.png" alt="logo" class="h-12 w-auto">
     </div>
     
 
     <div class="right-side flex items-center space-x-8">
           <!-- Nav Links -->
-    <nav class="flex space-x-6  font-medium ">
+    <nav class="hidden md:flex space-x-6  font-medium ">
       <a routerLink="home" class="hover:underline cursor-pointer">Home</a>
       <a routerLink="shop" class="hover:underline cursor-pointer">Shop</a>
       <a routerLink="about" class="hover:underline cursor-pointer">About</a>
@@ -36,9 +36,9 @@
       </div>
 
       <button 
-        class="bg-green-600 cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300"
+        class="bg-green-600 text-white cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300"
       >
-        Login
+        {{this.btnText()}}
       </button>
     </div>
     </div>
