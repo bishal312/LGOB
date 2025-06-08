@@ -112,3 +112,18 @@ export async function logout(req, res) {
     .status(200)
     .json({ success: true, message: "User Logged out successfully" });
 }
+
+export async function secureAdmin(req, res) {
+  try {
+    const adminExists = await User.countDocuments({ role: "admin" });
+
+    if (adminExists > 0) {
+      return res.status(200).json({ adminExists: true });
+    } else {
+      return res.status(200).json({ adminExists: false });
+    }
+  } catch (error) {
+    console.error("Error checking admin existence:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
