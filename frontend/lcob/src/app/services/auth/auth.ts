@@ -11,8 +11,12 @@ export class Auth {
 
   constructor(private http:HttpClient) { }
 
-  checkSellerCount(obj:SellerLogin){
+  pushSellerCount(obj:SellerLogin){
     console.log("checkSellerCount auth")
     return this.http.post(`${this.api}/signup`,obj)
+  }
+
+  getAdmin(){
+    return this.http.get(`${this.api}/secureadmin`)
   }
 }

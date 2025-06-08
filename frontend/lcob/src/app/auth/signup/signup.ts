@@ -46,14 +46,15 @@ export class Signup implements OnInit {
     role:"admin"
   }
   ngOnInit(): void {
-      this.auth.checkSellerCount(this.adminObj).subscribe((res)=>{
-      if(res == "Only one admin allowed"){
-            console.log("admin is registered")
-      }
-    },error =>{
-      if(error.error?.message == "Only one admin allowed"){
+      this.auth.getAdmin().subscribe((res)=>{
+        
+      if(res){
+
         this.sellerAlreadyRegistered=true
       }
+     
+    },error =>{
+      console.log(error)
     })
 
     this.initializeUserSignupObj()
