@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SellerLogin } from '../../models/model';
+import { IuserSignupObj, SellerLogin } from '../../models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +15,11 @@ export class Auth {
 
   getAdmin(){
     return this.http.get<any>(`${this.api}/secureadmin`)
+  }
+
+   
+
+  login(obj:any){
+    return this.http.post(`${this.api}/login`,obj)
   }
 }

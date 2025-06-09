@@ -19,7 +19,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home, title: 'Home' },
-      { path: 'shop', component: Shop, title:'Shop' },
+      { path: 'shop',
+         loadComponent: ()=> import('./user/shop/shop').then(c => c.Shop),
+         title:'Shop' },
       { path: 'shop/product/:id', component: Product, title: 'Product' },
       { path: 'shop/checkout', component: Checkout, title: 'Checkout' },
       { path: 'shop/success', component: Success, title: 'Success' },

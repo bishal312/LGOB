@@ -22,6 +22,9 @@ export class Signup implements OnInit {
 
   auth=inject(Auth)
 
+
+  toastMessage:string='Signing Up ...'
+  showToast:boolean=false
   sellerAlreadyRegistered:boolean=false
 
   //form creating
@@ -34,7 +37,7 @@ export class Signup implements OnInit {
       phoneNumber:new FormControl('',[Validators.required,Validators.pattern(/^(97|98)\d{8}$/)]),
       password:new FormControl('',[Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{6,}$/)
 ]),
-     role:new FormControl('',Validators.required)
+     role:new FormControl('customer')
     })
   }
 
@@ -45,7 +48,7 @@ export class Signup implements OnInit {
   
   ngOnInit(): void {
       this.auth.getAdmin().subscribe((res)=>{
-        
+        console.log(res.adminExists)
       if(res.adminExists){
         
         this.sellerAlreadyRegistered=true
@@ -63,39 +66,53 @@ export class Signup implements OnInit {
 
   }
   
-  userSignUp(){
-    const userSignUpObj=this.userSignupObj.value
-    console.log(userSignUpObj)
-    const role=userSignUpObj.role
-    console.log(role)
-    if(role === "customer"){
-      this.api.userSignup(userSignUpObj).subscribe((res)=>{
-      console.log("user login")
-      if(res){
-        alert("user registered successfully");
-        this.router.navigate(['/login'])
+userSignUp() {
+  const userSignUpObj = this.userSignupObj.value;
+  const role = userSignUpObj.role;
+
+  console.log(userSignUpObj)
+
+  // Show the toast while signing up
+  this.toastMessage = 'Signing Up...';
+  this.showToast = true; // true means it shows toast
+   
+  if (role === 'customer') {
+    this.api.userSignup(userSignUpObj).subscribe({
+      next: (res) => {
+        this.toastMessage = 'Customer registered successfully!';
+        setTimeout(() => {
+          this.showToast = true; // hide toast after 2 seconds
+          this.router.navigate(['/login']);
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastMessage = 'Error during customer signup';
+        setTimeout(() => this.showToast = true, 2000);
       }
-    })
-    }
-    else if(role === "admin"){
-      this.api.adminSignup(userSignUpObj).subscribe((res)=>{
-      console.log("admin login",res)
-      if(res){
-        alert("admin registered successfully");
-        this.router.navigate(['/login'])
+    });
+  } else if (role === 'admin') {
+    console.log(userSignUpObj,"admin signup")
+    this.api.adminSignup(userSignUpObj).subscribe({
+      next: (res) => {
+        this.toastMessage = 'Admin registered successfully!';
+        setTimeout(() => {
+          this.showToast = true;
+          this.router.navigate(['/login']);
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastMessage = 'Error during admin signup';
+        setTimeout(() => this.showToast = true, 2000);
       }
-    })
-    }
-    
-    
+    });
   }
+}
 
 
-  sellerSignUp(){
-    console.log("seller sign up")
-     
-  
-  }
+
+ 
 
   
 
