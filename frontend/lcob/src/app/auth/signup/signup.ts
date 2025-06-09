@@ -33,18 +33,16 @@ export class Signup implements OnInit {
       fullName:new FormControl('',[Validators.required,Validators.pattern(/^[A-Z][a-z]+( [A-Z][a-z]+)*$/)]),
       phoneNumber:new FormControl('',[Validators.required,Validators.pattern(/^(97|98)\d{8}$/)]),
       password:new FormControl('',[Validators.required,Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{6,}$/)
-])
-
+]),
+     role:new FormControl('',Validators.required)
     })
   }
 
+
+ 
+
     
-  adminObj:SellerLogin={
-    fullName:"Roshan",
-    phoneNumber:"9876543210",
-    password:"roshan1212",
-    role:"admin"
-  }
+  
   ngOnInit(): void {
       this.auth.getAdmin().subscribe((res)=>{
         
@@ -68,19 +66,35 @@ export class Signup implements OnInit {
   userSignUp(){
     const userSignUpObj=this.userSignupObj.value
     console.log(userSignUpObj)
-    this.api.userSignup(userSignUpObj).subscribe((res)=>{
-      console.log(res)
+    const role=userSignUpObj.role
+    console.log(role)
+    if(role === "customer"){
+      this.api.userSignup(userSignUpObj).subscribe((res)=>{
+      console.log("user login")
       if(res){
         alert("user registered successfully");
         this.router.navigate(['/login'])
       }
     })
+    }
+    else if(role === "admin"){
+      this.api.adminSignup(userSignUpObj).subscribe((res)=>{
+      console.log("admin login",res)
+      if(res){
+        alert("admin registered successfully");
+        this.router.navigate(['/login'])
+      }
+    })
+    }
+    
     
   }
 
 
   sellerSignUp(){
     console.log("seller sign up")
+     
+  
   }
 
   

@@ -8,9 +8,16 @@ import { Observable } from 'rxjs';
 })
 export class Api {
 
+  api:string="http://localhost:5001/api/auth"
+
   constructor(private http:HttpClient) { }
 
   userSignup(obj:IuserSignupObj):Observable<IuserSignupObj>{
     return this.http.post<IuserSignupObj>(`http://localhost:5001/api/auth/signup`,obj)
+  }
+
+  adminSignup(obj:IuserSignupObj){
+    console.log("admin signup")
+    return this.http.post(`${this.api}/signup`,obj)
   }
 }
