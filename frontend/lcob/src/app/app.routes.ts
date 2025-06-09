@@ -3,13 +3,15 @@ import { MainLayout } from './layout/main-layout/main-layout'; // a new wrapper 
 import { Home } from './user/home/home';
 import { Login } from './auth/login/login';
 import { Signup } from './auth/signup/signup';
-import { Shop } from './user/shop/shop';
 import { Product } from './user/product/product';
 import { Checkout } from './user/checkout/checkout';
 import { Success } from './user/success/success';
 import { Myorders } from './user/myorders/myorders';
 import { Dashboard } from './seller/dashboard/dashboard';
 import { Orders } from './seller/orders/orders';
+import { SellerLayout } from './seller/seller-layout/seller-layout';
+import { MyProducts } from './seller/my-products/my-products';
+import { Delivery } from './seller/delivery/delivery';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -36,10 +38,13 @@ export const routes: Routes = [
   // SELLER ROUTES (no layout)
   {
     path: 'seller',
+    component:SellerLayout,
     children: [
       { path: 'login', component: Login },
       { path: 'dashboard', component: Dashboard, title: 'Dashboard' },
       { path: 'orders', component: Orders, title: 'Orders' },
+      { path: 'my-products', component: MyProducts, title: 'My Products' },
+      { path: 'delivery', component: Delivery, title: 'Delivery List' },
     ],
   },
 

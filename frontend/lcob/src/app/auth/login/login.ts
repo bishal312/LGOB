@@ -37,7 +37,6 @@ export class Login {
     this.toastMessage='Login in process...';
     this.showToast=true
     const loginObj=this.loginObj.value
-    console.log(loginObj,"login obj")
     this.auth.login(loginObj).subscribe((res:any)=>{
       if(res.success){
         this.toastMessage= "Login successful";
