@@ -18,7 +18,6 @@ export class Api {
   }
 
   adminSignup(obj:IuserSignupObj){
-    console.log("admin signup")
     return this.http.post(`${this.api}/signup`,obj)
   }
 }
