@@ -14,7 +14,7 @@ export class Api {
   
   //signup are here and login in auth
   userSignup(obj:IuserSignupObj):Observable<IuserSignupObj>{
-    return this.http.post<IuserSignupObj>(`http://localhost:5001/api/auth/signup`,obj)
+    return this.http.post<IuserSignupObj>(`${this.api}/signup`,obj)
   }
 
   adminSignup(obj:IuserSignupObj){
