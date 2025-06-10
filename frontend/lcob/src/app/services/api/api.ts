@@ -11,7 +11,8 @@ export class Api {
   api:string="http://localhost:5001/api/auth"
 
   constructor(private http:HttpClient) { }
-
+  
+  //signup are here and login in auth
   userSignup(obj:IuserSignupObj):Observable<IuserSignupObj>{
     return this.http.post<IuserSignupObj>(`http://localhost:5001/api/auth/signup`,obj)
   }

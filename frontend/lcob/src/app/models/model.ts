@@ -11,3 +11,13 @@ export interface IuserSignupObj{
     password:string
     role:string
 }
+
+
+export interface IproductObj{
+    name:string,
+    price:number,
+    quantity:number,
+    description:string,
+    image:string,
+    
+}

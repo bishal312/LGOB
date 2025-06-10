@@ -1,0 +1,81 @@
+
+<!--seller can add, remove, update product list here -->
+<section id="my-products">
+  <div class="flex items-center justify-between bg-white p-6 rounded-md shadow-md mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">My Products</h2>
+    <button 
+      (click)="showForm = true"
+      class="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300"
+    >
+      + Add New Item
+    </button>
+  </div>
+
+  <div *ngIf="showForm" class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div class="relative bg-white w-full max-w-xl rounded-2xl shadow-lg p-6 sm:p-8">
+      <!-- Close Icon -->
+      <button (click)="showForm = false" class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Heading -->
+      <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 text-center">Upload Product</h2>
+
+      <!-- Form -->
+      <form [formGroup]="productObj" (ngSubmit)="addProduct()" class="space-y-4">
+        <!-- Name -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <input formControlName="name" type="text" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Product name" />
+          <p *ngIf="productObj.get('name')?.touched && productObj.get('name')?.invalid" class="text-red-500 text-sm">
+            Name must start with a capital letter.
+          </p>
+        </div>
+
+        <!-- Price -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Price</label>
+          <input formControlName="price" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Product price" />
+          <p *ngIf="productObj.get('price')?.touched && productObj.get('price')?.invalid" class="text-red-500 text-sm">
+            Price must be a non-negative number.
+          </p>
+        </div>
+
+        <!-- Quantity -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Quantity</label>
+          <input formControlName="quantity" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Quantity available" />
+          <p *ngIf="productObj.get('quantity')?.touched && productObj.get('quantity')?.invalid" class="text-red-500 text-sm">
+            Quantity must be a non-negative number.
+          </p>
+        </div>
+
+        <!-- Image -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Image</label>
+          <input type="file" (change)="onFileSelect($event)" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <p *ngIf="productObj.get('image')?.touched && productObj.get('image')?.invalid" class="text-red-500 text-sm">
+            Image is required.
+          </p>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea formControlName="description" rows="4" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Product description"></textarea>
+          <p *ngIf="productObj.get('description')?.touched && productObj.get('description')?.invalid" class="text-red-500 text-sm">
+            Description must be at least 100 characters.
+          </p>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition duration-300 ease-in-out">
+          Add Product
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
