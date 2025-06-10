@@ -47,6 +47,7 @@ export class Signup implements OnInit {
   
   ngOnInit(): void {
       this.auth.getAdmin().subscribe((res)=>{
+        console.log(res.adminExists)
       if(res.adminExists){
         
         this.sellerAlreadyRegistered=true

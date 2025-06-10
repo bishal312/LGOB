@@ -14,7 +14,6 @@ import { MyProducts } from './seller/my-products/my-products';
 import { Delivery } from './seller/delivery/delivery';
 import { About } from './user/about/about';
 import { authGuard } from './services/guards/auth-guard';
-import { sellerGuard } from './services/guards/seller-guard';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -43,7 +42,6 @@ export const routes: Routes = [
   {
     path: 'seller',
     component:SellerLayout,
-    canActivate:[sellerGuard],
     children: [
       { path: 'login', component: Login },
       { path: 'dashboard', component: Dashboard, title: 'Dashboard' },
