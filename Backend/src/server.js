@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.route.js';
+import dashBoardRoute from "./routes/dashboard.route.js";
 import { connectDb } from './lib/db.js';
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashBoardRoute);
 
 
 app.listen(PORT, () => {

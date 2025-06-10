@@ -16,12 +16,35 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    cartItems:[
+      {
+        quantity: {
+          type:Number,
+          default:1,
+        },
+        product: {
+          type:mongoose.Schema.Types.ObjectId,
+          ref: "Product"
+        }
+      }
+    ],
     role: {
       type: String,
       required:true,
       emun: ["customer", "admin"],
       default: "customer",
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    lastLogin: {
+      type: Date,
+    },
+    createdAt:{
+      type: Date,
+      default:Date.now,
+    }
   },
   { timestamps: true }
 );
