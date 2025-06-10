@@ -34,12 +34,12 @@
       </div>
 
       <nav class="mt-6 space-y-2 px-4">
-        <a routerLink="/seller/dashboard" routerLinkActive="text-green-600 font-semibold bg-green-50"
+        <a (click)="sidebarOpen = !sidebarOpen" routerLink="/seller/dashboard" routerLinkActive="text-green-600 font-semibold bg-green-50"
            class="flex items-center gap-3 px-4 py-2 rounded-md text-gray-700 hover:bg-green-100 hover:text-green-700 transition duration-200">
           <span class="text-xl">📊</span>
           <span>Dashboard</span>
         </a>
-        <a routerLink="/seller/my-products" routerLinkActive="text-green-600 font-semibold bg-green-50"
+        <a (click)="sidebarOpen = !sidebarOpen" routerLink="/seller/my-products" routerLinkActive="text-green-600 font-semibold bg-green-50"
            class="flex items-center gap-3 px-4 py-2 rounded-md text-gray-700 hover:bg-green-100 hover:text-green-700 transition duration-200">
           <span class="text-xl">🍄</span>
           <span>My Products</span>
@@ -49,7 +49,7 @@
           <span class="text-xl">📦</span>
           <span>Orders</span>
         </a>
-        <a routerLink="/seller/delivery" routerLinkActive="text-green-600 font-semibold bg-green-50"
+        <a (click)="sidebarOpen = !sidebarOpen" routerLink="/seller/delivery" routerLinkActive="text-green-600 font-semibold bg-green-50"
            class="flex items-center gap-3 px-4 py-2 rounded-md text-gray-700 hover:bg-green-100 hover:text-green-700 transition duration-200">
           <span class="text-xl">🚚</span>
           <span>Delivery</span>
@@ -70,13 +70,15 @@
 
   <!-- Overlay when sidebar is open on mobile -->
   <div
+    id="overlay"
     *ngIf="sidebarOpen"
     (click)="sidebarOpen = false"
-    class="fixed inset-0 bg-black bg-opacity-25 z-30 md:hidden"
-  ></div>
+    (keydown)="sidebarOpen = false"
+    
+    class="fixed inset-0 bg-black bg-opacity-25 z-30 md:hidden"></div>
 
   <!-- Main Content -->
-  <main class="flex-1 ml-0 md:ml-64 p-8 w-full">
+  <main class="flex-1 ml-0 md:ml-64 p-4 w-full">
     <div class="bg-white rounded-lg shadow-md p-6 min-h-[80vh]">
       <router-outlet></router-outlet>
     </div>

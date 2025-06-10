@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgClass, NgIf } from '@angular/common';
 import { Auth } from '../../services/auth/auth';
 import { error } from 'console';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -35,8 +36,8 @@ export class Login {
 
   onLogin(){
     this.toastMessage='Login in process...';
-    this.showToast=true
     const loginObj=this.loginObj.value
+    this.showToast=true
     this.auth.login(loginObj).subscribe((res:any)=>{
       if(res.success){
         this.toastMessage= "Login successful";
@@ -63,6 +64,6 @@ export class Login {
       this.toastMessage="Error during login";
       setTimeout(() => this.showToast = true, 2000);
     }
-  ) 
+  )
   }
 }

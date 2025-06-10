@@ -12,6 +12,9 @@ import { Orders } from './seller/orders/orders';
 import { SellerLayout } from './seller/seller-layout/seller-layout';
 import { MyProducts } from './seller/my-products/my-products';
 import { Delivery } from './seller/delivery/delivery';
+import { About } from './user/about/about';
+import { authGuard } from './services/guards/auth-guard';
+import { sellerGuard } from './services/guards/seller-guard';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -25,9 +28,10 @@ export const routes: Routes = [
          loadComponent: ()=> import('./user/shop/shop').then(c => c.Shop),
          title:'Shop' },
       { path: 'shop/product/:id', component: Product, title: 'Product' },
-      { path: 'shop/checkout', component: Checkout, title: 'Checkout' },
-      { path: 'shop/success', component: Success, title: 'Success' },
-      { path: 'shop/my-orders', component: Myorders, title: 'My Orders' },
+      { path: 'shop/checkout', component: Checkout, title: 'Checkout' , canActivate:[authGuard]},
+      { path: 'shop/success', component: Success, title: 'Success', canActivate:[authGuard] },
+      { path: 'shop/my-orders', component: Myorders, title: 'My Orders', canActivate:[authGuard] },
+      { path: 'about', component: About, title: 'About Us' },
     ],
   },
 
@@ -39,6 +43,7 @@ export const routes: Routes = [
   {
     path: 'seller',
     component:SellerLayout,
+    canActivate:[sellerGuard],
     children: [
       { path: 'login', component: Login },
       { path: 'dashboard', component: Dashboard, title: 'Dashboard' },

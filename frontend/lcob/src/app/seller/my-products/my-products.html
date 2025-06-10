@@ -11,7 +11,7 @@
     </button>
   </div>
 
-  <div *ngIf="showForm" class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+  <div *ngIf="showForm"  class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
     <div class="relative bg-white w-full max-w-xl rounded-2xl shadow-lg p-6 sm:p-8">
       <!-- Close Icon -->
       <button (click)="showForm = false" class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200">
@@ -27,7 +27,7 @@
       <form [formGroup]="productObj" (ngSubmit)="addProduct()" class="space-y-4">
         <!-- Name -->
         <div>
-          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <label for="" class="block text-sm font-medium text-gray-700">Name</label>
           <input formControlName="name" type="text" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Product name" />
           <p *ngIf="productObj.get('name')?.touched && productObj.get('name')?.invalid" class="text-red-500 text-sm">
             Name must start with a capital letter.
@@ -36,7 +36,7 @@
 
         <!-- Price -->
         <div>
-          <label class="block text-sm font-medium text-gray-700">Price</label>
+          <label for="" class="block text-sm font-medium text-gray-700">Price</label>
           <input formControlName="price" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Product price" />
           <p *ngIf="productObj.get('price')?.touched && productObj.get('price')?.invalid" class="text-red-500 text-sm">
             Price must be a non-negative number.
@@ -45,7 +45,7 @@
 
         <!-- Quantity -->
         <div>
-          <label class="block text-sm font-medium text-gray-700">Quantity</label>
+          <label for="" class="block text-sm font-medium text-gray-700">Quantity</label>
           <input formControlName="quantity" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Quantity available" />
           <p *ngIf="productObj.get('quantity')?.touched && productObj.get('quantity')?.invalid" class="text-red-500 text-sm">
             Quantity must be a non-negative number.
@@ -54,7 +54,7 @@
 
         <!-- Image -->
         <div>
-          <label class="block text-sm font-medium text-gray-700">Image</label>
+          <label for="" class="block text-sm font-medium text-gray-700">Image</label>
           <input type="file" (change)="onFileSelect($event)" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
           <p *ngIf="productObj.get('image')?.touched && productObj.get('image')?.invalid" class="text-red-500 text-sm">
             Image is required.
@@ -63,7 +63,7 @@
 
         <!-- Description -->
         <div>
-          <label class="block text-sm font-medium text-gray-700">Description</label>
+          <label for="" class="block text-sm font-medium text-gray-700">Description</label>
           <textarea formControlName="description" rows="4" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Product description"></textarea>
           <p *ngIf="productObj.get('description')?.touched && productObj.get('description')?.invalid" class="text-red-500 text-sm">
             Description must be at least 100 characters.
@@ -77,5 +77,51 @@
       </form>
     </div>
   </div>
+
+  <div *ngIf="!showForm" class="p-6 bg-white min-h-screen">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Your Mushroom Products</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <!-- Oyster Mushroom -->
+    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
+      <img src="https://via.placeholder.com/300x200?text=Oyster+Mushroom" alt="Oyster Mushroom" class="w-full h-40 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Oyster Mushroom</h3>
+      <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 300/kg</span></p>
+      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">50 kg</span></p>
+      <p class="text-gray-500 text-sm mt-2">Fresh and tender oyster mushrooms perfect for curries and stir-fries.</p>
+    </div>
+
+    <!-- Ganoderma Mushroom -->
+    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
+      <img src="https://via.placeholder.com/300x200?text=Ganoderma" alt="Ganoderma" class="w-full h-40 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Ganoderma (Reishi)</h3>
+      <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 1200/kg</span></p>
+      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">20 kg</span></p>
+      <p class="text-gray-500 text-sm mt-2">Known for its medicinal properties, used in herbal supplements and teas.</p>
+    </div>
+
+    <!-- Button Mushroom -->
+    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
+      <img src="https://via.placeholder.com/300x200?text=Button+Mushroom" alt="Button Mushroom" class="w-full h-40 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Button Mushroom</h3>
+      <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 350/kg</span></p>
+      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">75 kg</span></p>
+      <p class="text-gray-500 text-sm mt-2">Classic white mushrooms ideal for pizza, soups, and sautéed dishes.</p>
+    </div>
+
+    <!-- Dal Mushroom -->
+    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
+      <img src="https://via.placeholder.com/300x200?text=Dal+Mushroom" alt="Dal Mushroom" class="w-full h-40 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Other Mushroom</h3>
+      <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 280/kg</span></p>
+      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">30 kg</span></p>
+      <p class="text-gray-500 text-sm mt-2">Locally known mushroom, great for pairing with lentils (dal) and spices.</p>
+    </div>
+
+  </div>
+</div>
+
+
 </section>
 

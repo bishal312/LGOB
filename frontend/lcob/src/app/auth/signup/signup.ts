@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Auth } from '../../services/auth/auth';
-import {  SellerLogin } from '../../models/model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -48,7 +47,6 @@ export class Signup implements OnInit {
   
   ngOnInit(): void {
       this.auth.getAdmin().subscribe((res)=>{
-        console.log(res.adminExists)
       if(res.adminExists){
         
         this.sellerAlreadyRegistered=true
@@ -70,7 +68,6 @@ userSignUp() {
   const userSignUpObj = this.userSignupObj.value;
   const role = userSignUpObj.role;
 
-  console.log(userSignUpObj)
 
   // Show the toast while signing up
   this.toastMessage = 'Signing Up...';
