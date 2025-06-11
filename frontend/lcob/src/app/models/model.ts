@@ -16,7 +16,7 @@ export interface IuserSignupObj{
 export interface IproductObj{
     name:string,
     price:number,
-    quantity:number,
+    stock:number,
     description:string,
     image:string,
     

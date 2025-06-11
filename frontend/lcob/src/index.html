@@ -3,6 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title>Lcob</title>
+<style>
+  @keyframes slider {
+    0% { transform: translateX(0%); }
+    33% { transform: translateX(-100%); }
+    66% { transform: translateX(-200%); }
+    100% { transform: translateX(0%); }
+  }
+  .animate-slider {
+    animation: slider 15s linear infinite;
+  }
+</style>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">

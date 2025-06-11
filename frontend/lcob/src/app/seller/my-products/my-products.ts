@@ -12,6 +12,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class MyProducts {
   showForm = false;
 
+  imageBase64: string = '';
+
   productObj: FormGroup = new FormGroup({});
   selectedImageFile: File | null = null;
 
@@ -29,7 +31,7 @@ export class MyProducts {
         Validators.required,
         Validators.min(0)
       ]),
-      quantity: new FormControl(0, [
+      stock: new FormControl(0, [
         Validators.required,
         Validators.min(0)
       ]),
@@ -43,38 +45,36 @@ export class MyProducts {
     });
   }
 
-  onFileSelect(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.selectedImageFile = file;
-      this.productObj.patchValue({ image: file.name }); // For validation
-      this.productObj.get('image')?.updateValueAndValidity();
-    }
+ onFileSelect(event: Event) {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file) {
+    this.selectedImageFile = file;
+    this.productObj.patchValue({ image: file.name }); // for validation
+    this.productObj.get('image')?.updateValueAndValidity();
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageBase64 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
+}
+
 
   addProduct() {
-    if (this.productObj.invalid || !this.selectedImageFile) {
-      this.productObj.markAllAsTouched();
-      return;
-    }
-
-   const formValues = this.productObj.value;
-
-  const formData = new FormData();
-  formData.append('name', formValues.name);
-  formData.append('price', formValues.price.toString());
-  formData.append('quantity', formValues.quantity.toString());
-  formData.append('description', formValues.description);
-  formData.append('image', this.selectedImageFile);
-    //api call made here
-     // Debug: Log the FormData
-    formData.forEach((value, key) => {
-    console.log(`${key}:`, value);
-  });
-
-    // Reset form
-    this.productObj.reset();
-    this.selectedImageFile = null;
-    this.showForm = false;
+  if (this.productObj.invalid || !this.imageBase64) {
+    this.productObj.markAllAsTouched();
+    return;
   }
+
+  const payload = {
+    ...this.productObj.value,
+    imageBase64: this.imageBase64,
+  };
+  console.log(payload)
+
+  // Replace with actual API call services calling
+  
+}
+
 }

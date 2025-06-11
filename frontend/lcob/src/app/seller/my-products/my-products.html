@@ -15,7 +15,7 @@
     <div class="relative bg-white w-full max-w-xl rounded-2xl shadow-lg p-6 sm:p-8">
       <!-- Close Icon -->
       <button (click)="showForm = false" class="absolute top-4 right-4 text-gray-500 hover:text-red-600 transition duration-200">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -43,12 +43,12 @@
           </p>
         </div>
 
-        <!-- Quantity -->
+        <!-- Stock -->
         <div>
           <label for="" class="block text-sm font-medium text-gray-700">Quantity</label>
-          <input formControlName="quantity" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Quantity available" />
-          <p *ngIf="productObj.get('quantity')?.touched && productObj.get('quantity')?.invalid" class="text-red-500 text-sm">
-            Quantity must be a non-negative number.
+          <input formControlName="stock" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Quantity available" />
+          <p *ngIf="productObj.get('stock')?.touched && productObj.get('stock')?.invalid" class="text-red-500 text-sm">
+            Stock must be a non-negative number.
           </p>
         </div>
 
@@ -71,7 +71,7 @@
         </div>
 
         <!-- Submit -->
-        <button type="submit" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition duration-300 ease-in-out">
+        <button type="submit" class="w-full cursor-pointer bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition duration-300 ease-in-out">
           Add Product
         </button>
       </form>
@@ -88,36 +88,22 @@
       <img src="https://via.placeholder.com/300x200?text=Oyster+Mushroom" alt="Oyster Mushroom" class="w-full h-40 object-cover rounded-md mb-4">
       <h3 class="text-lg font-semibold text-gray-800">Oyster Mushroom</h3>
       <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 300/kg</span></p>
-      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">50 kg</span></p>
+      <p class="text-gray-600 text-sm">Stock: <span class="font-medium">50 kg</span></p>
       <p class="text-gray-500 text-sm mt-2">Fresh and tender oyster mushrooms perfect for curries and stir-fries.</p>
     </div>
 
     <!-- Ganoderma Mushroom -->
-    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
+     <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
       <img src="https://via.placeholder.com/300x200?text=Ganoderma" alt="Ganoderma" class="w-full h-40 object-cover rounded-md mb-4">
       <h3 class="text-lg font-semibold text-gray-800">Ganoderma (Reishi)</h3>
       <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 1200/kg</span></p>
       <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">20 kg</span></p>
       <p class="text-gray-500 text-sm mt-2">Known for its medicinal properties, used in herbal supplements and teas.</p>
-    </div>
+     </div>
 
-    <!-- Button Mushroom -->
-    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
-      <img src="https://via.placeholder.com/300x200?text=Button+Mushroom" alt="Button Mushroom" class="w-full h-40 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold text-gray-800">Button Mushroom</h3>
-      <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 350/kg</span></p>
-      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">75 kg</span></p>
-      <p class="text-gray-500 text-sm mt-2">Classic white mushrooms ideal for pizza, soups, and sautéed dishes.</p>
-    </div>
 
-    <!-- Dal Mushroom -->
-    <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
-      <img src="https://via.placeholder.com/300x200?text=Dal+Mushroom" alt="Dal Mushroom" class="w-full h-40 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold text-gray-800">Other Mushroom</h3>
-      <p class="text-gray-600 text-sm">Price: <span class="text-green-600 font-medium">Rs. 280/kg</span></p>
-      <p class="text-gray-600 text-sm">Quantity: <span class="font-medium">30 kg</span></p>
-      <p class="text-gray-500 text-sm mt-2">Locally known mushroom, great for pairing with lentils (dal) and spices.</p>
-    </div>
+
+   
 
   </div>
 </div>
