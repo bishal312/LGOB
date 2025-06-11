@@ -15,8 +15,10 @@ const PORT = process.env.PORT || 5002;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin:"http://localhost:4200",
-  credentials: true,
+  origin: 'http://localhost:4200', // Note the correct format with ://
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // If using cookies/auth headers
 }));
 app.use(cookieParser());
 

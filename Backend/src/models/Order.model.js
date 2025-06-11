@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 const orderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "product",
+    ref: "User",
     required: true,
   },
   products: [
@@ -26,4 +26,21 @@ const orderSchema = new mongoose.Schema({
       },
     },
   ],
-});
+  totalAmout: {
+    type: Number,
+    required: true,
+    min: 1,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ["Pending" || "Delivery in process" || "Delivered"],
+    default: "Pending"
+  }
+},{timestamps:true});
+
+const Order = mongoose.model("Order", orderSchema);
+export default Order;
