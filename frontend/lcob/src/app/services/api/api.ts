@@ -20,4 +20,8 @@ export class Api {
   adminSignup(obj:IuserSignupObj){
     return this.http.post(`${this.api}/signup`,obj)
   }
+
+  addProduct(obj:any){
+    return this.http.post(`http://localhost:5001/api/dashboard/products`,obj)
+  }
 }
