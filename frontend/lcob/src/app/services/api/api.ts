@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IuserSignupObj } from '../../models/model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Api {
+  
+  tokenExpired$:Subject<boolean>=new Subject<boolean>()
 
   api:string="http://localhost:5001/api/auth"
 

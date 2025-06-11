@@ -21,3 +21,12 @@ export interface IproductObj{
     image:string,
     
 }
+
+export interface IproductGetObj{
+    name:string,
+    price:number,
+    stock:number,
+    description:string,
+    image:string,
+    _id:string
+}

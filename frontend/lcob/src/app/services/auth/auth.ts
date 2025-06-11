@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IuserSignupObj, SellerLogin } from '../../models/model';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,13 @@ export class Auth {
   login(obj:any){
     return this.http.post(`${this.api}/login`,obj)
   }
+
+  //refresh token api
+  refreshAccessToken() {
+  return this.http.get<{ accessToken: string }>('/auth/refresh-token', {
+    withCredentials: true
+  }).pipe(
+    map(res => res.accessToken)
+  );
+}
 }

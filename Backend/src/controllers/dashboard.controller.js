@@ -32,8 +32,7 @@ export const addProduct = async (req, res) => {
 
 export const getMyProducts = async (req, res) => {
   try {
-    const uid = req.userId;
-    const products = await Product.find({ userId: uid });
+    const products = await Product.find();
     res.status(200).json(products);
   } catch (error) {
     console.error("Error fetcing products:", error);
