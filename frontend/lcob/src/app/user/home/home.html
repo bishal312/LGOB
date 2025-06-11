@@ -156,6 +156,7 @@
     
     <form class="flex flex-col sm:flex-row gap-4 justify-center" action="#" method="POST">
       <input
+       #subscribeemail
         autocomplete="off"
         type="email"
         name="email"
@@ -164,12 +165,14 @@
         class="w-full  sm:flex-1 px-4 py-3 rounded-lg border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500"
       />
       <button
-        type="submit"
+       (click)="subscribe(subscribeemail.value)"
+        type="button"
         class="bg-green-700 cursor-pointer text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition"
       >
         Subscribe
       </button>
     </form>
+    <p class="mt-4 text-green-700" *ngIf="message">{{message}}</p>
   </div>
 </section>
 
