@@ -19,14 +19,15 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Image is required"],
     },
-    category: {
-      type: String,
-      default: false,
-    },
     isFeatured: {
       type: Boolean,
       default: false,
     },
+    userId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required:true,
+    }
   },
   {
     timestamps: true,
