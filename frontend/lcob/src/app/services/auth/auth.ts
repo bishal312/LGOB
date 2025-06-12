@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { IuserSignupObj, SellerLogin } from '../../models/model';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
+
+  
 
   api:string="http://localhost:5001/api/auth"
 
@@ -26,10 +28,14 @@ export class Auth {
 
   //refresh token api
   refreshAccessToken() {
-  return this.http.get<{ accessToken: string }>('/auth/refresh-token', {
-    withCredentials: true
-  }).pipe(
-    map(res => res.accessToken)
-  );
+  return this.http.post(`${this.api}/refresh-token`,{}, {
+    withCredentials:true
+  })
+ 
+
 }
+
+  logout(){
+    localStorage.removeItem('user');
+  }
 }

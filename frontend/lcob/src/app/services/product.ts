@@ -12,6 +12,7 @@ export class Product {
   
   getAllProducts(){
     if(this.productCache){
+      console.log(this.productCache, "product chahe")
       return of(this.productCache)
     }
     else{

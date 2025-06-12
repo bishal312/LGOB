@@ -8,7 +8,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class Api {
   
-  tokenExpired$:Subject<boolean>=new Subject<boolean>()
+ 
 
   api:string="http://localhost:5001/api/auth"
 

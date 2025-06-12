@@ -4,8 +4,7 @@ import { Api } from '../../services/api/api';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { Auth } from '../../services/auth/auth';
-import { error } from 'console';
-import { catchError } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
