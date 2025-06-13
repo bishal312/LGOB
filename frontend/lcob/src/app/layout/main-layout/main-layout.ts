@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { Header } from "../../user/home/header/header";
 import { Footer } from "../../footer/footer/footer";
+import { Auth } from '../../services/auth/auth';
+import { error } from 'console';
 
 @Component({
   selector: 'app-main-layout',

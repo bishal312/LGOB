@@ -1,27 +1,37 @@
-<div class="bg-[#ebf2fa] min-h-screen w-full">
+<div class="bg-[#ebf2fa] min-h-screen w-full mx-auto max-w-[1560px]">
   <!-- Hero Section with Image Slider -->
   <div class="relative w-full h-[300px] md:h-[500px] overflow-hidden">
     <div class="w-full h-full flex animate-slider">
       <img src="assets/hero-image.png" alt="Hero 1" class="w-full h-full object-cover flex-shrink-0">
-      <img src="assets/hero2.jpg" alt="Hero 2" class="w-full h-full object-cover flex-shrink-0">
-      <img src="assets/hero3.jpg" alt="Hero 3" class="w-full h-full object-cover flex-shrink-0">
+      <img src="assets/hero-image.png" alt="Hero 2" class="w-full h-full object-cover flex-shrink-0">
+      <img src="assets/hero-image.png" alt="Hero 3" class="w-full h-full object-cover flex-shrink-0">
     </div>
   </div>
 
   <!-- Flash Sale Section -->
   <section class="py-8 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-red-600">Flash Sale</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-red-600">Flash Sale On {{getProductCount}} Products</h2>
+    <div class="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
       <!-- Repeat product card -->
-      <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-        <img src="assets/sale1.jpg" alt="Sale Product" class="w-full h-40 object-cover rounded">
-        <h3 class="mt-2 font-semibold text-lg truncate">Product Name</h3>
-        <div class="flex items-center gap-2 mt-1">
-          <span class="text-red-500 font-bold text-xl">$19.99</span>
-          <span class="line-through text-gray-400">$39.99</span>
-        </div>
-      </div>
-      <!-- Repeat above div for other sale products -->
+       @for(item of allProducts; track $index){
+         <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300 flex flex-col justify-between h-full">
+  <img [src]="item.image" alt="Sale Product" class="w-full h-40 object-cover rounded">
+  
+  <div class="flex-grow">
+    <h3 class="mt-2 font-semibold text-lg truncate">{{ item.name }}</h3>
+    <div class="flex items-center gap-2 mt-1">
+      <span class="text-red-500 font-bold text-xl">RS {{ item.price }}</span>
+      <span class="line-through text-gray-400">RS {{ item.price * 2 }}</span>
+    </div>
+  </div>
+
+  <button  
+    class="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-700 transition mt-4 w-full">
+    Buy Now
+  </button>
+          </div>
+
+       }
     </div>
   </section>
 
@@ -39,3 +49,5 @@
       <!-- Repeat above div for other products -->
     </div>
   </section>
+
+  </div>

@@ -13,9 +13,12 @@
         type="tel"
         class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
+      <p *ngIf="loginObj.controls['phoneNumber']?.touched && loginObj.controls['phoneNumber']?.invalid"  class="text-red-500">Enter correct number</p>
+      <p *ngIf="loginObj.controls['phoneNumber'].errors?.['pattern']"  class="text-red-500">Number must start with 97 or 98.</p>
+      
     </div>
 
-    <div class="mb-4">
+    <div  class="mb-4">
       <label class="block text-sm font-medium mb-1" for="password">Password</label>
       <input
       formControlName="password"

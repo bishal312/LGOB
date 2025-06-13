@@ -14,6 +14,7 @@ import { MyProducts } from './seller/my-products/my-products';
 import { Delivery } from './seller/delivery/delivery';
 import { About } from './user/about/about';
 import { authGuard } from './services/guards/auth-guard';
+import { Shop } from './user/shop/shop';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -24,7 +25,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home, title: 'Home' },
       { path: 'shop',
-         loadComponent: ()=> import('./user/shop/shop').then(c => c.Shop),
+        component:Shop,
          title:'Shop' },
       { path: 'shop/product/:id', component: Product, title: 'Product' },
       { path: 'shop/checkout', component: Checkout, title: 'Checkout' , canActivate:[authGuard]},
