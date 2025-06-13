@@ -33,6 +33,10 @@ const productSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    imagePublicId:{
+      type: String,
+      required: [true, "Image public ID is required"],
+    }
   },
   {
     timestamps: true,

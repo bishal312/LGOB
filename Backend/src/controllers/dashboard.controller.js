@@ -44,11 +44,20 @@ export const getMyProducts = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
+
   try {
     const existingProduct = await Product.findOne({
       _id: req.params.id,
     });
 
+    if(req.body.imageBase64) {
+      await cloudinary.uploader.destroy(Product.imagePublciId);
+      const newImg = await cloudinary.uploader.upload(req.body.imageBase64, {
+        folder: "ecommerce_products",
+      });
+      req.body.image = newImg.secure_url;
+      req.body.imagePublciId = newImg.public_id;
+    }
     if (!existingProduct) {
       return res
         .status(404)
