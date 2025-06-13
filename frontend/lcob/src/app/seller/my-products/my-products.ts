@@ -3,6 +3,7 @@ import { Component, inject, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../services/api/api';
 import { Product } from '../../services/product';
+import { IproductGetObj } from '../../models/model';
 
 @Component({
   selector: 'app-my-products',
@@ -18,7 +19,9 @@ export class MyProducts {
 
   product: any[] = [];
   showForm = false;
+  isEditing:boolean=false;
   imageBase64: string = '';
+  editingProductId: string = '';
   productObj: FormGroup = new FormGroup({});
   selectedImageFile: File | null = null;
 
@@ -132,4 +135,34 @@ export class MyProducts {
     script.text = JSON.stringify(jsonLd);
     this.renderer.appendChild(document.head, script);
   }
+
+  editProduct(product:IproductGetObj){
+    console.log(product)
+    this.editingProductId=product._id
+    this.productObj.patchValue(product)
+    this.isEditing=true
+
+    this.showForm=true
+  }
+
+  updateProduct(){
+   
+    
+    this.showForm=false
+    this.isEditing=false
+      const payload = {
+      ...this.productObj.value,
+      image: this.imageBase64,
+      _id:this.editingProductId
+      
+    };
+    this.productService.clearCache();
+    console.log(payload)
+    // run that clear cache after res ok is received
+    this.productService.updateProduct(payload).subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
+
+  
 }
