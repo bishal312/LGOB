@@ -45,17 +45,21 @@ export const getMyProducts = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findOneAndUpdate(
-      {
-        _id: req.params.id,
-        userId: req.userId,
-      },
-      req.body,
-      {
-        new:true,
-      }
-    );
-    res.json(product);
+    const existingProduct = await Product.findOne({
+      _id: req.params.id,
+      userId: req.userId,
+    });
+
+    if (!existingProduct) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found or unauthorized" });
+    }
+
+    Object.assign(existingProduct, req.body);
+
+    await existingProduct.save();
+    res.status(200).json(existingProduct);
   } catch (error) {
     console.log("Error while updating product", error);
     res.status(500).json({ success: false, message: "product Update fail" });
