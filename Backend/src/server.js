@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.route.js';
 import dashBoardRoute from "./routes/dashboard.route.js";
 import { connectDb } from './lib/db.js';
+import productRoute from "./routes/product.routes.js"
 dotenv.config();
 
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashBoardRoute);
+app.use("/api/products", productRoute);
 
 // if(process.env.NODE_ENV === "production"){
 //   app.use(express.static(path.join(__dirname,"../frontend/dist")));
