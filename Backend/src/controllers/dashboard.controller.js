@@ -47,7 +47,6 @@ export const updateProduct = async (req, res) => {
   try {
     const existingProduct = await Product.findOne({
       _id: req.params.id,
-      userId: req.userId,
     });
 
     if (!existingProduct) {
