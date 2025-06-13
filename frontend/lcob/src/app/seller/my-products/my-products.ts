@@ -106,7 +106,6 @@ export class MyProducts {
     this.productService.getAllProducts().subscribe(
       (res: any[]) => {
         this.product = res;
-        console.log(this.product);
       },
       (error) => {
         console.log(error);
@@ -156,11 +155,15 @@ export class MyProducts {
       _id:this.editingProductId
       
     };
-    this.productService.clearCache();
-    console.log(payload)
     // run that clear cache after res ok is received
     this.productService.updateProduct(payload).subscribe((res:any)=>{
-      console.log(res)
+      if(res){
+        this.productService.clearCache();
+        this.loadProducts();
+      }
+     
+    },(error)=>{
+      console.log(error)
     })
   }
 

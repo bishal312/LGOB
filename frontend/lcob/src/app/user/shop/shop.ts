@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../../services/product';
 import { IproductGetObj } from '../../models/model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { IproductGetObj } from '../../models/model';
   styleUrl: './shop.css'
 })
 export class Shop {
+
+  router=inject(Router)
 
   getAllProductsCount:number=0
   getProductCount:number=0
@@ -23,7 +26,6 @@ export class Shop {
          this.getAllProductsCount++
          this.getProductCount=res.length
          this.allProducts=res
-         console.log(this.allProducts);
        })
     }
     else{
@@ -34,5 +36,8 @@ export class Shop {
 
  }
 
- 
+ navigateToProductDetails(productId: string) {
+  console.log("navigate to product details");
+  this.router.navigate(['/shop/product', productId]);
+}
 }
