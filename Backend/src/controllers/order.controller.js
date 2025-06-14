@@ -1,9 +1,9 @@
-import { Order } from "../models/order.model.js";
-import { Product } from "../models/product.model.js";
+import  Order  from "../models/order.model.js";
+import Product  from "../models/product.model.js";
 
 export const placeOrder = async (req, res) => {
   try {
-    const { items } = req.body; // items = [{ productId, quantity }]
+    const { items } = req.body; 
 
     if (!items || items.length === 0) {
       return res.status(400).json({ message: "No items provided" });
@@ -15,7 +15,7 @@ export const placeOrder = async (req, res) => {
       if (!product) {
         return res.status(404).json({ message: `Product not found: ${item.productId}` });
       }
-      total += product.price * item.quantity;
+      total += product.price * item.stock;
     }
 
     const order = new Order({

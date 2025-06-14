@@ -1,4 +1,3 @@
-import Product from "../models/product.model";
 import { Cart } from "../models/cart.model.js";
 
 export const getCartProduct = async (req, res) => {
