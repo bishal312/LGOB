@@ -52,7 +52,21 @@ export const updateProduct = async (req, res) => {
     if (!existingProduct) {
       return res
         .status(404)
-        .json({ success: false, message: "Product not found or unauthorized" });
+        .json({ success: false, message: "Product not found" });
+    }
+    if (req.body.imageBase64) {
+      if (existingProduct.imagePublicId) {
+        await cloudinary.uploader.destroy(existingProduct.imagePublicId);
+      }
+
+      const newImg = await cloudinary.uploader.upload(req.body.imageBase64, {
+        folder: "ecommerce_products",
+      });
+
+      req.body.image = newImg.secure_url;
+      req.body.imagePublicId = newImg.public_id;
+
+      delete req.body.imageBase64;
     }
 
     Object.assign(existingProduct, req.body);

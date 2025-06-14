@@ -1,1 +1,67 @@
-<p>product works!</p>
+<!-- product-detail.component.html -->
+<div class="min-h-screen bg-[#EBF2FA] p-4">
+  <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 grid grid-cols-1 md:grid-cols-12 gap-6">
+
+    <!-- Product Image -->
+    <div class="md:col-span-5 p-4">
+      <img src="https://via.placeholder.com/500" alt="Food product" class="w-full h-80 object-cover rounded-lg mb-4">
+    </div>
+
+    <!-- Product Details -->
+    <div class="md:col-span-7 p-6 flex flex-col gap-4">
+      <h2 class="text-3xl font-semibold text-gray-800">Organic Oyster Mushroom</h2>
+      <p class="text-gray-600 text-sm">Freshly harvested, high-protein mushrooms</p>
+
+      <div class="flex items-baseline gap-4">
+        <p class="text-2xl font-bold text-green-600">Rs. 349 / kg</p>
+        <p class="text-gray-500 line-through">Rs. 399</p>
+        <p class="text-red-500 font-medium">-13%</p>
+      </div>
+
+      <p class="text-gray-700 text-sm leading-relaxed">
+        Our organic oyster mushrooms are freshly grown and harvested with care. Perfect for stir-fries, soups, and curries, these mushrooms add a unique umami flavor and are a great source of nutrients.
+      </p>
+
+      <div class="flex items-center gap-4">
+        <p class="text-gray-700">Quantity (kg):</p>
+        <div class="flex items-center gap-2">
+          <button class="w-8 h-8 bg-gray-200 rounded">-</button>
+          <span class="text-lg">1</span>
+          <button class="w-8 h-8 bg-gray-200 rounded">+</button>
+        </div>
+      </div>
+
+      <div class="flex gap-4 mt-4">
+        <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold">Buy Now</button>
+        <button class="bg-gray-700 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products Section -->
+  <div class="max-w-7xl mx-auto mt-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Related Products</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div class="bg-white rounded-lg p-4 shadow-md">
+        <img src="https://via.placeholder.com/200" alt="Related Product" class="w-full h-40 object-cover rounded">
+        <h4 class="text-md font-semibold mt-2 text-gray-700">Organic Black Dal</h4>
+        <p class="text-green-600 font-bold">Rs. 180 / kg</p>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow-md">
+        <img src="https://via.placeholder.com/200" alt="Related Product" class="w-full h-40 object-cover rounded">
+        <h4 class="text-md font-semibold mt-2 text-gray-700">Red Kidney Beans</h4>
+        <p class="text-green-600 font-bold">Rs. 220 / kg</p>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow-md">
+        <img src="https://via.placeholder.com/200" alt="Related Product" class="w-full h-40 object-cover rounded">
+        <h4 class="text-md font-semibold mt-2 text-gray-700">Fresh Button Mushrooms</h4>
+        <p class="text-green-600 font-bold">Rs. 260 / kg</p>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow-md">
+        <img src="https://via.placeholder.com/200" alt="Related Product" class="w-full h-40 object-cover rounded">
+        <h4 class="text-md font-semibold mt-2 text-gray-700">Chickpeas</h4>
+        <p class="text-green-600 font-bold">Rs. 160 / kg</p>
+      </div>
+    </div>
+  </div>
+</div>
