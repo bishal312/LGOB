@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Product } from '../../services/product';
+import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 import { Router } from '@angular/router';
 
@@ -37,7 +37,6 @@ export class Shop {
  }
 
  navigateToProductDetails(productId: string) {
-  console.log("navigate to product details");
   this.router.navigate(['/shop/product', productId]);
 }
 }

@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, inject, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../services/api/api';
-import { Product } from '../../services/product';
+import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 
 @Component({

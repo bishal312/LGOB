@@ -3,7 +3,7 @@ import { MainLayout } from './layout/main-layout/main-layout'; // a new wrapper 
 import { Home } from './user/home/home';
 import { Login } from './auth/login/login';
 import { Signup } from './auth/signup/signup';
-import { Product } from './user/product/product';
+import {  ProductUi } from './user/product-ui/product';
 import { Checkout } from './user/checkout/checkout';
 import { Success } from './user/success/success';
 import { Myorders } from './user/myorders/myorders';
@@ -27,7 +27,7 @@ export const routes: Routes = [
       { path: 'shop',
         component:Shop,
          title:'Shop' },
-      { path: 'shop/product/:id', component: Product, title: 'Product' },
+      { path: 'shop/product/:id', component: ProductUi, title: 'Product' },
       { path: 'shop/checkout', component: Checkout, title: 'Checkout' , canActivate:[authGuard]},
       { path: 'shop/success', component: Success, title: 'Success', canActivate:[authGuard] },
       { path: 'shop/my-orders', component: Myorders, title: 'My Orders', canActivate:[authGuard] },
