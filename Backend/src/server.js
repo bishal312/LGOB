@@ -6,6 +6,9 @@ import authRoutes from './routes/auth.route.js';
 import dashBoardRoute from "./routes/dashboard.route.js";
 import { connectDb } from './lib/db.js';
 import productRoute from "./routes/product.route.js"
+import cartRoutes from "./routes/cart.route.js"
+import orderRoutes from "./routes/order.route.js";
+
 dotenv.config();
 
 
@@ -27,6 +30,9 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashBoardRoute);
 app.use("/api/products", productRoute);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+
 
 // if(process.env.NODE_ENV === "production"){
 //   app.use(express.static(path.join(__dirname,"../frontend/dist")));

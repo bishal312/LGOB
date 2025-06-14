@@ -1,46 +1,43 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 
-const orderSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  products: [
-    {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "product",
-        required: true,
-      },
-      stock: {
-        type: Number,
-        required: true,
-        min: 1,
-      },
-      price: {
-        type: Number,
-        required: true,
-        min: 0,
-      },
+const orderSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-  ],
-  totalAmout: {
-    type: Number,
-    required: true,
-    min: 1,
+    items: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "product",
+          required: true,
+        },
+        stock: {
+          type: Number,
+          required: true,
+          min: 1,
+        },
+      },
+    ],
+    totalAmout: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["Pending" || "Delivery in process" || "Delivered"],
+      default: "Pending",
+    },
   },
-  address: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: ["Pending" || "Delivery in process" || "Delivered"],
-    default: "Pending"
-  }
-},{timestamps:true});
+  { timestamps: true }
+);
 
 const Order = mongoose.model("Order", orderSchema);
 export default Order;
