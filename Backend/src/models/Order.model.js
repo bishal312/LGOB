@@ -30,6 +30,16 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    location: {
+      latitude: {
+        type:Number,
+        required: true,
+      },
+      longitude:{
+        type:Number,
+        required: true,
+      }
+    },
     status: {
       type: String,
       enum: ["Pending" || "Delivery in process" || "Delivered"],
