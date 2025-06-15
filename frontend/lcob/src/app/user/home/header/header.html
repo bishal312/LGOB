@@ -45,12 +45,10 @@
         </div>
 
         <!-- Cart Icon Desktop -->
-        <div class="relative cursor-pointer" routerLink="shop/my-cart">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-black" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8h11.2M7 13l1.5-8H20M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
-          </svg>
+        <div class="relative  cursor-pointer" routerLink="shop/my-cart">
+          <img  class="w-8 h-8" src="https://img.icons8.com/fluency/48/shopping-cart.png" alt="shopping-cart"/>
+
+
           <span
             
             class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
@@ -59,7 +57,7 @@
         </div>
 
         <button (click)="onLogin(btnText())"
-          class="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+          class="bg-green-700 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-600 transition">
           {{ btnText() }}
         </button>
       </div>
@@ -89,11 +87,8 @@
 
       <!-- Cart Icon Mobile -->
       <div class="relative cursor-pointer flex justify-center" routerLink="shop/my-cart">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-black" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8h11.2M7 13l1.5-8H20M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
-        </svg>
+                  <img  class="w-8 h-8" src="https://img.icons8.com/fluency/48/shopping-cart.png" alt="shopping-cart"/>
+
         <span
           
           class="absolute -top-2 left-[50%] bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
@@ -102,7 +97,7 @@
       </div>
 
       <button (click)="onLogin(btnText())"
-        class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+        class="w-full  text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
         {{ btnText() }}
       </button>
     </div>

@@ -1,22 +1,23 @@
 <div class="min-h-screen bg-[#EBF2FA] py-8 px-4 sm:px-6 lg:px-16 relative">
   <div class="flex justify-between">
     <h1 class="text-3xl font-bold mb-8 text-gray-800">My Cart</h1>
-    <button (click)="clearCart()" class="bg-red-500 hover:bg-red-600 text-white font-medium px-2 cursor-pointer mb-2 rounded shadow transition duration-300"
+    <button *ngIf="allCartItems().length>0" (click)="clearCart()" class="bg-red-700 hover:bg-red-600 text-white font-medium px-2 cursor-pointer mb-2 rounded shadow transition duration-300"
   >
-    🗑 Remove All Items
+    <img width="28" height="28" class="inline-block" src="https://img.icons8.com/fluency/48/filled-trash.png" alt="filled-trash"/> Remove All Items
   </button>
     <!-- Floating Button: Mobile Only -->
     <button
       *ngIf="allCartItems().length>4"
-      class="fixed bottom-4 left-1/2 -translate-x-1/2 lg:hidden bg-green-600 hover:bg-green-700 text-white font-semibold px-3 sm:px-6 py-3 rounded shadow-lg z-50"
+      class="fixed bottom-4 left-1/2 -translate-x-1/2 lg:hidden bg-green-700 hover:bg-green-600 text-white font-semibold px-3 sm:px-6 py-3 rounded shadow-lg z-50"
     >
       View Order Summary
     </button>
   </div>
 
   @if(allCartItems().length<1){
-  <div class="flex justify-center items-center h-screen">
-    <h1 class="text-3xl font-bold text-gray-800">Your Cart is Empty</h1>
+  <div class="flex flex-col justify-center items-center h-screen">
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Your Cart is Empty</h1>
+    <p class="text-gray-600 text-base">Add some items to your cart to checkout</p>
   </div>
 }
 
@@ -33,7 +34,7 @@
         <img
           [src]="item.productId.image"
           alt="Button Mushroom"
-          class="w-full md:w-32 h-32 object-cover rounded"
+          class="w-64  md:w-32 h-36 sm:h-32 object-cover rounded"
         />
 
         <!-- Product Details -->
@@ -43,7 +44,7 @@
             {{item.productId.description}}
           </p>
           <div
-            class="mt-2 flex flex-wrap gap-4 text-sm text-gray-800 font-medium"
+            class="mt-4 sm:mt-2 flex flex-wrap gap-4 text-sm text-gray-800 font-medium"
           >
             <span>Price: Rs {{item.productId.price}}</span>
             <span>Quantity: {{item.quantity}}</span>
@@ -52,7 +53,8 @@
           <!-- Delete Button -->
           <button
             (click)="deleteCartItemById(item.productId._id)"
-            class="absolute bottom-2 right-4 cursor-pointer bg-red-500 text-white text-sm px-3 py-1 rounded hover:bg-red-600 transition duration-300"
+
+            class="absolute sm:bottom-2 bottom-auto sm:top-auto top-3 right-4 cursor-pointer bg-red-700 text-white text-sm px-3 py-1 rounded hover:bg-red-600 transition duration-300"
           >
             Remove
           </button>
@@ -87,7 +89,7 @@
    
          <!-- Checkout Button -->
          <button
-           class="w-full cursor-pointer mt-6 bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded transition duration-300"
+           class="w-full cursor-pointer mt-6 bg-green-700 hover:bg-green-600 text-white font-medium py-3 rounded transition duration-300"
          >
            Checkout
          </button>
