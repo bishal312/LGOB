@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { IcartObj, IproductGetObj, IproductObj } from '../../models/model';
-import { sign } from 'crypto';
+import { IcartObj, IproductGetObj } from '../../models/model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +49,7 @@ export class Product {
 
   addToCart(productId: string) {
     return this.http.post(
-      `http://localhost:5001/api/cart`,
+      `http://localhost:5001/api/cart/add`,
       { productId },
       { withCredentials: true }
     );
@@ -78,6 +78,10 @@ export class Product {
   }
 
   deleteCartItem(id:string){
-    return this.http.delete(`http://localhost:5001/api/cart/${id}`,{withCredentials:true})
+    return this.http.delete(`http://localhost:5001/api/cart/remove/${id}`,{withCredentials:true})
+  }
+
+  clearAllCartItems(){
+    return this.http.delete(`http://localhost:5001/api/cart/clear`,{withCredentials:true})
   }
 }

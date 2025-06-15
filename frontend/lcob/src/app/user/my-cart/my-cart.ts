@@ -34,7 +34,18 @@ export class MyCart {
       console.log(res)
       this.productService.clearCart()
       this.productService.getCartItemsByUserId().subscribe((res:any)=>{
-        console.log(res)
+       console.log("deleting product")
+      },(error)=>{
+        console.log(error)
+      })
+    })
+  }
+
+  clearCart(){
+    this.productService.clearAllCartItems().subscribe((res:any)=>{
+      this.productService.clearCart()
+      this.productService.getCartItemsByUserId().subscribe((res:any)=>{
+       console.log("deleting product")
       },(error)=>{
         console.log(error)
       })
