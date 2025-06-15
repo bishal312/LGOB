@@ -46,11 +46,12 @@ export class Product {
       `http://localhost:5001/api/products/${id}`
     );
   }
-
-  addToCart(productId: string) {
+  
+  addToCart(productId: string, quantity?:number) {
+    console.log(quantity)
     return this.http.post(
       `http://localhost:5001/api/cart/add`,
-      { productId },
+      { productId, quantity },
       { withCredentials: true }
     );
   }

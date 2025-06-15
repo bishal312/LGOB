@@ -15,14 +15,14 @@ export const getCartProduct = async (req, res) => {
 
 export const addToCart = async (req, res) => {
   try {
-    const { productId, stock } = req.body;
+    const { productId, quantity } = req.body;
 
     let cart = await Cart.findOne({ userId: req.user._id });
 
     if (!cart) {
       cart = new Cart({
         userId: req.user._id,
-        items: [{ productId, stock }],
+        items: [{ productId, quantity }],
       });
     } else {
       const existingItem = cart.items.find((item) =>
@@ -30,9 +30,9 @@ export const addToCart = async (req, res) => {
       );
 
       if (existingItem) {
-        existingItem.stock += stock;
+        existingItem.quantity += quantity;
       } else {
-        cart.items.push({ productId, stock });
+        cart.items.push({ productId, quantity });
       }
     }
 

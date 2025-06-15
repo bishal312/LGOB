@@ -14,7 +14,8 @@ export class ProductUi implements OnInit{
   router=inject(Router)
   quantity=signal(1)
   relatedProducts:IproductGetObj[]=[]
-  productDetail:IproductGetObj | undefined
+  productDetail:IproductGetObj | null = null
+
   productService=inject(Product)
 
   constructor(private route: ActivatedRoute) { }
@@ -51,6 +52,20 @@ navigateToProductDetails(productId: string) {
   this.router.navigate(['/shop/product', productId]);
   window.scrollTo({ top: 0, behavior: 'smooth' });
   this.getProductDetail(productId);
+}
+
+ addToCart(){
+  const product=this.productDetail
+  
+  console.log("adding to cart handler")
+  this.productService.addToCart(product!._id,this.quantity()).subscribe((res:any)=>{
+    console.log("adding to cart")
+    this.productService.clearCart()
+    this.productService.getCartItemsByUserId().subscribe()
+
+  },(error)=>{
+    console.log(error,"error")
+  })
 }
 
 }
