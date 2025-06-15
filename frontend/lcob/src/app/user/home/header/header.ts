@@ -3,6 +3,10 @@ import { Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../services/auth/auth';
 import { platform } from 'node:os';
+import { single } from 'rxjs';
+import { Product } from '../../../services/product/product';
+import { IcartObj, IproductGetObj } from '../../../models/model';
+import { error } from 'node:console';
 
 
 @Component({
@@ -12,9 +16,13 @@ import { platform } from 'node:os';
   styleUrl: './header.css'
 })
 export class Header {
-    constructor(@Inject(PLATFORM_ID)private platformId: Object) { }
+  
+
+  allCartItems=signal<IproductGetObj[]>([])
+  cartcount=signal(0)
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
    authService=inject(Auth)
-   
+   productService=inject(Product)
     ngOnInit(){
      if (isPlatformBrowser(this.platformId)) {
     if (this.btnText() === "Login") {
@@ -24,6 +32,16 @@ export class Header {
       }
     }
   }
+  this.productService.clearCart()
+  this.productService.getCartItemsByUserId().subscribe(
+    ()=>{
+
+      const cartItems = this.productService.cartItems()
+      this.cartcount.set(cartItems.length)
+     
+    }
+  )
+  
 
     }
 

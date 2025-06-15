@@ -1,0 +1,84 @@
+<div class="min-h-screen bg-[#EBF2FA] py-8 px-4 sm:px-6 lg:px-16 relative">
+  <div class="flex justify-between">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">My Cart</h1>
+    <!-- Floating Button: Mobile Only -->
+    <button
+      *ngIf="allCartItems().length>4"
+      class="fixed bottom-4 left-1/2 -translate-x-1/2 lg:hidden bg-green-600 hover:bg-green-700 text-white font-semibold px-3 sm:px-6 py-3 rounded shadow-lg z-50"
+    >
+      View Order Summary
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+    <!-- Left: Cart Items -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Single Cart Item -->
+      @for(item of allCartItems(); track $index){
+
+      <div
+        class="bg-white relative rounded-lg shadow p-4 flex flex-col md:flex-row items-center md:items-start gap-6"
+      >
+        <!-- Product Image -->
+        <img
+          [src]="item.productId.image"
+          alt="Button Mushroom"
+          class="w-full md:w-32 h-32 object-cover rounded"
+        />
+
+        <!-- Product Details -->
+        <div class="flex-1 w-full">
+          <h2 class="text-xl font-semibold text-gray-900">Button Mushroom</h2>
+          <p class="text-gray-600 mt-1 line-clamp-3">
+            {{item.productId.description}}
+          </p>
+          <div
+            class="mt-2 flex flex-wrap gap-4 text-sm text-gray-800 font-medium"
+          >
+            <span>Price: Rs {{item.productId.price}}</span>
+            <span>Quantity: {{item.quantity}}</span>
+            <span>Total: ₹{{item.productId.price * item.quantity}}</span>
+          </div>
+          <!-- Delete Button -->
+          <button
+            (click)="deleteCartItemById(item.productId._id)"
+            class="absolute bottom-2 right-4 cursor-pointer bg-red-500 text-white text-sm px-3 py-1 rounded hover:bg-red-600 transition duration-300"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      }
+
+      <!-- Repeat more cart items here as needed -->
+    </div>
+
+    <!-- Right: Order Summary -->
+    <div id="order-summary" class="bg-white rounded-lg shadow p-6 h-fit">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
+
+      <div class="space-y-2 text-gray-700">
+        <div class="flex justify-between">
+          <span class="opacity-80">Subtotal</span>
+          <span class="opacity-80">RS {{subTotal()}}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-80">Delivery Fee</span>
+          <span class="opacity-80">RS {{deliveryFee()}}</span>
+        </div>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="flex justify-between font-bold text-lg">
+          <span>Total</span>
+          <span>₹{{total()}}</span>
+        </div>
+      </div>
+
+      <!-- Checkout Button -->
+      <button
+        class="w-full cursor-pointer mt-6 bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded transition duration-300"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>

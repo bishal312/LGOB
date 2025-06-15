@@ -23,40 +23,27 @@
          <div class="flex justify-center items-center">
 
              <div id="product-category" class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-8">
-                 <!-- Product Category 1 -->
-                 <div id="first-category" class="mb-4">
-                     <div class="overflow-hidden rounded-2xl">
-                        <img class="w-[405px] h-[252px]" src="./../../../assets/butonchyau.jpeg" alt="oystermushroom">
-                     </div>
-                     <div id="detail" class="flex flex-col items-center justify-center">
-                         <h2 class="text-lg font-bold mt-3">Button Mushroom</h2>
-                         <p>Rs. 100/kg</p>
-                         <button  class="bg-green-600 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">Add to Cart</button>
-                     </div>
+                 
+                @for(item of allProducts; track $index){
 
-                 </div>
-                 <div id="second-category" class="mb-4">
-                     <div class="overflow-hidden rounded-2xl">
-                        <img class="w-[405px] h-[252px]" src="./../../../assets/oyster 1.png" alt="oystermushroom">
-                     </div>
-                     <div id="detail" class="flex flex-col items-center justify-center">
-                         <h2 class="text-lg font-bold mt-3">Oyster Mushroom</h2>
-                         <p>Rs. 100/kg</p>
-                         <button class="bg-green-600 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">Add to Cart</button>
 
-                     </div>
-                 </div>
-                 <div id="third-category" class="mb-4">
-                      <div class="overflow-hidden rounded-2xl">
-                        <img class="w-[405px] h-[252px]" src="./../../../assets/butonchyau.jpeg" alt="oystermushroom">
-                     </div>
-                     <div id="detail" class="flex flex-col items-center justify-center">
-                         <h2 class="text-lg font-bold mt-3">Ganodorma Mushroom</h2>
-                         <p>Rs. 100/kg</p>
-                         <button class="bg-green-600 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">Add to Cart</button>
-                     </div>
-                 </div>
+                    <div id="category" class="mb-4">
+                        <div class="overflow-hidden rounded-2xl">
+                           <img class="w-[405px] h-[252px]" [src]="item.image" alt="oystermushroom">
+                        </div>
+                        <div id="detail" class="flex flex-col items-center justify-center">
+                            <h2 class="text-lg font-bold mt-3">{{item.name}}</h2>
+                            <p>Rs. {{item.price}}/kg</p>
+                            <button (click)="addToCart(item)" class="bg-green-600 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">Add to Cart</button>
+                        </div>
+    
+                    </div>
+                }
+              
              </div>
+         </div>
+         <div class="flex justify-center items-center">
+          <button routerLink="/shop" class="bg-green-600 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">See More Products</button>
          </div>
      </section>
 

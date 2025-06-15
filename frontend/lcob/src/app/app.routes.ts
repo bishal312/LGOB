@@ -15,6 +15,7 @@ import { Delivery } from './seller/delivery/delivery';
 import { About } from './user/about/about';
 import { authGuard } from './services/guards/auth-guard';
 import { Shop } from './user/shop/shop';
+import { MyCart } from './user/my-cart/my-cart';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -27,6 +28,7 @@ export const routes: Routes = [
       { path: 'shop',
         component:Shop,
          title:'Shop' },
+         {path:'shop/my-cart', component:MyCart, title:'My Cart'},
       { path: 'shop/product/:id', component: ProductUi, title: 'Product' },
       { path: 'shop/checkout', component: Checkout, title: 'Checkout' , canActivate:[authGuard]},
       { path: 'shop/success', component: Success, title: 'Success', canActivate:[authGuard] },

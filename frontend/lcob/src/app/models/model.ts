@@ -30,3 +30,13 @@ export interface IproductGetObj{
     image:string,
     _id:string
 }
+
+
+export interface IcartObj{
+  _id: string;
+  userId: string;
+  items: any[]; 
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
