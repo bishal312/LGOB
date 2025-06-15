@@ -10,8 +10,9 @@ import {
 const router = express.Router();
 
 router.get("/", protectRoute, getCartProduct);
-router.post("/", protectRoute, addToCart);
-router.delete("/:id", protectRoute, removeFromCart);
-router.put("/", protectRoute, clearCart);
+router.post("/add", protectRoute, addToCart);
+router.delete("/remove/:id", protectRoute, removeFromCart);
+router.delete("/clear", protectRoute, clearCart);
 
+//llleojofjoesf
 export default router;
