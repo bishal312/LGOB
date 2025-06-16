@@ -14,6 +14,8 @@ import { error } from 'console';
 })
 export class Home {
    
+  showToast = false;
+  toastMessage:string='';
   allProducts:IproductGetObj[]=[]
   
   productService=inject(Product)
@@ -38,12 +40,24 @@ subscribe(email:string){
 
 addToCart(product:IproductGetObj){
   this.productService.addToCart(product._id).subscribe((res:any)=>{
-    console.log(res)
-    this.productService.clearCart()
-    this.productService.getCartItemsByUserId().subscribe()
+    if(res){
+      this.showToast=true
+      this.toastMessage="Product added to cart"
+      this.productService.clearCart()
+      this.productService.getCartItemsByUserId().subscribe()
+      setTimeout(() => {
+        this.showToast=false
+        this.toastMessage='';
+      }, 2000);
+    }
 
   },(error)=>{
-    console.log(error,"error")
+    this.showToast=true
+    this.toastMessage="The item is already in cart"
+    setTimeout(() => {
+      this.showToast=false
+      this.toastMessage='';
+    }, 2000);
   })
 }
 }

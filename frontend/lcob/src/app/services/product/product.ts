@@ -4,7 +4,6 @@ import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IcartObj, IproductGetObj } from '../../models/model';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -46,9 +45,8 @@ export class Product {
       `http://localhost:5001/api/products/${id}`
     );
   }
-  
-  addToCart(productId: string, quantity?:number) {
-    console.log(quantity)
+
+  addToCart(productId: string, quantity?: number) {
     return this.http.post(
       `http://localhost:5001/api/cart/add`,
       { productId, quantity },
@@ -78,11 +76,15 @@ export class Product {
     this.cartItems.set([]);
   }
 
-  deleteCartItem(id:string){
-    return this.http.delete(`http://localhost:5001/api/cart/remove/${id}`,{withCredentials:true})
+  deleteCartItem(id: string) {
+    return this.http.delete(`http://localhost:5001/api/cart/remove/${id}`, {
+      withCredentials: true,
+    });
   }
 
-  clearAllCartItems(){
-    return this.http.delete(`http://localhost:5001/api/cart/clear`,{withCredentials:true})
+  clearAllCartItems() {
+    return this.http.delete(`http://localhost:5001/api/cart/clear`, {
+      withCredentials: true,
+    });
   }
 }

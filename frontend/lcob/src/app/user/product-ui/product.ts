@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IproductGetObj } from '../../models/model';
 import { Product } from '../../services/product/product';
 
+
+
 @Component({
   selector: 'app-product-ui',
   imports: [],
@@ -11,6 +13,9 @@ import { Product } from '../../services/product/product';
 })
 export class ProductUi implements OnInit{
   
+  showToast:boolean=false
+  toastMessage:string=''
+  showOrderForm:boolean=false
   router=inject(Router)
   quantity=signal(1)
   relatedProducts:IproductGetObj[]=[]
@@ -49,6 +54,7 @@ quantityHandler(action: string) {
 }
 
 navigateToProductDetails(productId: string) {
+  this.quantity.set(1);
   this.router.navigate(['/shop/product', productId]);
   window.scrollTo({ top: 0, behavior: 'smooth' });
   this.getProductDetail(productId);
@@ -57,15 +63,36 @@ navigateToProductDetails(productId: string) {
  addToCart(){
   const product=this.productDetail
   
-  console.log("adding to cart handler")
+ 
   this.productService.addToCart(product!._id,this.quantity()).subscribe((res:any)=>{
-    console.log("adding to cart")
-    this.productService.clearCart()
-    this.productService.getCartItemsByUserId().subscribe()
+
+      if(res){
+      this.showToast=true
+      this.toastMessage="Product added to cart"
+      this.productService.clearCart()
+      this.productService.getCartItemsByUserId().subscribe()
+      setTimeout(() => {
+        this.showToast=false
+        this.toastMessage='';
+      }, 2000);
+    }
 
   },(error)=>{
-    console.log(error,"error")
+    this.showToast=true
+    this.toastMessage="The item is already in cart"
+    setTimeout(() => {
+      this.showToast=false
+      this.toastMessage='';
+    }, 2000);
   })
+}
+
+navigateToCheckout(id?:string) {
+  
+  this.router.navigate(['/shop/checkout',id],{
+    queryParams:{quantity: this.quantity()}
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 }

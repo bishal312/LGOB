@@ -40,3 +40,22 @@ export interface IcartObj{
   updatedAt: string;
   __v: number;
 }
+
+export interface OrderItem {
+  productId: string; // product ID
+  quantity: number;
+}
+
+export interface Location {
+  latitude: number;
+  longitude: number;
+}
+export interface Order {
+  
+  items: OrderItem[];
+  totalAmout: number;
+  address: string;
+  location: Location;
+  
+
+}
