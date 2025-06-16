@@ -19,7 +19,7 @@ export const placeOrder = async (req, res) => {
     ) {
       return res
         .status(400)
-        .json({ success: false, message: "Address and location are required" });
+        .json({ success: false, message: "Address, location and totalAmount are required" });
     }
     const validateItems = [];
     for (const item of items) {
