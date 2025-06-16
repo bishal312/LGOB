@@ -1,68 +1,121 @@
 <!-- product-detail.component.html -->
-<div class="min-h-screen bg-[#EBF2FA] p-4">
-  <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 grid grid-cols-1 md:grid-cols-12 gap-6">
+ @if(showToast == false){
 
-    <!-- Product Image -->
-    <div class="md:col-span-5 p-4">
-      <img [src]="productDetail?.image" alt="Food product" class="w-xs sm:w-full h-40 sm:h-80 object-cover rounded-lg mb-4">
-    </div>
+   <div class="min-h-screen bg-[#EBF2FA] p-4">
+     <div
+     
+       class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 grid grid-cols-1 md:grid-cols-12 gap-6"
+     >
+       <!-- Product Image -->
+       <div class="md:col-span-5 p-4">
+         <img
+           [src]="productDetail?.image"
+           alt="Food product"
+           class="w-xs sm:w-full h-40 sm:h-80 object-cover rounded-lg mb-4"
+         />
+       </div>
+   
+       <!-- Product Details -->
+       <div class="md:col-span-7 p-6 flex flex-col gap-2 sm:gap-4">
+         <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800">
+           {{productDetail?.name}}
+         </h2>
+         <p class="text-gray-600 text-sm">
+           Freshly harvested, high-protein mushrooms
+         </p>
+   
+         <div class="flex items-baseline gap-4">
+           <p class="text-base sm:text-2xl font-bold text-green-600">
+             Rs. {{productDetail?.price}} / kg
+           </p>
+           <p class="text-gray-500 line-through">Rs. {{productDetail?.price}}</p>
+           <p class="text-red-500 font-medium">-13%</p>
+         </div>
+   
+         <p class="text-gray-700 text-sm leading-relaxed">
+           {{productDetail?.description}}
+         </p>
+   
+         <div class="flex items-center gap-4">
+           <p class="text-gray-700">Quantity (kg):</p>
+           <div class="flex items-center gap-2">
+             <button
+               (click)="quantityHandler('-')"
+               class="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-200 rounded cursor-pointer"
+             >
+               -
+             </button>
+             <span class="text-lg">{{quantity()}} kg</span>
+             <button
+               (click)="quantityHandler('+')"
+               class="w-6 sm:w-8 h-6 sm:h-8 bg-gray-200 rounded cursor-pointer"
+             >
+               +
+             </button>
+           </div>
+         </div>
+   
+         <div class="flex gap-2 sm:gap-4 mt-4">
+           
+           <button (click)="navigateToCheckout(productDetail?._id)"
+             class="bg-green-700 cursor-pointer hover:bg-green-600 text-white px-3 sm:px-6 py-3 rounded-lg font-semibold"
+           >
+             Buy Now
+           </button>
+           <button
+             (click)="addToCart()"
+             class="bg-gray-800 cursor-pointer hover:bg-gray-700 text-white px-3 sm:px-6 py-3 rounded-lg font-semibold"
+           >
+             Add to Cart
+           </button>
+         </div>
+       </div>
+   
+       
+     </div>
+   
+   
+   
+   
+   
+   
+   
+   
+     <!-- Related Products Section -->
+     <div class="max-w-7xl mx-auto mt-10">
+       <h3 class="text-2xl font-bold text-gray-800 mb-4">Related Products</h3>
+       <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+         @for(item of relatedProducts; track $index){ @if(item._id ==
+         productDetail?._id){ } @else {
+   
+         <div class="bg-white rounded-lg p-4 shadow-md">
+           <img
+             [src]="item.image"
+             alt="Related Product"
+             class="w-full h-40 object-cover rounded"
+           />
+           <h4 class="text-md font-semibold mt-2 text-gray-700">{{item.name}}</h4>
+           <p class="text-green-600 font-bold">Rs. {{item.price}} / kg</p>
+           <button
+             (click)="navigateToProductDetails(item._id)"
+             class="mt-2 bg-green-700 cursor-pointer hover:bg-green-600 text-white px-3 sm:px-6 py-2 rounded-lg font-semibold"
+           >
+             See More
+           </button>
+         </div>
+         } }
+       </div>
+     </div>
+   </div>
+ }
+ @if(showToast == true){
+   <div  id="orderSuccessPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+     <!-- Popup box -->
+     <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+       <h2 class="text-2xl font-bold mb-4 text-green-600">Successfull</h2>
+       <p class="mb-6">{{toastMessage}}</p>
+       
+     </div>
+   </div>
 
-    <!-- Product Details -->
-    <div class="md:col-span-7 p-6 flex flex-col gap-2 sm:gap-4">
-      <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800">{{productDetail?.name}}</h2>
-      <p class="text-gray-600 text-sm">Freshly harvested, high-protein mushrooms</p>
-
-      <div class="flex items-baseline gap-4">
-        <p class="text-base sm:text-2xl font-bold text-green-600">Rs. {{productDetail?.price}} / kg</p>
-        <p class="text-gray-500 line-through">Rs. {{productDetail?.price}}</p>
-        <p class="text-red-500 font-medium">-13%</p>
-      </div>
-
-      <p class="text-gray-700 text-sm leading-relaxed">
-
-        {{productDetail?.description}}
-        
-      </p>
-
-      <div class="flex items-center gap-4">
-        <p class="text-gray-700">Quantity (kg):</p>
-        <div class="flex items-center gap-2">
-          <button (click)="quantityHandler('-')" class="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-200 rounded cursor-pointer">-</button>
-          <span class="text-lg">{{quantity()}} kg</span>
-          <button (click)="quantityHandler('+')" class="w-6 sm:w-8 h-6 sm:h-8 bg-gray-200 rounded cursor-pointer">+</button>
-        </div>
-      </div>
-
-      <div class="flex gap-2 sm:gap-4 mt-4">
-        <button 
-         type="button" class="bg-green-700 cursor-pointer hover:bg-green-600 text-white px-3 sm:px-6 py-3 rounded-lg font-semibold">Buy Now</button>
-        <button 
-        (click)="addToCart()"
-         class="bg-gray-800 cursor-pointer hover:bg-gray-700 text-white px-3 sm:px-6 py-3 rounded-lg font-semibold">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Related Products Section -->
-  <div class="max-w-7xl mx-auto mt-10">
-    <h3 class="text-2xl font-bold text-gray-800 mb-4">Related Products</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-      @for(item of relatedProducts; track $index){
-        
-        @if(item._id == productDetail?._id){
-          
-        }
-        @else {
-
-          <div class="bg-white rounded-lg p-4 shadow-md">
-            <img [src]="item.image" alt="Related Product" class="w-full h-40 object-cover rounded">
-            <h4 class="text-md font-semibold mt-2 text-gray-700">{{item.name}}</h4>
-            <p class="text-green-600 font-bold">Rs. {{item.price}} / kg</p>
-            <button (click)="navigateToProductDetails(item._id)" class="mt-2 bg-green-700 cursor-pointer hover:bg-green-600 text-white px-3 sm:px-6 py-2 rounded-lg font-semibold">See More</button>
-          </div>
-        }
-      }
-      
-    </div>
-  </div>
-</div>
+ }

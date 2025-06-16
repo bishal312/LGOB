@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgIf } from '@angular/common';
-import { Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../services/auth/auth';
 import { platform } from 'node:os';
@@ -19,7 +19,7 @@ export class Header {
   
 
   allCartItems=signal<IproductGetObj[]>([])
-  cartcount=signal(0)
+  cartcount=computed(() => this.productService.cartItems().length)
     constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
    authService=inject(Auth)
    productService=inject(Product)
@@ -35,10 +35,10 @@ export class Header {
   this.productService.clearCart()
   this.productService.getCartItemsByUserId().subscribe(
     ()=>{
-
-      const cartItems = this.productService.cartItems()
-      this.cartcount.set(cartItems.length)
+    
      
+    },(error)=>{
+      console.log(error)
     }
   )
   
