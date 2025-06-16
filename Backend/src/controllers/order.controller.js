@@ -1,27 +1,53 @@
-import  Order  from "../models/order.model.js";
-import Product  from "../models/product.model.js";
+import Order from "../models/order.model.js";
+import Product from "../models/product.model.js";
+import mongoose from "mongoose";
 
 export const placeOrder = async (req, res) => {
   try {
-    const { items } = req.body; 
+    const { items, address, location, totalAmount } = req.body;
 
     if (!items || items.length === 0) {
       return res.status(400).json({ message: "No items provided" });
     }
 
-    let total = 0;
+    if (
+      !address ||
+      !location ||
+      location.latitude == null ||
+      location.longitude == null ||
+      !totalAmount
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Address and location are required" });
+    }
+    const validateItems = [];
     for (const item of items) {
+      if (!mongoose.Types.ObjectId.isValid(item.productId)) {
+        return res.status(400).json({ message: "Invalid productId format" });
+      }
+
       const product = await Product.findById(item.productId);
       if (!product) {
-        return res.status(404).json({ message: `Product not found: ${item.productId}` });
+        return res
+          .status(404)
+          .json({ message: `Product not found: ${item.productId}` });
       }
-      total += product.price * item.stock;
+      const itemsQuantity =
+        item.quantity && item.quantity > 0 ? item.quantity : 1;
+
+      validateItems.push({
+        productId: product._id,
+        stock: itemsQuantity,
+      });
     }
 
     const order = new Order({
       userId: req.user._id,
       items,
-      totalAmount: total,
+      totalAmount,
+      address,
+      location,
     });
 
     await order.save();
@@ -29,6 +55,8 @@ export const placeOrder = async (req, res) => {
     res.status(201).json({ message: "Order placed successfully", order });
   } catch (error) {
     console.error("Error placing order", error);
-    res.status(500).json({ message: "Failed to place order", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to place order", error: error.message });
   }
 };
