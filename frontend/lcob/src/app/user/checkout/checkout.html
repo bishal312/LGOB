@@ -1,139 +1,147 @@
 <!-- Left Section -->
- @if(showPopup == false){
+@if(showPopup == false){
 
-   <div class="lg:col-span-2 space-y-6">
-     <!-- Delivery Info Section with no form -->
-     <div class="bg-white rounded-lg shadow p-6">
-       <h2 class="text-2xl font-semibold text-gray-800">Delivery Information</h2>
-       <p class="text-gray-600">Please check your delivery address in the Order Summary section.</p>
-     </div>
-   
-   <!-- product -->
-   <div class="bg-white rounded-xl shadow px-4 py-3 w-full max-w-xl mx-auto flex items-start gap-4 border border-gray-100">
-     <!-- Product Image -->
-     <img
-       [src]="productDetail()?.image"
-       alt="Button Mushroom"
-       class="w-24 h-24 object-cover rounded-md"
-     />
-   
-     <!-- Product Details -->
-     <div class="flex-1 text-sm text-gray-800">
-       <div class="flex justify-between items-start">
-         <h2 class="font-semibold text-base text-gray-900">{{ productDetail()?.name || 'Button Mushroom' }}</h2>
-         
-       </div>
-   
-       <p class="text-gray-600 line-clamp-2 text-xs mt-1">{{ productDetail()?.description }}</p>
-   
-       <div class="mt-2 flex flex-wrap gap-3 text-sm font-medium">
-         <span>Rs {{ productDetail()?.price }}</span>
-         <span>Qty: {{ quantity() }}</span>
-         <span>Total: ₹{{ totalAmount()}}</span>
-       </div>
-     </div>
-   
-   
-   
-   </div>
-   
-   <!-- Right Section -->
-   <div class="lg:col-span-1 space-y-6">
-     <!-- User Details -->
-     <div class="bg-white rounded-lg shadow p-6 h-fit">
-       <h2 class="text-xl font-semibold text-gray-800 mb-4">User Details</h2>
-       <div class="space-y-2 text-gray-700">
-         <div class="flex justify-between">
-           <span class="font-medium">Name:</span>
-           <span class="text-right">{{ name }}</span>
-         </div>
-         <div class="flex justify-between">
-           <span class="font-medium">Phone Number:</span>
-           <span class="text-right">{{ phonenumber }}</span>
-         </div>
-       </div>
-     </div>
-   
-     <!-- Order Summary -->
-     <div id="order-summary" class="bg-white rounded-lg shadow p-6 h-fit">
-       <h2 class="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
-   
-       <!-- Address Input -->
-       <div  class="mb-4">
-  <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
-  <input
+<div class="lg:col-span-2 space-y-6">
+  <!-- Delivery Info Section with no form -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-2xl font-semibold text-gray-800">Delivery Information</h2>
+    <p class="text-gray-600">
+      Please check your delivery address in the Order Summary section.
+    </p>
+  </div>
 
-  #address
-  type="text"
-  class="w-full p-2 border rounded"
-  placeholder="Enter Delivery Address"
-  (input)="onAddressInput(address.value)"
-  [value]="queryAddress()"
-/>
-<div *ngIf="showSuggestions()" class="relative">
-  <ul class="bg-white shadow-md border rounded mt-1 z-40 relative w-full">
-    @for(suggestion of suggestions(); track $index) {
+  <!-- product -->
+  <div
+    class="bg-white rounded-xl shadow px-4 py-3 w-full max-w-xl mx-auto flex items-start gap-4 border border-gray-100"
+  >
+    <!-- Product Image -->
+    <img
+      [src]="productDetail()?.image"
+      alt="Button Mushroom"
+      class="w-24 h-24 object-cover rounded-md"
+    />
 
-      <li 
-        (click)="onAddressSelect(suggestion)"
-        (keydown.enter)="onAddressSelect(suggestion)"
-        (keydown.space)="onAddressSelect(suggestion)"
-        id="address"
-        class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
-      >
-        {{suggestion.placePrediction?.text?.text}}
-      </li>
-    }
-  </ul>
-</div>
+    <!-- Product Details -->
+    <div class="flex-1 text-sm text-gray-800">
+      <div class="flex justify-between items-start">
+        <h2 class="font-semibold text-base text-gray-900">
+          {{ productDetail()?.name || 'Button Mushroom' }}
+        </h2>
+      </div>
 
-  
-   
-</div>
+      <p class="text-gray-600 line-clamp-2 text-xs mt-1">
+        {{ productDetail()?.description }}
+      </p>
 
-   
-       <div  class="space-y-2 text-gray-700">
-         <div class="flex justify-between">
-           <span class="opacity-80">Subtotal</span>
-           <span class="opacity-80">Rs {{ totalAmount() }}</span>
-         </div>
-         <div class="flex justify-between">
-           <span class="opacity-80">Delivery Fee</span>
-           <span class="opacity-80">Rs {{ deliveryFee() }}</span>
-         </div>
-         <div class="border-t border-gray-200 my-4"></div>
-         <div class="flex justify-between font-bold text-lg">
-           <span>Total</span>
-           <span>₹ {{ totalOrderAmount() }}</span>
-         </div>
-       </div>
-   
-       <!-- Checkout Button -->
-       <button
+      <div class="mt-2 flex flex-wrap gap-3 text-sm font-medium">
+        <span>Rs {{ productDetail()?.price }}</span>
+        <span>Qty: {{ quantity() }}</span>
+        <span>Total: ₹{{ totalAmount()}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Section -->
+  <div class="lg:col-span-1 space-y-6">
+    <!-- User Details -->
+    <div class="bg-white rounded-lg shadow p-6 h-fit">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">User Details</h2>
+      <div class="space-y-2 text-gray-700">
+        <div class="flex justify-between">
+          <span class="font-medium">Name:</span>
+          <span class="text-right">{{ name }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="font-medium">Phone Number:</span>
+          <span class="text-right">{{ phonenumber }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div id="order-summary" class="bg-white rounded-lg shadow p-6 h-fit">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
+
+      <!-- Address Input -->
+      <div class="mb-4">
+        <label
+          for="address"
+          class="block text-sm font-medium text-gray-700 mb-1"
+          >Delivery Address</label
+        >
+        <input
+          #address
+          type="text"
+          class="w-full p-2 border rounded"
+          placeholder="Enter Delivery Address"
+          (input)="onAddressInput(address.value)"
+          [value]="queryAddress()"
+        />
+
+        <div *ngIf="showSuggestions()" class="relative">
+          <ul
+            class="bg-white shadow-md border rounded mt-1 z-40 relative w-full"
+          >
+            @for(suggestion of suggestions(); track $index) {
+
+            <li
+              (click)="onAddressSelect(suggestion)"
+              (keydown.enter)="onAddressSelect(suggestion)"
+              (keydown.space)="onAddressSelect(suggestion)"
+              id="address"
+              class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
+            >
+              {{suggestion.placePrediction?.text?.text}}
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="space-y-2 text-gray-700">
+        <div class="flex justify-between">
+          <span class="opacity-80">Subtotal</span>
+          <span class="opacity-80">Rs {{ totalAmount() }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-80">Delivery Fee</span>
+          <span class="opacity-80">Rs {{ deliveryFee() }}</span>
+        </div>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="flex justify-between font-bold text-lg">
+          <span>Total</span>
+          <span>₹ {{ totalOrderAmount() }}</span>
+        </div>
+      </div>
+
+      <!-- Checkout Button -->
+      <button
         [disabled]="!orderFormObj.get('address')?.value"
         (click)="checkoutProcess()"
-         [ngClass]="{
+        [ngClass]="{
     'bg-green-700 hover:bg-green-600 cursor-pointer': orderFormObj.get('address')?.value,
     'bg-gray-400 cursor-not-allowed': !orderFormObj.get('address')?.value
   }"
-         class="w-full cursor-pointer mt-6 bg-green-700 hover:bg-green-600 text-white font-medium py-3 rounded transition duration-300"
-       >
-         Checkout
-       </button>
-     </div>
-   </div>
-   </div>
- }
+        class="w-full cursor-pointer mt-6 bg-green-700 hover:bg-green-600 text-white font-medium py-3 rounded transition duration-300"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>
+}
 
 <!-- Overlay -->
- @if(showPopup == true){
-   <div  id="orderSuccessPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-     <!-- Popup box -->
-     <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-       <h2 class="text-2xl font-bold mb-4 text-green-600">Order Successful!</h2>
-       <p class="mb-6">Thank you for your purchase. {{checkoutMessage}}</p>
-       
-     </div>
-   </div>
+@if(showPopup == true){
+<div
+  id="orderSuccessPopup"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+>
+  <!-- Popup box -->
+  <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+    <h2 class="text-2xl font-bold mb-4 text-green-600">Order Successful!</h2>
+    <p class="mb-6">Thank you for your purchase. {{checkoutMessage}}</p>
+  </div>
+</div>
 
- }
+}
