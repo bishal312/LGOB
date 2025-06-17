@@ -117,3 +117,39 @@ export const autoCompleteAddress = async (req, res) => {
   const data = await response.json();
   res.json(data);
 };
+
+export const coordinatesMap = async (req, res) => {
+  const { placeId } = req.body;
+
+  if (!placeId) {
+    return res.status(400).json({ error: "placeId is required" });
+  }
+
+  try {
+    const response = await fetch(
+      `
+      https://places.googleapis.com/v1/places/${placeId}?key=${process.env.GOOGLE_API_KEY}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-FieldMask": "formattedAddress,location",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      res.json(data);
+    } else {
+      res
+        .status(500)
+        .json({ error: data.error || "Failed to fetch place details" });
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Internal server error", details: err.message });
+  }
+};
