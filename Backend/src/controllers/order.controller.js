@@ -1,6 +1,9 @@
 import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import mongoose from "mongoose";
+import { transporter } from "../utils/mailer.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const placeOrder = async (req, res) => {
   try {
@@ -17,11 +20,12 @@ export const placeOrder = async (req, res) => {
       location.longitude == null ||
       !totalAmount
     ) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Address, location and totalAmount are required" });
+      return res.status(400).json({
+        success: false,
+        message: "Address, location and totalAmount are required",
+      });
     }
-    const validateItems = [];
+    const validatedItems = [];
     for (const item of items) {
       if (!mongoose.Types.ObjectId.isValid(item.productId)) {
         return res.status(400).json({ message: "Invalid productId format" });
@@ -36,21 +40,51 @@ export const placeOrder = async (req, res) => {
       const itemsQuantity =
         item.quantity && item.quantity > 0 ? item.quantity : 1;
 
-      validateItems.push({
+      validatedItems.push({
         productId: product._id,
-        stock: itemsQuantity,
+        quantity: itemsQuantity,
       });
     }
 
     const order = new Order({
       userId: req.user._id,
-      items,
+      items: validatedItems,
       totalAmount,
       address,
       location,
     });
 
     await order.save();
+    try {
+      const orderedItemsHtmlArray = await Promise.all(
+        order.items.map(async (item, i) => {
+          const product = await Product.findById(item.productId);
+          return `<li>Item ${i + 1}: ${product.name} — Qty: ${
+            item.quantity
+          }</li>`;
+        })
+      );
+
+      const orderedItemsHtml = orderedItemsHtmlArray.join("");
+
+      await transporter.sendMail({
+        from: '"Lumbini Chyau Organic Bhandar" <Magardadi5@gmail.com>',
+        to: "zoneinfinity87@gmail.com",
+        subject: `Order placed by ${req.user.fullName}`,
+        html: `
+      <p>Hello sir,</p>
+      <p>You have received a new order from <strong>${address}</strong> by <strong>${req.user.fullName}</strong>.</p>
+      <p><strong>Order ID:</strong> ${order._id}</p>
+      <p><strong>Total:</strong> NPR ${order.totalAmount}</p>
+      <p><strong>Items:</strong></p>
+      <ul>${orderedItemsHtml}</ul>
+    `,
+      });
+
+      console.log("Emailed for order");
+    } catch (error) {
+      console.error("Failed to send order email", error);
+    }
 
     res.status(201).json({ message: "Order placed successfully", order });
   } catch (error) {
@@ -59,4 +93,27 @@ export const placeOrder = async (req, res) => {
       .status(500)
       .json({ message: "Failed to place order", error: error.message });
   }
+};
+
+export const autoCompleteAddress = async (req, res) => {
+  const { input } = req.body;
+
+  const response = await fetch(
+    "https://places.googleapis.com/v1/places:autocomplete",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": process.env.GOOGLE_API_KEY,
+        "X-Goog-FieldMask":
+          "suggestions.placePrediction.text,suggestions.placePrediction.placeId",
+      },
+      body: JSON.stringify({
+        input,
+      }),
+    }
+  );
+
+  const data = await response.json();
+  res.json(data);
 };
