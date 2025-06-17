@@ -59,17 +59,40 @@
        <h2 class="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
    
        <!-- Address Input -->
-       <div class="mb-4">
-         <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
-         <input
-           id="autocomplete"
-           type="text"
-           placeholder="Enter your delivery address"
-           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600"
-         />
-       </div>
+       <div  class="mb-4">
+  <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
+  <input
+
+  #address
+  type="text"
+  class="w-full p-2 border rounded"
+  placeholder="Enter Delivery Address"
+  (input)="onAddressInput(address.value)"
+  [value]="queryAddress()"
+/>
+<div *ngIf="showSuggestions()" class="relative">
+  <ul class="bg-white shadow-md border rounded mt-1 z-40 relative w-full">
+    @for(suggestion of suggestions(); track $index) {
+
+      <li 
+        (click)="onAddressSelect(suggestion)"
+        (keydown.enter)="onAddressSelect(suggestion)"
+        (keydown.space)="onAddressSelect(suggestion)"
+        id="address"
+        class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
+      >
+        {{suggestion.placePrediction?.text?.text}}
+      </li>
+    }
+  </ul>
+</div>
+
+  
    
-       <div class="space-y-2 text-gray-700">
+</div>
+
+   
+       <div  class="space-y-2 text-gray-700">
          <div class="flex justify-between">
            <span class="opacity-80">Subtotal</span>
            <span class="opacity-80">Rs {{ totalAmount() }}</span>
@@ -81,13 +104,18 @@
          <div class="border-t border-gray-200 my-4"></div>
          <div class="flex justify-between font-bold text-lg">
            <span>Total</span>
-           <span>₹ {{ totalOrder() }}</span>
+           <span>₹ {{ totalOrderAmount() }}</span>
          </div>
        </div>
    
        <!-- Checkout Button -->
        <button
+        [disabled]="!orderFormObj.get('address')?.value"
         (click)="checkoutProcess()"
+         [ngClass]="{
+    'bg-green-700 hover:bg-green-600 cursor-pointer': orderFormObj.get('address')?.value,
+    'bg-gray-400 cursor-not-allowed': !orderFormObj.get('address')?.value
+  }"
          class="w-full cursor-pointer mt-6 bg-green-700 hover:bg-green-600 text-white font-medium py-3 rounded transition duration-300"
        >
          Checkout

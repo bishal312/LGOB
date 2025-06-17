@@ -59,3 +59,19 @@ export interface Order {
   
 
 }
+
+
+export interface PlacePredictionText {
+  text: string;
+  matches: { endOffset: number }[];
+}
+
+export interface PlacePrediction {
+  placeId: string;
+  text: PlacePredictionText;
+}
+
+export interface Suggestion {
+  placePrediction?: PlacePrediction;
+  queryPrediction?: { text: PlacePredictionText };
+}
