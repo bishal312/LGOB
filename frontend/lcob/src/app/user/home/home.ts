@@ -39,6 +39,12 @@ subscribe(email:string){
 
 
 addToCart(product:IproductGetObj){
+  const user = localStorage.getItem('user');
+  if (!user) {
+  alert('Please log in to add items to your cart.');
+  
+  return;
+  }
   this.productService.addToCart(product._id).subscribe((res:any)=>{
     if(res){
       this.showToast=true

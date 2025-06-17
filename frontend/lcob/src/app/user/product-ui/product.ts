@@ -27,16 +27,25 @@ export class ProductUi implements OnInit{
 
   productId: string = '';
   ngOnInit(): void {
-      this.productId=this.route.snapshot.params['id'];
-      this.getProductDetail(this.productId)
-      this.productService.getAllProducts().subscribe((res:IproductGetObj[])=>{
-        this.relatedProducts=res
-      },error=>{console.log(error)})
+    this.route.paramMap.subscribe(params => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.productId = params.get('id')!;
+    this.getProductDetail(this.productId);
+  });
+
+  this.productService.getAllProducts().subscribe(
+    (res: IproductGetObj[]) => {
+      this.relatedProducts = res;
+    },
+    error => {
+      console.log(error);
+    }
+  );
   }
   
 
   getProductDetail(id:string){
-
+    console.log("getting product detail")
     this.productService.getProductDetailById(id).subscribe((res:{success:boolean,product:IproductGetObj})=>{
       this.productDetail=res.product
     })
