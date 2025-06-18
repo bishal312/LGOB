@@ -16,6 +16,7 @@ import { About } from './user/about/about';
 import { authGuard } from './services/guards/auth-guard';
 import { Shop } from './user/shop/shop';
 import { MyCart } from './user/my-cart/my-cart';
+import { OrderDetail } from './seller/order-detail/order-detail';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -48,7 +49,14 @@ export const routes: Routes = [
     children: [
       { path: 'login', component: Login },
       { path: 'dashboard', component: Dashboard, title: 'Dashboard' },
-      { path: 'orders', component: Orders, title: 'Orders' },
+      { path: 'orders', component: Orders, title: 'Orders',
+        children:[
+         { 
+          path:'order-detail/:id',
+          component:OrderDetail
+        }
+        ]
+       },
       { path: 'my-products', component: MyProducts, title: 'My Products' },
       { path: 'delivery', component: Delivery, title: 'Delivery List' },
     ],

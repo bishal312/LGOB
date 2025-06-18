@@ -14,4 +14,15 @@ export class Order {
   placeOrder(obj:Order){
     return this.http.post(`${this.apiUrl}/place`,obj)
   }
+
+
+  // for seller dashboard
+
+  getAllOrders(){
+    return this.http.get(`http://localhost:5001/api/dashboard/orders`)
+  }
+
+  getOrderDetailById(orderid:string){
+    return this.http.get(`http://localhost:5001/api/dashboard/orders/${orderid}`)
+  }
 }

@@ -1,0 +1,70 @@
+<!-- Overlay -->
+<div
+  class="fixed inset-0 bg-[#EBF2FA] bg-opacity-10 flex items-center justify-center z-50 transition-opacity duration-300"
+  [class.opacity-0]="!order"
+  [class.pointer-events-none]="!order"
+  *ngIf="order"
+>
+
+  <!-- Popup Container -->
+  <div
+    class="bg-gray-100 rounded-xl shadow-lg max-w-3xl w-full mx-4 sm:mx-6 p-6 transform transition-transform duration-300"
+    style="max-height: 90vh; overflow-y: auto;"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="backToAllOrders()"
+      class="absolute top-4 right-4 text-gray-600 cursor-pointer hover:text-red-600 text-3xl font-bold focus:outline-none"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    <!-- Title -->
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800">Order Details</h2>
+
+    <!-- Customer Details Section -->
+    <section class="mb-8">
+      <h3 class="text-xl font-semibold mb-3 border-b pb-1 border-gray-300">Customer Details</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+        <div><strong>Name:</strong> {{ order.userId?.fullName || 'N/A' }}</div>
+        <div><strong>Phone:</strong> {{ order.userId?.phoneNumber || 'N/A' }}</div>
+        <div><strong>Address:</strong> {{ order.address || 'N/A' }}</div>
+        <div>
+          <strong>Location:</strong>
+          <a
+            href="https://www.google.com/maps?q={{ order.location?.latitude }},{{ order.location?.longitude }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-600 hover:underline"
+          >
+            {{ order.location?.latitude }}, {{ order.location?.longitude }}
+          </a>
+        </div>
+        <div><strong>Status:</strong> {{ order.status || 'N/A' }}</div>
+      </div>
+    </section>
+
+    <!-- Ordered Products Section -->
+    <section>
+      <h3 class="text-xl font-semibold mb-3 border-b pb-1 border-gray-300">Ordered Products</h3>
+      <div class="space-y-4">
+        <div
+          *ngFor="let item of orderProductsDetails, let i = index"
+          class="p-4 border rounded-lg shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center"
+        >
+          <div class="text-gray-800 font-medium">
+            Product: {{ item?.product?.name || 'Unnamed' }}
+          </div>
+          <div class="text-gray-600 mt-2 sm:mt-0">
+            Quantity: {{ order.items[i].quantity || 0 }}
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 text-right text-lg font-bold">
+        Grand Total: Rs. {{ order.totalAmount }}
+      </div>
+    </section>
+  </div>
+</div>

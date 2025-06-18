@@ -1,66 +1,57 @@
-<div class="p-6 bg-white min-h-screen">
+<div class="p-4 sm:p-6 md:p-8 w-full bg-white min-h-screen overflow-x-auto">
   <h2 class="text-2xl font-bold mb-6 text-gray-800">All Orders</h2>
 
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200 rounded-xl shadow-sm">
-      <thead>
-        <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-700">
-          <th class="p-4 border-b">Order</th>
-          <th class="p-4 border-b">Quantity</th>
-          <th class="p-4 border-b">Customer</th>
-          <th class="p-4 border-b">Phone</th>
-          <th class="p-4 border-b">Address</th>
+  <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+    <table class="max-w-[800px] w-full text-sm text-left text-gray-700">
+      <thead class="bg-gray-100 text-sm font-semibold text-gray-700">
+        <tr>
+          <th class="p-4">Customer</th>
+          <th class="p-4 lg:block hidden">Address</th>
+          <th class="p-4">Status</th>
+          <th class="p-4 text-right">Action</th>
         </tr>
       </thead>
-      <tbody class="text-gray-700 text-sm divide-y divide-gray-100">
+      <tbody class="divide-y divide-gray-100">
+        @for (order of allOrders; track $index) {
+          <tr class="hover:bg-gray-50 transition">
+            <!-- Customer Name -->
+            <td class="p-4">
+              {{ order.userId?.fullName || 'Unknown' }}
+            </td>
 
-        <!-- Example Row 1 -->
-        <tr class="hover:bg-gray-50 transition">
-          <td class="p-4">Oyster Mushroom</td>
-          <td class="p-4">2 kg</td>
-          <td class="p-4">Ramesh Thapa</td>
-          <td class="p-4">9801234567</td>
-          <td class="p-4">Kathmandu, Nepal</td>
-        </tr>
+            <!-- Address (Plain Text) -->
+            <td class="p-2 lg:block hidden">
+              {{ getSlicedAddress(order?.address) || 'N/A' }}
+            </td>
 
-        <!-- Example Row 2 -->
-        <tr class="hover:bg-gray-50 transition">
-          <td class="p-4">Button Mushroom</td>
-          <td class="p-4">1.5 kg</td>
-          <td class="p-4">Sita Gurung</td>
-          <td class="p-4">9812345678</td>
-          <td class="p-4">Pokhara, Kaski</td>
-        </tr>
+            <!-- Status from backend -->
+            <td  class="p-2 capitalize">
+              <span 
+                class="inline-block px-3 py-1 text-xs font-semibold rounded-full"
+                [ngClass]="{
+                  'bg-green-100 text-green-800': order.status === 'delivered',
+                  'bg-yellow-100 text-yellow-800': order.status === 'pending',
+                  'bg-red-100 text-red-800': order.status === 'cancelled'
+                }"
+              >
+                {{ order.status || 'N/A' }}
+              </span>
+            </td>
 
-        <!-- Example Row 3 -->
-        <tr class="hover:bg-gray-50 transition">
-          <td class="p-4">Ganoderma</td>
-          <td class="p-4">500 g</td>
-          <td class="p-4">Bikash Rai</td>
-          <td class="p-4">9845123456</td>
-
-          <td class="p-4">
-      <a 
-        href="https://www.google.com/maps?q=27.7172,85.3240" 
-        target="_blank"
-        class="text-blue-600 hover:underline"
-      >
-        27.7172, 85.3240
-      </a>
-    </td>
-        </tr>
-
-        <!-- Example Row 4 -->
-        <tr class="hover:bg-gray-50 transition">
-          <td class="p-4">Dal Mushroom</td>
-          <td class="p-4">3 kg</td>
-          <td class="p-4">Anita Karki</td>
-          <td class="p-4">9866543210</td>
-          <td class="p-4">Butwal, Rupandehi</td>
-        </tr>
-
+            <!-- See More Button -->
+            <td class="p-4 lg:text-right  md:text-center">
+              <button 
+               (click)="navigateToOrderDetails(order._id)"
+                class="lg:px-4 md:px-2 sm:py-2 py-1 text-sm text-white min-w-[75px] bg-green-700 cursor-pointer hover:bg-green-600 rounded-lg transition"
+                
+              >
+                See More
+              </button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
 </div>
-
+<router-outlet />
