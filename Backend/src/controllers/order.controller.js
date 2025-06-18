@@ -64,8 +64,8 @@ export const placeOrder = async (req, res) => {
           if(!product) {
             throw new Error("Product not found from id");            
           }
-          const stockUpdated = product.stock-=item.quantity;
-          await Product.updateOne({_id: product._id}, {$set:{stock: stockUpdated}});
+          product.stock-=item.quantity;
+          await product.save();
           return `<li>Item ${i + 1}: ${product.name} — Qty: ${
             item.quantity
           }</li>`;
