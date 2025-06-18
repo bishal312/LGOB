@@ -109,7 +109,7 @@ export const updateOrderStatus = async (req, res) => {
 };
 
 export const getDetailsByOrderId = async (req, res) => {
-  const { orderid } = req.prams;
+  const { orderid } = req.params;
   try {
     const order = await Order.findById(orderid).populate("userId");
 
