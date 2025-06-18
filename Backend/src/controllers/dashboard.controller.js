@@ -88,7 +88,7 @@ export const deleteProduct = async (res, req) => {
 };
 
 export const getOrders = async (req, res) => {
-  const orders = await Order.find().populate("userId", "phoneNumber");
+  const orders = await Order.find().populate("userId");
   res.json(orders);
 };
 
