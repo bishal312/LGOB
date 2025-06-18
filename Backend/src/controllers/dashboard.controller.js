@@ -88,8 +88,12 @@ export const deleteProduct = async (res, req) => {
 };
 
 export const getOrders = async (req, res) => {
-  const orders = await Order.find().populate("userId");
-  res.json(orders);
+  try {
+    const orders = await Order.find().populate("userId", "fullName _id");
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch orders", error });
+  }
 };
 
 export const updateOrderStatus = async (req, res) => {
@@ -102,4 +106,24 @@ export const updateOrderStatus = async (req, res) => {
       new: true,
     }
   );
+};
+
+export const getDetailsByOrderId = async (req, res) => {
+  const { orderid } = req.prams;
+  try {
+    const order = await Order.findById(orderid).populate("userId");
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    res.status(200).json(order);
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Failed to fetch order",
+        error: error.message,
+      });
+  }
 };
