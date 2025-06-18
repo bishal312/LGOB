@@ -40,6 +40,8 @@ export const placeOrder = async (req, res) => {
       const itemsQuantity =
         item.quantity && item.quantity > 0 ? item.quantity : 1;
 
+      
+
       validatedItems.push({
         productId: product._id,
         quantity: itemsQuantity,
@@ -59,6 +61,10 @@ export const placeOrder = async (req, res) => {
       const orderedItemsHtmlArray = await Promise.all(
         order.items.map(async (item, i) => {
           const product = await Product.findById(item.productId);
+          if(!product) {
+            throw new Error("Product not found from id");            
+          }
+          product.stock -= item.quantity;
           return `<li>Item ${i + 1}: ${product.name} — Qty: ${
             item.quantity
           }</li>`;
