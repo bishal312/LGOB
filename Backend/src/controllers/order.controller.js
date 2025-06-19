@@ -40,8 +40,6 @@ export const placeOrder = async (req, res) => {
       const itemsQuantity =
         item.quantity && item.quantity > 0 ? item.quantity : 1;
 
-      
-
       validatedItems.push({
         productId: product._id,
         quantity: itemsQuantity,
@@ -61,10 +59,10 @@ export const placeOrder = async (req, res) => {
       const orderedItemsHtmlArray = await Promise.all(
         order.items.map(async (item, i) => {
           const product = await Product.findById(item.productId);
-          if(!product) {
-            throw new Error("Product not found from id");            
+          if (!product) {
+            throw new Error("Product not found from id");
           }
-          product.stock-=item.quantity;
+          product.stock -= item.quantity;
           await product.save();
           return `<li>Item ${i + 1}: ${product.name} — Qty: ${
             item.quantity
@@ -158,5 +156,35 @@ export const coordinatesMap = async (req, res) => {
     res
       .status(500)
       .json({ error: "Internal server error", details: err.message });
+  }
+};
+
+export const getMyOrders = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const orderedProducts = await Order.find({ userId }).populate(
+      "items"
+    );
+    const onlyItems = orderedProducts.map(order => order.items);
+
+    if (!orderedProducts.length) {
+      return res.status(400).json({
+        success: false,
+        message: "You haven't ordered any items yet!",
+        onlyItems: [],
+      });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Your Orders:-", onlyItems });
+  } catch (error) {
+    console.error("Error while fetching orders:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch your orders",
+      error: error.message,
+    });
   }
 };
