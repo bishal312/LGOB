@@ -166,7 +166,10 @@ export const getMyOrders = async (req, res) => {
     const orderedProducts = await Order.find({ userId }).populate(
       "items"
     );
-    const onlyItems = orderedProducts.map(order => order.items);
+    const onlyItems = orderedProducts.map(order => ({
+      items: order.items,
+      createdAt: order.createdAt
+    }));
 
     if (!orderedProducts.length) {
       return res.status(400).json({
