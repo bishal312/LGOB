@@ -97,15 +97,24 @@ export const getOrders = async (req, res) => {
 };
 
 export const updateOrderStatus = async (req, res) => {
-  const order = await Order.findByIdAndUpdate(
-    req.params.id,
-    {
-      status: req.body.status,
-    },
-    {
-      new: true,
+  try {
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status: req.body.status },
+      { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
     }
-  );
+
+    res.status(200).json({ message: "Order status updated", order });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to update order", error: error.message });
+  }
 };
 
 export const getDetailsByOrderId = async (req, res) => {
@@ -118,12 +127,10 @@ export const getDetailsByOrderId = async (req, res) => {
     }
     res.status(200).json(order);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to fetch order",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch order",
+      error: error.message,
+    });
   }
 };
