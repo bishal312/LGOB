@@ -1,6 +1,48 @@
 import { Cart } from "../models/cart.model.js";
 import User from "../models/User.model.js";
 
+
+export const addToCart = async (req, res) => {
+  try {
+    const { productId, quantity } = req.body;
+    const userId = req.user.id;
+    const qty = parseInt(quantity) || 1;
+
+    const user = await User.findById(userId);
+    if (user?.role === "admin") {
+      return res
+        .status(403)
+        .json({ message: "Admins are not allowed to add to cart" });
+    }
+
+    let cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      cart = new Cart({
+        userId,
+        items: [{ productId, quantity: qty }],
+      });
+    } else {
+      const existingItem = cart.items.find((item) =>
+        item.productId.equals(productId)
+      );
+
+      if (existingItem) {
+        existingItem.quantity += qty;
+      } else {
+        cart.items.push({ productId, quantity: qty });
+      }
+    }
+
+    await cart.save();
+    res.status(200).json({ message: "Added to cart", cart });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to add to cart", error: error.message });
+  }
+};
+
 export const getCartProduct = async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.user._id }).populate(
@@ -14,40 +56,7 @@ export const getCartProduct = async (req, res) => {
   }
 };
 
-export const addToCart = async (req, res) => {
-  try {
-    const { productId, quantity } = req.body;
-    const userId = req.user.id;
-    const adminUser = await User.findById( userId );
-    if (!adminUser) {
-      let cart = await Cart.findOne({ userId: req.user._id });
 
-      if (!cart) {
-        cart = new Cart({
-          userId: req.user._id,
-          items: [{ productId, quantity }],
-        });
-      } else {
-        const existingItem = cart.items.find((item) =>
-          item.productId.equals(productId)
-        );
-
-        if (existingItem) {
-          existingItem.quantity += quantity;
-        } else {
-          cart.items.push({ productId, quantity });
-        }
-      }
-
-      await cart.save();
-      res.status(200).json(cart);
-    }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to add to cart", error: error.message });
-  }
-};
 
 export const removeFromCart = async (req, res) => {
   try {
@@ -79,12 +88,10 @@ export const clearCart = async (req, res) => {
     await cart.save();
     res.status(200).json({ success: false, message: "Cart cleared" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to clear cart",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to clear cart",
+      error: error.message,
+    });
   }
 };
