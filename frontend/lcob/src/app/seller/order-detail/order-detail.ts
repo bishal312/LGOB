@@ -42,7 +42,6 @@ export class OrderDetail implements OnInit {
     ids.forEach((id:string)=>{
       this.productService.getProductDetailById(id).subscribe((res:any)=>{this.orderProductsDetails.push(res)})
     })
-    console.log(this.orderProductsDetails)
   }
 
   

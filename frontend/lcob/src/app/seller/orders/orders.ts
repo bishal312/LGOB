@@ -14,6 +14,8 @@ export class Orders {
   router=inject(Router)
   orderService=inject(Order)
   allOrders:any[]=[]
+  filteredOrders:any[]=[]
+  currentFilter:string='all'
   
 
   ngOnInit(){
@@ -21,23 +23,38 @@ export class Orders {
   }
 
   getAllOrders(){
-    console.log("getting all orders")
     this.orderService.getAllOrders().subscribe((res:any)=>{
       this.allOrders=res.map((order:any)=>{
+        
         return {
           ...order,
           
           totalQuantity: this.getTotalQuantity(order)
         }
       })
+      this.filterOrders('all')
+      // why i have set this i also forget lol
       localStorage.setItem('allOrders',JSON.stringify(this.allOrders))
     },(error)=>{
       console.log(error)
     })
   }
 
+  filterOrders(status:string){
+    this.currentFilter=status
+    if(status=='all'){
+      this.filteredOrders=this.allOrders
+    }
+    else{
+      const filterOrders=this.allOrders.filter((order:any)=>{
+        return order.status==status
+      })
+      this.filteredOrders=filterOrders
+    }
+  }
+
   getTotalQuantity(order: any): number {
-  return order.items?.reduce((sum: number, item: any) => sum + item.quantity, 0) || 0;
+  return order.items?.reduce((sum: number, item: any) => sum + item.quantity, 0) ?? 0;
 }
 
   navigateToOrderDetails(orderId:string){
@@ -59,5 +76,14 @@ export class Orders {
   }
 
   return result + '...';
+  }
+
+  changeOrderStatus(orderId:string,status:string){
+    this.orderService.changeOrderStatus(orderId,status).subscribe((res:any)=>{
+      this.getAllOrders()
+      this.filterOrders(this.currentFilter)
+    },(error)=>{
+      console.log(error)
+    })
   }
 }

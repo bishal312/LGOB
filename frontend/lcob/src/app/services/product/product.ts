@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { IcartObj, IproductGetObj } from '../../models/model';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -13,24 +14,47 @@ export class Product {
   cartItems = signal<
     Array<{ productId: IproductGetObj; quantity: number; _id: string }>
   >([]);
-  private productCache: IproductGetObj[] | null = null;
+
+  private readonly productCache=signal<IproductGetObj[]>([])
+   readonly products = computed(() => this.productCache());
+
   constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    if (this.productCache) {
-      return of(this.productCache);
+    if (this.productCache().length > 0) {
+      console.log("Returning cache products",this.productCache())
+      return of(this.productCache());
     } else {
       return this.http
         .get<IproductGetObj[]>('http://localhost:5001/api/dashboard/products')
         .pipe(
-          tap((products) => (this.productCache = products)) //updates the product cache
+          tap((products) =>  (this.productCache.set(products))) //updates the product cache
         );
     }
   }
 
+
+
+
+  
+  updateStockAfterOrder(order: { items: { productId: string; quantity: number }[] }) {
+  this.productCache.update(products =>
+    products.map(product => {
+      const orderItem = order.items.find(item => item.productId === product._id);
+      if (orderItem) {
+        return { ...product, stock: product.stock - orderItem.quantity };
+      }
+      return product;
+    })
+  );
+}
+
+
   clearCache() {
-    this.productCache = null;
+    this.productCache.set([])
   }
+
+
 
   updateProduct(productObj: any) {
     return this.http.put(
