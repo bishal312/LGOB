@@ -42,7 +42,7 @@
   </div>
 
   <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
-    <table class="max-w-[900px] w-full text-sm text-left text-gray-700">
+    <table class="w-full text-sm text-left text-gray-700">
       <thead class="bg-gray-100 text-sm font-semibold text-gray-700">
         <tr>
           <th class="p-4">Customer</th>
@@ -65,10 +65,10 @@
   [value]="order.status || 'Pending'" 
   class="text-sm px-3 py-1.5 border rounded-xl transition-colors duration-300 ease-in-out w-full"
   [ngClass]="{
-    'text-white bg-yellow-500 border-yellow-600': (order.status || 'Pending') === 'Pending',
-    'text-white bg-blue-500 border-blue-600': (order.status || 'Pending') === 'Delivery in process',
-    'text-white bg-green-600 border-green-700': (order.status || 'Pending') === 'Delivered',
-    'text-white bg-red-600 border-red-700': (order.status || 'Pending') === 'Cancelled'
+    ' text-yellow-500 border-yellow-600': (order.status || 'Pending') === 'Pending',
+    ' text-blue-500 border-blue-600': (order.status || 'Pending') === 'Delivery in process',
+    ' text-green-600 border-green-700': (order.status || 'Pending') === 'Delivered',
+    ' text-red-600 border-red-700': (order.status || 'Pending') === 'Cancelled'
   }"
 >
   <option value="Pending">Pending</option>
