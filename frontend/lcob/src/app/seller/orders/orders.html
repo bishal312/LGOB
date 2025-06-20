@@ -1,8 +1,48 @@
 <div class="p-4 sm:p-6 md:p-8 w-full bg-white min-h-screen overflow-x-auto">
   <h2 class="text-2xl font-bold mb-6 text-gray-800">All Orders</h2>
 
+  <!-- Filter Buttons -->
+  <div class="flex flex-wrap gap-2 mb-4">
+    <button
+      (click)="filterOrders('all')"
+      class="px-4 py-1 rounded-full text-sm border hover:bg-gray-100"
+      [class.bg-gray-200]="currentFilter === 'all'"
+    >
+      All
+    </button>
+    <button
+      (click)="filterOrders('Pending')"
+      class="px-4 py-1 rounded-full text-sm border hover:bg-yellow-100"
+      [class.bg-yellow-100]="currentFilter === 'Pending'"
+    >
+      Pending
+    </button>
+    <button
+  (click)="filterOrders('Delivery in process')"
+  class="px-4 py-1 rounded-full text-sm border hover:bg-blue-100"
+  [class.bg-blue-100]="currentFilter === 'Delivery in process'"
+>
+  Delivery In Process
+</button>
+
+    <button
+      (click)="filterOrders('Delivered')"
+      class="px-4 py-1 rounded-full text-sm border hover:bg-green-100"
+      [class.bg-green-100]="currentFilter === 'Delivered'"
+    >
+      Delivered
+    </button>
+    <button
+      (click)="filterOrders('Cancelled')"
+      class="px-4 py-1 rounded-full text-sm border hover:bg-red-100"
+      [class.bg-red-100]="currentFilter === 'Cancelled'"
+    >
+      Cancelled
+    </button>
+  </div>
+
   <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
-    <table class="max-w-[800px] w-full text-sm text-left text-gray-700">
+    <table class="max-w-[900px] w-full text-sm text-left text-gray-700">
       <thead class="bg-gray-100 text-sm font-semibold text-gray-700">
         <tr>
           <th class="p-4">Customer</th>
@@ -12,46 +52,53 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100">
-        @for (order of allOrders; track $index) {
-          <tr class="hover:bg-gray-50 transition">
-            <!-- Customer Name -->
-            <td class="p-4">
-              {{ order.userId?.fullName || 'Unknown' }}
-            </td>
+        @for (order of filteredOrders; track $index) {
+        <tr class="hover:bg-gray-50 transition">
+          <td class="p-4">{{ order.userId?.fullName || 'Unknown' }}</td>
+          <td class="p-4 lg:block hidden">
+            {{ getSlicedAddress(order?.address) || 'N/A' }}
+          </td>
+          <td class="p-2 capitalize">
+         <select 
+  #statusSelect
+  (change)="changeOrderStatus(order._id, statusSelect.value)"
+  [value]="order.status || 'Pending'" 
+  class="text-sm px-3 py-1.5 border rounded-xl transition-colors duration-300 ease-in-out w-full"
+  [ngClass]="{
+    'text-white bg-yellow-500 border-yellow-600': (order.status || 'Pending') === 'Pending',
+    'text-white bg-blue-500 border-blue-600': (order.status || 'Pending') === 'Delivery in process',
+    'text-white bg-green-600 border-green-700': (order.status || 'Pending') === 'Delivered',
+    'text-white bg-red-600 border-red-700': (order.status || 'Pending') === 'Cancelled'
+  }"
+>
+  <option value="Pending">Pending</option>
+  <option value="Delivery in process">Delivery in process</option>
+  <option value="Delivered">Delivered</option>
+  <option value="Cancelled">Cancelled</option>
+</select>
 
-            <!-- Address (Plain Text) -->
-            <td class="p-2 lg:block hidden">
-              {{ getSlicedAddress(order?.address) || 'N/A' }}
-            </td>
-
-            <!-- Status from backend -->
-            <td  class="p-2 capitalize">
-              <span 
-                class="inline-block px-3 py-1 text-xs font-semibold rounded-full"
-                [ngClass]="{
-                  'bg-green-100 text-green-800': order.status === 'delivered',
-                  'bg-yellow-100 text-yellow-800': order.status === 'pending',
-                  'bg-red-100 text-red-800': order.status === 'cancelled'
-                }"
-              >
-                {{ order.status || 'N/A' }}
-              </span>
-            </td>
-
-            <!-- See More Button -->
-            <td class="p-4 lg:text-right  md:text-center">
-              <button 
-               (click)="navigateToOrderDetails(order._id)"
-                class="lg:px-4 md:px-2 sm:py-2 py-1 text-sm text-white min-w-[75px] bg-green-700 cursor-pointer hover:bg-green-600 rounded-lg transition"
-                
+          </td>
+          <td class="p-4 lg:text-right md:text-center">
+            <button
+              *ngIf="order.status === 'pending'; else viewBtn"
+              class="lg:px-4 md:px-2 sm:py-2 py-1 text-sm text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition"
+            >
+              Mark Delivered
+            </button>
+            <ng-template #viewBtn>
+              <button
+                (click)="navigateToOrderDetails(order._id)"
+                class="lg:px-4 md:px-2 sm:py-2 cursor-pointer w-[75px] sm:w-full py-1 text-sm text-white bg-green-700 hover:bg-green-600 rounded-lg transition"
               >
                 See More
               </button>
-            </td>
-          </tr>
+            </ng-template>
+          </td>
+        </tr>
         }
       </tbody>
     </table>
   </div>
 </div>
+
 <router-outlet />

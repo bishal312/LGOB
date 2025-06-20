@@ -14,6 +14,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../services/order/order';
 import { NgClass, NgIf } from '@angular/common';
 import { GoogleApiLoader } from '../../services/google-api-loader/google-api-loader';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -123,7 +124,12 @@ export class Checkout implements OnInit {
       (res: any) => {
         this.showPopup = true;
         if (res.message === 'Order placed successfully') {
+          
+
+        
+
           this.checkoutMessage = res.message;
+         
           setTimeout(() => {
             this.showPopup = false;
             this.router.navigate(['/shop/my-orders']);
@@ -148,6 +154,10 @@ export class Checkout implements OnInit {
       this.skipNextInput = false;
       return;
     }
+    if(this.suggestions.length === 0){
+      this.showSuggestions.set(false);
+    }
+    
     const matchedAddress = this.suggestions().find(
       (suggestion) =>
         suggestion.placePrediction?.text?.text === this.queryAddress()

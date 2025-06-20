@@ -25,4 +25,12 @@ export class Order {
   getOrderDetailById(orderid:string){
     return this.http.get(`http://localhost:5001/api/dashboard/orders/${orderid}`)
   }
+
+  getOrderDetailByUserId(){
+    return this.http.get(`${this.apiUrl}/getmyorders`)
+  }
+
+  changeOrderStatus(id:string,status:string){
+    return this.http.patch(`http://localhost:5001/api/dashboard/orders/${id}/status`,{status:status})
+  }
 }

@@ -1,9 +1,10 @@
 import { NgIf } from '@angular/common';
-import { Component, inject, Renderer2 } from '@angular/core';
+import { Component,  computed,  effect, inject, Renderer2, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../services/api/api';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
+import { sign } from 'crypto';
 
 @Component({
   selector: 'app-my-products',
@@ -17,7 +18,7 @@ export class MyProducts {
   apiService = inject(Api);
   renderer = inject(Renderer2);
 
-  product: any[] = [];
+  readonly product = computed(() => this.productService.products());
   showForm = false;
   isEditing:boolean=false;
   imageBase64: string = '';
@@ -26,6 +27,7 @@ export class MyProducts {
   selectedImageFile: File | null = null;
 
   ngOnInit() {
+    this.productService.clearCache();
     this.loadProducts();
     this.initializeProductObj();
   }
@@ -103,14 +105,14 @@ export class MyProducts {
   }
 
   loadProducts() {
-    this.productService.getAllProducts().subscribe(
-      (res: any[]) => {
-        this.product = res;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+this.productService.getAllProducts().subscribe({
+  next: (products) => {
+    console.log('Products:', products);
+  },
+  error: (err) => {
+    console.error('Error loading products:', err);
+  }
+});
   }
 
   addJsonLd(product: any) {
@@ -155,10 +157,10 @@ export class MyProducts {
       _id:this.editingProductId
       
     };
-    // run that clear cache after res ok is received
+    // run load again due to update in products
     this.productService.updateProduct(payload).subscribe((res:any)=>{
       if(res){
-        this.productService.clearCache();
+        this.productService.clearCache()
         this.loadProducts();
       }
      

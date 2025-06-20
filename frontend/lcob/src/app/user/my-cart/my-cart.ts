@@ -170,6 +170,10 @@ export class MyCart {
     this.orderService.placeOrder(this.orderFormObj.value).subscribe(
       (res: any) => {
         if (res.message === 'Order placed successfully') {
+          
+          this.productService.updateStockAfterOrder(res.order);
+          
+
           this.showPopup = true;
           this.checkoutMessage = res.message;
           setTimeout(() => {
