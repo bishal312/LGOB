@@ -10,7 +10,7 @@ router.put("/products/:id", protectRoute, adminRoute, updateProduct);
 router.delete("/products/:id", protectRoute, adminRoute, deleteProduct);
 
 router.get("/orders", protectRoute, adminRoute, getOrders);
-router.patch("/orders/:id/status", protectRoute, adminRoute, updateOrderStatus);
+router.put("/orders/:id/status", protectRoute, adminRoute, updateOrderStatus);
 router.get("/orders/:orderid", protectRoute, adminRoute, getDetailsByOrderId);
 
 
