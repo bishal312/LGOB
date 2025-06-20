@@ -45,8 +45,8 @@ export class Myorders {
 
  getAllProducts(){
  
-  this.productService.getAllProducts().subscribe((res:IproductGetObj[])=>{
-    this.allProducts=res
+  this.productService.getProductUser().subscribe((res:any)=>{
+    this.allProducts=res.products
     console.log(this.allProducts,"all Products")
   },(error)=>{
     console.log(error)

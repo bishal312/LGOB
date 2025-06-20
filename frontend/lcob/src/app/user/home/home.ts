@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 import { error } from 'console';
@@ -19,10 +19,12 @@ export class Home {
   allProducts:IproductGetObj[]=[]
   
   productService=inject(Product)
+  router=inject(Router)
   
   ngOnInit(){
-    this.productService.getAllProducts().subscribe((res:IproductGetObj[])=>{
-      this.allProducts=res
+    this.navigateIfAuthenticated()
+    this.productService.getProductUser().subscribe((res:any)=>{
+      this.allProducts=res.products
     }
     , error=>{console.log(error)})
   }
@@ -37,6 +39,18 @@ subscribe(email:string){
     }
 }
 
+navigateIfAuthenticated(){
+  const user = JSON.parse(localStorage.getItem('user') ?? '{}');
+  if (!user) {
+  this.router.navigate(['/home']);
+}
+else if(user.role === 'customer'){
+  this.router.navigate(['/home']);
+}
+else if(user.role === 'admin'){
+  this.router.navigate(['/seller/dashboard']);
+}
+}
 
 addToCart(product:IproductGetObj){
   const user = localStorage.getItem('user');

@@ -108,13 +108,19 @@ export class MyCart {
       this.skipNextInput = false;
       return;
     }
-    const matchedAddress = this.suggestions().find(
+    if(this.suggestions().length === 0){
+      this.showSuggestions.set(true);
+      return;
+    }
+    else{
+      const matchedAddress = this.suggestions().find(
       (suggestion) =>
         suggestion.placePrediction?.text?.text === this.queryAddress()
     );
     if (matchedAddress) {
       this.suggestions.set([]);
       return;
+    }
     }
 
     this.queryAddress.set(address);

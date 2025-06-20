@@ -88,7 +88,7 @@
     </div>
 
     <!-- Right: Order Summary -->
-    @if(allCartItems().length>0){
+    @if(allCartItems() && allCartItems().length>0){
 
     <div id="order-summary" class="bg-white rounded-lg shadow p-6 h-fit">
       <h2 class="text-2xl font-bold text-gray-900 mb-4">Order Summary</h2>
@@ -105,22 +105,30 @@
             [value]="queryAddress()"
           />
           <div *ngIf="showSuggestions()" class="relative">
+            @if( suggestions().length < 1){
+            <p class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4">
+              No Address found
+            </p>
+            }
+            @else {
             <ul
               class="bg-white shadow-md border rounded mt-1 z-40 relative w-full"
-            >
-              @for(suggestion of suggestions(); track $index) {
+            > 
 
-              <li
-                (click)="onAddressSelect(suggestion)"
-                (keydown.enter)="onAddressSelect(suggestion)"
-                (keydown.space)="onAddressSelect(suggestion)"
-                id="address"
-                class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
-              >
-                {{suggestion.placePrediction?.text?.text}}
-              </li>
+                @for(suggestion of suggestions(); track $index) {
+  
+                <li
+                  (click)="onAddressSelect(suggestion)"
+                  (keydown.enter)="onAddressSelect(suggestion)"
+                  (keydown.space)="onAddressSelect(suggestion)"
+                  id="address"
+                  class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
+                >
+                  {{suggestion.placePrediction?.text?.text}}
+                </li>
+                }
+              </ul>
               }
-            </ul>
           </div>
         </div>
         <div class="flex justify-between">

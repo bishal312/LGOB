@@ -33,7 +33,9 @@ export class Product {
     }
   }
 
-
+  getProductUser(){
+    return this.http.get<IproductGetObj[]>(`http://localhost:5001/api/products`)
+  }
 
 
   

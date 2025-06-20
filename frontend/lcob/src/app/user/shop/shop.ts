@@ -21,11 +21,11 @@ export class Shop {
  ngOnInit(){
     if(this.getAllProductsCount==0){
       
-      this.productService.getAllProducts().subscribe((res:IproductGetObj[])=>
+      this.productService.getProductUser().subscribe((res:any)=>
        { 
          this.getAllProductsCount++
-         this.getProductCount=res.length
-         this.allProducts=res
+         this.getProductCount=res.products?.length
+         this.allProducts=res.products
        })
     }
     else{

@@ -79,22 +79,28 @@
         />
 
         <div *ngIf="showSuggestions()" class="relative">
-          <ul
-            class="bg-white shadow-md border rounded mt-1 z-40 relative w-full"
-          >
-            @for(suggestion of suggestions(); track $index) {
+          @if(suggestions().length === 0){
+            <p class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4">No Address found</p>
+          }
+          @else {
 
-            <li
-              (click)="onAddressSelect(suggestion)"
-              (keydown.enter)="onAddressSelect(suggestion)"
-              (keydown.space)="onAddressSelect(suggestion)"
-              id="address"
-              class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
+            <ul
+              class="bg-white shadow-md border rounded mt-1 z-40 relative w-full"
             >
-              {{suggestion.placePrediction?.text?.text}}
-            </li>
-            }
-          </ul>
+              @for(suggestion of suggestions(); track $index) {
+  
+              <li
+                (click)="onAddressSelect(suggestion)"
+                (keydown.enter)="onAddressSelect(suggestion)"
+                (keydown.space)="onAddressSelect(suggestion)"
+                id="address"
+                class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4"
+              >
+                {{suggestion.placePrediction?.text?.text}}
+              </li>
+              }
+            </ul>
+          }
         </div>
       </div>
 

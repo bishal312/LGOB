@@ -1,6 +1,6 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-seller-layout',
@@ -10,9 +10,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class SellerLayout {
     sidebarOpen = false;
+    router=inject(Router)
 
     logout(){
       localStorage.removeItem('user');
+      this.router.navigate([''])
     }
 
 }

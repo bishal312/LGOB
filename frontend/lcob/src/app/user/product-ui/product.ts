@@ -33,9 +33,9 @@ export class ProductUi implements OnInit{
     this.getProductDetail(this.productId);
   });
 
-  this.productService.getAllProducts().subscribe(
-    (res: IproductGetObj[]) => {
-      this.relatedProducts = res;
+  this.productService.getProductUser().subscribe(
+    (res: any) => {
+      this.relatedProducts = res.products;
     },
     error => {
       console.log(error);
@@ -45,7 +45,7 @@ export class ProductUi implements OnInit{
   
 
   getProductDetail(id:string){
-    console.log("getting product detail")
+    
     this.productService.getProductDetailById(id).subscribe((res:{success:boolean,product:IproductGetObj})=>{
       this.productDetail=res.product
     })
