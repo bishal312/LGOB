@@ -20,3 +20,13 @@ export const getProductDetail = async (req, res) => {
     res.status(500).json({success: false, message:"Internal Server error"});
   }
 };
+
+export const showAllProducts = async(req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json({succes: true, message:"All Products:-", products})
+  } catch (error) {
+    console.log("Errors occurs while fetcing all products", error);
+    res.status(500).json({success: false, message: "Internal server error"});
+  }
+}
