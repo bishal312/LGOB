@@ -5,7 +5,7 @@ import { getProductDetail, showAllProducts } from "../controllers/product.contro
 const router = express.Router();
 
 router.get("/:id", protectRoute,getProductDetail);
-router.get("/",protectRoute, showAllProducts);
+router.get("/", showAllProducts); //We can show all products without authentication
 
 
 
