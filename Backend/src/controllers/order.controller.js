@@ -217,7 +217,7 @@ export const getMyOrders = async (req, res) => {
     }));
 
     if (!orderedProducts.length) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "You haven't ordered any items yet!",
         onlyItems: [],

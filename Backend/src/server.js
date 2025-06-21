@@ -24,7 +24,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:4000", // Angular app URL
+    origin: "http://localhost:4200", // Angular app URL
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, // If using cookies/auth headers
