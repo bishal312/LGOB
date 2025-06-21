@@ -101,7 +101,7 @@ export const placeOrder = async (req, res) => {
 };
 
 export const cancelOrder = async (req, res) => {
-  const { orderId } = req.body;
+  const { id:orderId } = req.params;
   if (!orderId) {
     res.status(400).json({ success: false, message: "Order Id is required" });
   }
