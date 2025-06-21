@@ -9,11 +9,19 @@ export class Order {
   apiUrl:string="http://localhost:5001/api/orders"
   constructor(private http:HttpClient) { }
 
-  // place Order
+  // for user
 
   placeOrder(obj:Order){
     return this.http.post(`${this.apiUrl}/place`,obj)
   }
+
+    getOrderDetailByUserId(){
+    return this.http.get(`${this.apiUrl}/getmyorders`)
+  }
+
+   cancelOrder(id:string){
+     return this.http.delete(`${this.apiUrl}/cancel/${id}`)
+   }
 
 
   // for seller dashboard
@@ -26,9 +34,7 @@ export class Order {
     return this.http.get(`http://localhost:5001/api/dashboard/orders/${orderid}`)
   }
 
-  getOrderDetailByUserId(){
-    return this.http.get(`${this.apiUrl}/getmyorders`)
-  }
+
 
   changeOrderStatus(id:string,status:string){
     return this.http.patch(`http://localhost:5001/api/dashboard/orders/${id}/status`,{status:status})

@@ -16,7 +16,7 @@
       <button (click)="toggleMenu()">
         <!-- Hamburger Icon -->
         <svg
-          *ngIf="!isMenuOpen"
+          *ngIf="isMenuOpen() === false"
           class="w-8 cursor-pointer h-8 text-black"
           fill="none"
           stroke="currentColor"
@@ -33,7 +33,7 @@
 
         <!-- Close Icon -->
         <svg
-          *ngIf="isMenuOpen"
+          *ngIf="isMenuOpen()=== true"
           class="w-8 cursor-pointer h-8 text-black"
           fill="none"
           stroke="currentColor"
@@ -111,7 +111,7 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div *ngIf="isMenuOpen" class="md:hidden px-4 pb-4">
+  <div *ngIf="isMenuOpen()=== true" class="md:hidden px-4 pb-4">
     <hr />
     <nav
       aria-label="Mobile Menu"

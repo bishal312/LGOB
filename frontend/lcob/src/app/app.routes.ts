@@ -17,6 +17,7 @@ import { authGuard } from './services/guards/auth-guard';
 import { Shop } from './user/shop/shop';
 import { MyCart } from './user/my-cart/my-cart';
 import { OrderDetail } from './seller/order-detail/order-detail';
+import { sellerGuard } from './services/guards/seller-guard';
 
 export const routes: Routes = [
   // MAIN ROUTES (with header/footer)
@@ -29,11 +30,11 @@ export const routes: Routes = [
       { path: 'shop',
         component:Shop,
          title:'Shop' },
-         {path:'shop/my-cart', component:MyCart, title:'My Cart' },
-      { path: 'shop/product/:id', component: ProductUi, title: 'Product' },
-      { path: 'shop/checkout/:id', component: Checkout, title: 'Checkout', },
-      { path: 'shop/success', component: Success, title: 'Success'},
-      { path: 'shop/my-orders', component: Myorders, title: 'My Orders' },
+         {path:'shop/my-cart', component:MyCart, title:'My Cart' , canActivate:[authGuard] },
+      { path: 'shop/product/:id', component: ProductUi, title: 'Product', },
+      { path: 'shop/checkout/:id', component: Checkout, title: 'Checkout', canActivate:[authGuard],  },
+      { path: 'shop/success', component: Success, title: 'Success',canActivate:[authGuard] },
+      { path: 'shop/my-orders', component: Myorders, title: 'My Orders',canActivate:[authGuard]  },
       { path: 'about', component: About, title: 'About Us' },
     ],
   },
@@ -46,6 +47,7 @@ export const routes: Routes = [
   {
     path: 'seller',
     component:SellerLayout,
+    canActivate: [sellerGuard],
     children: [
       { path: 'login', component: Login },
       { path: 'dashboard', component: Dashboard, title: 'Dashboard' },
@@ -53,7 +55,8 @@ export const routes: Routes = [
         children:[
          { 
           path:'order-detail/:id',
-          component:OrderDetail
+          component:OrderDetail,
+          
         }
         ]
        },

@@ -2,11 +2,10 @@ import { isPlatformBrowser, NgIf } from '@angular/common';
 import { Component, computed, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../services/auth/auth';
-import { platform } from 'node:os';
-import { single } from 'rxjs';
 import { Product } from '../../../services/product/product';
-import { IcartObj, IproductGetObj } from '../../../models/model';
-import { error } from 'node:console';
+import {  IproductGetObj } from '../../../models/model';
+import { sign } from 'crypto';
+
 
 
 @Component({
@@ -24,6 +23,7 @@ export class Header {
    authService=inject(Auth)
    productService=inject(Product)
     ngOnInit(){
+      this.isMenuOpen.set(false);
      if (isPlatformBrowser(this.platformId)) {
     if (this.btnText() === "Login") {
       const userData = localStorage.getItem('user');
@@ -45,12 +45,17 @@ export class Header {
 
     }
 
-    isMenuOpen = false;
+    isMenuOpen = signal(false);
 
 
   
   toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
+    if(this.isMenuOpen()){
+      this.isMenuOpen.set(false);
+    }
+    else{
+      this.isMenuOpen.set(true);
+    }
   }
 
   

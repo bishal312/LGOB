@@ -8,59 +8,71 @@ import { error } from 'console';
 
 @Component({
   selector: 'app-myorders',
-  imports: [DatePipe,NgIf,CommonModule],
+  imports: [DatePipe, NgIf, CommonModule],
   templateUrl: './myorders.html',
-  styleUrl: './myorders.css'
+  styleUrl: './myorders.css',
 })
 export class Myorders {
- orderService=inject(Order)
- productService=inject(Product)
+  orderService = inject(Order);
+  productService = inject(Product);
 
- allProducts:IproductGetObj[]=[]
- orderItems:any[]=[]
- 
+  allProducts: IproductGetObj[] = [];
+  orderItems: any[] = [];
 
- ngOnInit(){
-  this.getOrderDetail()
- }
+  ngOnInit() {
+    this.getOrderDetail();
+  }
 
+  getOrderDetail() {
+    this.orderService.getOrderDetailByUserId().subscribe(
+      (res: any) => {
+        if (res.message === 'Your Orders:-') {
+          this.orderItems = res.onlyItems.map((order: any) => ({
+            orderId: order.orderId,
+            createdAt: order.createdAt,
+            items: order.items,
+          }));
+          console.log(this.orderItems);
+          this.getAllProducts();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
- getOrderDetail(){
-  this.orderService.getOrderDetailByUserId().subscribe((res:any)=>{
-    if(res.message === "Your Orders:-"){
-       this.orderItems= res.onlyItems.map((order:any)=>({
-        createdAt:order.createdAt,
-        items:order.items
-       }))
-      console.log("Order Detail By user ID : ", res)
-      
-      console.log(this.orderItems)
-      this.getAllProducts()
+  getAllProducts() {
+    this.productService.getProductUser().subscribe(
+      (res: any) => {
+        this.allProducts = res.products;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
-    }
-  },(error)=>{
-    console.log(error)
-  })
- }
+  getProductById(productId: string) {
+    return this.allProducts.find((p) => p._id === productId);
+  }
 
- getAllProducts(){
- 
-  this.productService.getProductUser().subscribe((res:any)=>{
-    this.allProducts=res.products
-    console.log(this.allProducts,"all Products")
-  },(error)=>{
-    console.log(error)
-  })
- }
+  getTotalAmount(order: { items: any[] }): number {
+    return order.items.reduce((total, item) => {
+      const product = this.getProductById(item.productId);
+      return total + (product?.price ?? 0) * item.quantity;
+    }, 0);
+  }
 
- getProductById(productId: string) {
-  return this.allProducts.find(p => p._id === productId);
-}
-
-getTotalAmount(order: { items: any[] }): number {
-  return order.items.reduce((total, item) => {
-    const product = this.getProductById(item.productId);
-    return total + (product?.price ?? 0) * item.quantity;
-  }, 0);
-}
+  cancelOrder(orderId:string){
+    console.log(orderId,"order id");
+    this.orderService.cancelOrder(orderId).subscribe({
+      next:(res:any)=>{
+        this.getOrderDetail()
+      },
+      error:(error)=>{
+        console.log(error,"error while canceling order");
+      }
+    })
+  }
 }

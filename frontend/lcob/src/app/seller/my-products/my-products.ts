@@ -107,7 +107,7 @@ export class MyProducts {
   loadProducts() {
 this.productService.getAllProducts().subscribe({
   next: (products) => {
-    console.log('Products:', products);
+    console.log('Products');
   },
   error: (err) => {
     console.error('Error loading products:', err);
@@ -138,7 +138,7 @@ this.productService.getAllProducts().subscribe({
   }
 
   editProduct(product:IproductGetObj){
-    console.log(product)
+    
     this.editingProductId=product._id
     this.productObj.patchValue(product)
     this.isEditing=true
