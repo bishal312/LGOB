@@ -101,13 +101,17 @@ export const placeOrder = async (req, res) => {
 };
 
 export const cancelOrder = async (req, res) => {
-  const { id:orderId } = req.params;
+  const { id: orderId } = req.params;
   if (!orderId) {
-    res.status(400).json({ success: false, message: "Order Id is required" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Order Id is required" });
   }
-  mongoose.isValidObjectId(orderId) ||
-    res.status(400).json({ success: false, message: "Invalid Order Id" });
-
+  if (!mongoose.isValidObjectId(orderId)) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid Order Id" });
+  }
   try {
     const order = await Order.findById(orderId);
     if (!order) {

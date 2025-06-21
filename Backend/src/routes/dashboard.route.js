@@ -13,6 +13,4 @@ router.get("/orders", protectRoute, adminRoute, getOrders);
 router.patch("/orders/:id/status", protectRoute, adminRoute, updateOrderStatus);
 router.get("/orders/:orderid", protectRoute, adminRoute, getDetailsByOrderId);
 
-
-
-export default router; 
+export default router;
