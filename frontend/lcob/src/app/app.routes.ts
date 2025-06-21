@@ -25,7 +25,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayout,  // This wraps header/footer
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '',  component: Home, title: 'Home' },
       { path: 'home', component: Home, title: 'Home' },
       { path: 'shop',
         component:Shop,
