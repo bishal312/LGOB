@@ -168,7 +168,8 @@ export const getMyOrders = async (req, res) => {
     );
     const onlyItems = orderedProducts.map(order => ({
       items: order.items,
-      createdAt: order.createdAt
+      createdAt: order.createdAt,
+      orderId: order._id
     }));
 
     if (!orderedProducts.length) {
