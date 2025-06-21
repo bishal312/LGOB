@@ -24,7 +24,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:4200" || "http://localhost:4000", // Angular app URL
+    origin: "http://localhost:4000", // Angular app URL
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, // If using cookies/auth headers
@@ -48,15 +48,15 @@ app.use("/api/orders", orderRoutes);
 
 //Now arranging the path for static files
 // Serve Angular build files
-const angularDistPath = path.join(
-  __dirname,
-  "../frontend/lcob/dist/lcob"
-);
+const angularDistPath = path.join(__dirname, "../frontend/lcob/dist/lcob");
 console.log("Angular Dist Path:", angularDistPath);
 app.use(express.static(angularDistPath));
 // Fallback route for Angular
 app.get("/*splat", (req, res) => {
   res.sendFile(path.join(angularDistPath, "index.html"));
+});
+app.get("/", (req, res) => {
+  res.redirect("/home");
 });
 
 app.listen(PORT, () => {
