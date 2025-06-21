@@ -20,7 +20,7 @@ export class Order {
   }
 
    cancelOrder(id:string){
-     return this.http.delete(`${this.apiUrl}/cancel/${id}`)
+     return this.http.delete(`${this.apiUrl}/cancelorder/${id}`)
    }
 
 
