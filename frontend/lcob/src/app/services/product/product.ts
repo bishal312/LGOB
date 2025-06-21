@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { IcartObj, IproductGetObj } from '../../models/model';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class Product {
       return of(this.productCache());
     } else {
       return this.http
-        .get<IproductGetObj[]>('http://localhost:5001/api/dashboard/products')
+        .get<IproductGetObj[]>(`${environment.apiUrl}/dashboard/products`)
         .pipe(
           tap((products) =>  (this.productCache.set(products))) //updates the product cache
         );
@@ -34,7 +35,7 @@ export class Product {
   }
 
   getProductUser(){
-    return this.http.get<IproductGetObj[]>(`http://localhost:5001/api/products`)
+    return this.http.get<IproductGetObj[]>(`${environment.apiUrl}/products`)
   }
 
 
@@ -60,7 +61,7 @@ export class Product {
 
   updateProduct(productObj: any) {
     return this.http.put(
-      `${this.dashboardApi}/products/${productObj._id}`,
+      `${environment.apiUrl}/dashboard/products/${productObj._id}`,
       productObj,
       { withCredentials: true }
     );
@@ -68,13 +69,13 @@ export class Product {
 
   getProductDetailById(id: string) {
     return this.http.get<{ success: boolean; product: IproductGetObj }>(
-      `http://localhost:5001/api/products/${id}`
+      `${environment.apiUrl}/products/${id}`
     );
   }
 
   addToCart(productId: string, quantity?: number) {
     return this.http.post(
-      `http://localhost:5001/api/cart/add`,
+      `${environment.apiUrl}/cart/add`,
       { productId, quantity },
       { withCredentials: true }
     );
@@ -93,7 +94,7 @@ export class Product {
       });
     } else {
       return this.http
-        .get<IcartObj>(`http://localhost:5001/api/cart`)
+        .get<IcartObj>(`${environment.apiUrl}/cart`)
         .pipe(tap((cart) => this.cartItems.set(cart.items)));
     }
   }
@@ -103,13 +104,13 @@ export class Product {
   }
 
   deleteCartItem(id: string) {
-    return this.http.delete(`http://localhost:5001/api/cart/remove/${id}`, {
+    return this.http.delete(`${environment.apiUrl}/cart/remove/${id}`, {
       withCredentials: true,
     });
   }
 
   clearAllCartItems() {
-    return this.http.delete(`http://localhost:5001/api/cart/clear`, {
+    return this.http.delete(`${environment.apiUrl}/cart/clear`, {
       withCredentials: true,
     });
   }

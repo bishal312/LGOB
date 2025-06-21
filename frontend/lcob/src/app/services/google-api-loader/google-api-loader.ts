@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -8,16 +9,16 @@ import { Injectable, NgZone } from '@angular/core';
 export class GoogleApiLoader {
   constructor(private http: HttpClient) {}
 
-  apiUrl: string = 'http://localhost:5001/api/orders';
+  
 
   getPlacesName(query: string) {
    
 
-    return this.http.post(`${this.apiUrl}/autocomplete`, { input: query });
+    return this.http.post(`${environment.apiUrl}/orders/autocomplete`, { input: query });
   }
 
   getCoordinates(placeId: string) {
     
-    return this.http.post(`${this.apiUrl}/coordinates`, { placeId: placeId });
+    return this.http.post(`${environment.apiUrl}/orders/coordinates`, { placeId: placeId });
   }
 }

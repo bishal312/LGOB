@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IuserSignupObj } from '../../models/model';
 import { Observable, Subject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,19 @@ export class Api {
   
  
 
-  api:string="http://localhost:5001/api/auth"
 
   constructor(private http:HttpClient) { }
   
   //signup are here and login in auth
   userSignup(obj:IuserSignupObj):Observable<IuserSignupObj>{
-    return this.http.post<IuserSignupObj>(`${this.api}/signup`,obj)
+    return this.http.post<IuserSignupObj>(`${environment.apiUrl}/auth/signup`,obj)
   }
 
   adminSignup(obj:IuserSignupObj){
-    return this.http.post(`${this.api}/signup`,obj)
+    return this.http.post(`${environment.apiUrl}/auth/signup`,obj)
   }
 
   addProduct(obj:any){
-    return this.http.post(`http://localhost:5001/api/dashboard/products`,obj)
+    return this.http.post(`${environment.apiUrl}/dashboard/products`,obj)
   }
 }
