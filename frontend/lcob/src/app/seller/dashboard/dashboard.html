@@ -9,7 +9,7 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
     <div class="bg-blue-50 p-4 rounded-2xl shadow hover:shadow-md transition">
       <p class="text-sm text-gray-500">Total Orders</p>
-      <h2 class="text-2xl font-bold text-blue-700 mt-2">1,250</h2>
+      <h2 class="text-2xl font-bold text-blue-700 mt-2">{{ allOrders.length }}</h2>
     </div>
     <div class="bg-yellow-50 p-4 rounded-2xl shadow hover:shadow-md transition">
       <p class="text-sm text-gray-500">Inside Delivery</p>
@@ -25,35 +25,41 @@
     </div>
     <div class="bg-purple-50 p-4 rounded-2xl shadow hover:shadow-md transition">
       <p class="text-sm text-gray-500">Products Listed</p>
-      <h2 class="text-2xl font-bold text-purple-700 mt-2">520</h2>
+      <h2 class="text-2xl font-bold text-purple-700 mt-2">{{ allProducts.length }}</h2>
     </div>
   </div>
 
   <!-- Bottom Section -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-    <!-- Recent Activity -->
+    <!-- Pie Chart -->
     <div class="bg-gray-50 p-6 rounded-2xl shadow">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h2>
-      <ul class="space-y-3 text-sm text-gray-600">
-        <li>✅ Order #1423 marked as Delivered</li>
-        <li>📦 New product added: Oyster Mushroom</li>
-        <li>⏳ Order #28 is pending delivery</li>
-        <li>🚚 Inside delivery updated: 15 items</li>
-        <li>📝 Seller profile updated</li>
-      </ul>
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Top Products Chart</h2>
+      <div class="relative h-64">
+        <canvas #topProductsChart class="w-full h-full"></canvas>
+      </div>
     </div>
 
-    <!-- Top Products / Quick Summary -->
+    <!-- Top Products List -->
     <div class="bg-gray-50 p-6 rounded-2xl shadow">
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Top Products</h2>
-      <ul class="space-y-3 text-sm text-gray-600">
-        <li> Bottom Mushroom - 320 kg Sales</li>
-        <li> Oyster Mushroom - 320 kg Sales</li>
-        <li> Ganodorma Mushroom - 320 kg Sales</li>
-       
+
+      <ul class="space-y-4">
+        @for (item of top5products; track item.productId) {
+          <li
+            class="flex items-center gap-4 border transition-colors duration-200 hover:bg-gray-100 py-2 px-4 rounded-lg"
+          >
+            <img
+              [src]="item.image || 'https://via.placeholder.com/60x60?text=No+Image'"
+              alt="{{ item.name }}"
+              class="w-14 h-14 object-cover rounded-xl shadow-sm border"
+            />
+            <div class="flex-1">
+              <p class="font-medium text-gray-800">{{ item.name }}</p>
+              <p class="text-sm text-gray-500">{{ item.quantity }} orders</p>
+            </div>
+          </li>
+        }
       </ul>
     </div>
   </div>
 </div>
-
-

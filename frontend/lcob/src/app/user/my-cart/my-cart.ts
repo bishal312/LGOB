@@ -110,7 +110,6 @@ export class MyCart {
     }
     if(this.suggestions().length === 0){
       this.showSuggestions.set(true);
-      return;
     }
     else{
       const matchedAddress = this.suggestions().find(

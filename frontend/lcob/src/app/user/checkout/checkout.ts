@@ -156,7 +156,7 @@ export class Checkout implements OnInit {
     }
     if(this.suggestions().length === 0){
       this.showSuggestions.set(true);
-      return;
+      
     }
     
    else{

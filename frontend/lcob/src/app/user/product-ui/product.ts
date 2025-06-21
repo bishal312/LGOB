@@ -48,7 +48,8 @@ export class ProductUi implements OnInit{
     
     this.productService.getProductDetailById(id).subscribe((res:{success:boolean,product:IproductGetObj})=>{
       this.productDetail=res.product
-    })
+    },
+    error=>{console.log(error)})
 
   }
 
@@ -93,6 +94,7 @@ navigateToProductDetails(productId: string) {
       this.showToast=false
       this.toastMessage='';
     }, 2000);
+    console.log(error)
   })
 }
 
