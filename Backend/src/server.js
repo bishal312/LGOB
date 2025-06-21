@@ -51,14 +51,13 @@ app.use("/api/orders", orderRoutes);
 const angularDistPath = path.join(__dirname, "../frontend/lcob/dist/lcob");
 console.log("Angular Dist Path:", angularDistPath);
 app.use(express.static(angularDistPath));
+app.get("/", (req, res) => {
+  res.redirect("/home");
+});
 // Fallback route for Angular
 app.get("/*splat", (req, res) => {
   res.sendFile(path.join(angularDistPath, "index.html"));
 });
-app.get("/", (req, res) => {
-  res.redirect("/home");
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
   connectDb();
