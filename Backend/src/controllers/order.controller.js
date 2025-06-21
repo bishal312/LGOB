@@ -100,6 +100,45 @@ export const placeOrder = async (req, res) => {
   }
 };
 
+export const cancelOrder = async (req, res) => {
+  const { orderId } = req.body;
+  if (!orderId) {
+    res.status(400).json({ success: false, message: "Order Id is required" });
+  }
+  mongoose.isValidObjectId(orderId) ||
+    res.status(400).json({ success: false, message: "Invalid Order Id" });
+
+  try {
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found" });
+    }
+    if (
+      order.status === "Delivered" ||
+      order.status === "Cancelled" ||
+      order.status === "Delivery in process"
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot cancel an order",
+      });
+    }
+    await Order.findByIdAndDelete(orderId);
+    res.status(200).json({
+      success: true,
+      message: "Order cancelled successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to cancel order",
+      error: error.message,
+    });
+  }
+};
+
 export const autoCompleteAddress = async (req, res) => {
   const { input } = req.body;
 
