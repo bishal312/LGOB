@@ -228,6 +228,7 @@ export const getMyOrders = async (req, res) => {
         quantity: item.quantity,
       })),
       createdAt: order.createdAt,
+      totalAmount: order.totalAmount,
       orderId: order._id,
     }));
 
