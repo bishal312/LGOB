@@ -16,10 +16,9 @@ export class Myorders {
   orderService = inject(Order);
   productService = inject(Product);
 
-
   allProducts: IproductGetObj[] = [];
   orderItems: any[] = [];
-  messageToUser:string=''
+  messageToUser: string = '';
 
   ngOnInit() {
     this.getOrderDetail();
@@ -28,18 +27,21 @@ export class Myorders {
   getOrderDetail() {
     this.orderService.getOrderDetailByUserId().subscribe(
       (res: any) => {
+        if (res.message === "You haven't ordered any items yet!") {
+          this.messageToUser = res.message;
+          this.orderItems = [];
+        }
         if (res.message === 'Your Orders:-') {
           this.orderItems = res.onlyItems.map((order: any) => ({
             orderId: order.orderId,
             createdAt: order.createdAt,
             items: order.items,
           }));
-          console.log(this.orderItems);
           this.getAllProducts();
         }
       },
       (error) => {
-        this.messageToUser=error.error?.message
+        this.messageToUser = error.error?.message;
         console.log(error.error?.message);
       }
     );
@@ -67,18 +69,15 @@ export class Myorders {
     }, 0);
   }
 
-  cancelOrder(orderId:string){
-    console.log(orderId,"order id");
+  cancelOrder(orderId: string) {
     this.orderService.cancelOrder(orderId).subscribe({
-      next:(res:any)=>{
-        console.log(res,"order canceled");
-        this.getOrderDetail()
-        this.messageToUser=res.message
-        console.log(this.orderItems)
+      next: (res: any) => {
+        console.log(res, 'order canceled');
+        this.getOrderDetail();
       },
-      error:(error)=>{
-        console.log(error,"error while canceling order");
-      }
-    })
+      error: (error) => {
+        console.log(error, 'error while canceling order');
+      },
+    });
   }
 }
