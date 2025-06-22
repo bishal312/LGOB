@@ -9,9 +9,20 @@ dotenv.config();
 export const addProduct = async (req, res) => {
   try {
     const { name, price, description, image, stock, userId } = req.body;
+
+    const existingProduct = await Product.findOne({ name, userId });
+
+    if (existingProduct) {
+      return res.status(409).json({
+        success: false,
+        message: "Product already exists. Consider updating the stock.",
+      });
+    }
+
     const result = await cloudinary.uploader.upload(image, {
       folder: "ecommerce_products",
     });
+
     const newProduct = new Product({
       name,
       price,
@@ -19,14 +30,18 @@ export const addProduct = async (req, res) => {
       userId,
       stock,
       image: result.secure_url,
+      imagePublicId: result.public_id,
     });
+
     await newProduct.save();
-    res.status(201).json(newProduct);
+    res.status(201).json({ success: true, product: newProduct });
   } catch (error) {
     console.error("Cloudinary Upload Error:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to upload product" });
+    res.status(500).json({
+      success: false,
+      message: "Failed to upload product",
+      error: error.message,
+    });
   }
 };
 

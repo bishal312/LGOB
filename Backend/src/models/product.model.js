@@ -42,6 +42,7 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+productSchema.index({ name: 1, userId: 1 }, { unique: true }); // Prevent duplicate per user
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;
