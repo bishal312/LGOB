@@ -45,7 +45,7 @@
 
         <!-- Stock -->
         <div>
-          <label for="" class="block text-sm font-medium text-gray-700">Quantity</label>
+          <label for="" class="block text-sm font-medium text-gray-700">Stock</label>
           <input formControlName="stock" type="number" class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Quantity available" />
           <p *ngIf="productObj.get('stock')?.touched && productObj.get('stock')?.invalid" class="text-red-500 text-sm">
             Stock must be a non-negative number.
@@ -104,7 +104,9 @@
         <button (click)="editProduct(item)" class="w-1/3 cursor-pointer bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600 transition duration-300 ease-in-out"  id="edit">
           Edit 
         </button>
-        <button id="delete" class="w-1/3 cursor-pointer bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 transition duration-300 ease-in-out">
+        <button 
+        (click)="deleteProduct(item._id)" 
+        id="delete" class="w-1/3 cursor-pointer bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 transition duration-300 ease-in-out">
           Delete 
         </button>
       </div>

@@ -5,6 +5,7 @@ import { Api } from '../../services/api/api';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 import { sign } from 'crypto';
+import { error } from 'console';
 
 @Component({
   selector: 'app-my-products',
@@ -168,6 +169,18 @@ this.productService.getAllProducts().subscribe({
       console.log(error)
     })
   }
+  
 
+  deleteProduct(id:string){
+    console.log(id)
+    this.productService.deleteProduct(id).subscribe((res:any)=>{
+      if(res){
+        this.productService.clearCache()
+        this.loadProducts();
+      }
+    },(error)=>{
+      console.log(error)
+    })
+  }
   
 }

@@ -71,7 +71,10 @@ export class Myorders {
     console.log(orderId,"order id");
     this.orderService.cancelOrder(orderId).subscribe({
       next:(res:any)=>{
+        console.log(res,"order canceled");
         this.getOrderDetail()
+        this.messageToUser=res.message
+        console.log(this.orderItems)
       },
       error:(error)=>{
         console.log(error,"error while canceling order");

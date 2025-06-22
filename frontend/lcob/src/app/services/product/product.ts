@@ -23,7 +23,7 @@ export class Product {
 
   getAllProducts() {
     if (this.productCache().length > 0) {
-      console.log("Returning cache products",this.productCache())
+      
       return of(this.productCache());
     } else {
       return this.http
@@ -65,6 +65,10 @@ export class Product {
       productObj,
       { withCredentials: true }
     );
+  }
+
+  deleteProduct(_id: string) {
+    return this.http.delete(`${environment.apiUrl}/dashboard/products/${_id}`)
   }
 
   getProductDetailById(id: string) {

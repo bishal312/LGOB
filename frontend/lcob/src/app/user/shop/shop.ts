@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'app-shop',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './shop.html',
   styleUrl: './shop.css'
 })
