@@ -79,12 +79,31 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-export const deleteProduct = async (res, req) => {
-  await Product.findOneAndDelete({
-    _id: req.params.id,
-    userId: req.userId,
-  });
-  res.status(204).end();
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findOne({
+      _id: req.params.id,
+      userId: req.userId,
+    });
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found or deleted already",
+      });
+    }
+
+    if (product.imagePublicId) {
+      await cloudinary.uploader.destroy(product.imagePublicId);
+    }
+    await Product.deleteOne({ _id: req.params.id, userId: req.userId });
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete product",
+      error: error.message,
+    });
+  }
 };
 
 export const getOrders = async (req, res) => {
