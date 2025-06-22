@@ -16,8 +16,10 @@ export class Myorders {
   orderService = inject(Order);
   productService = inject(Product);
 
+
   allProducts: IproductGetObj[] = [];
   orderItems: any[] = [];
+  messageToUser:string=''
 
   ngOnInit() {
     this.getOrderDetail();
@@ -37,7 +39,8 @@ export class Myorders {
         }
       },
       (error) => {
-        console.log(error);
+        this.messageToUser=error.error?.message
+        console.log(error.error?.message);
       }
     );
   }
