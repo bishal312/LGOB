@@ -35,6 +35,7 @@ export class Myorders {
           this.orderItems = res.onlyItems.map((order: any) => ({
             orderId: order.orderId,
             createdAt: order.createdAt,
+            totalAmount: order.totalAmount,
             items: order.items,
           }));
           this.getAllProducts();

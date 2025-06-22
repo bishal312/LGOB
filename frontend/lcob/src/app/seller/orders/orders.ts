@@ -33,8 +33,6 @@ export class Orders {
         }
       })
       this.filterOrders('all')
-      // why i have set this i also forget lol
-      localStorage.setItem('allOrders',JSON.stringify(this.allOrders))
     },(error)=>{
       console.log(error)
     })

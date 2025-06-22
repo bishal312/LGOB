@@ -63,7 +63,7 @@
                 <!-- Price -->
                 <div class="text-right min-w-[80px] md:min-w-[100px]">
                   <p class="text-lg font-bold text-indigo-600">
-                    Rs&nbsp;{{ product.price | number: '1.2-2' }}
+                    Rs&nbsp;{{ order.totalAmount | number: '1.2-2' }}
                   </p>
                 </div>
               </ng-container>
@@ -74,7 +74,7 @@
         <!-- Total Price -->
         <div class="mt-4 text-right">
           <p class="text-base font-semibold text-gray-800">
-            Total: <span class="text-indigo-600">Rs {{ getTotalAmount(order) | number: '1.2-2' }}</span>
+            Total: <span class="text-indigo-600">Rs {{ order.totalAmount | number: '1.2-2' }}</span>
           </p>
         </div>
       </div>

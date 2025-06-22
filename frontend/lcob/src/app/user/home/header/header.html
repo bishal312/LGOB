@@ -1,4 +1,4 @@
-<header class="bg-[#DDB892] text-black shadow-md w-full max-w-[1640px] mx-auto">
+<header class="bg-[#DDB892] text-black shadow-md w-full transition-all duration-300 ease-in max-w-[1640px] mx-auto">
   <div
     class="max-w-[1440px] mx-auto px-4 py-3 flex items-center justify-between"
   >
@@ -111,16 +111,16 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div *ngIf="isMenuOpen()=== true" class="md:hidden px-4 pb-4">
+  <div *ngIf="isMenuOpen() === true" class="md:hidden px-4 pb-4">
     <hr />
     <nav
       aria-label="Mobile Menu"
       class="flex flex-col justify-end items-center space-y-3 font-medium"
     >
-      <a routerLink="/home" class="hover:underline">Home</a>
-      <a routerLink="/shop" class="hover:underline">Shop</a>
-      <a routerLink="shop/my-orders" class="hover:underline">My Orders</a>
-      <a routerLink="/about" class="hover:underline">About</a>
+      <a routerLink="/home" (click)="toggleMenu()" class="hover:underline">Home</a>
+      <a routerLink="/shop" (click)="toggleMenu()" class="hover:underline">Shop</a>
+      <a routerLink="shop/my-orders" (click)="toggleMenu()" class="hover:underline">My Orders</a>
+      <a routerLink="/about" (click)="toggleMenu()" class="hover:underline">About</a>
     </nav>
 
     <div class="mt-4 space-y-3">

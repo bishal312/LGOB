@@ -16,14 +16,14 @@ import { sign } from 'crypto';
 })
 export class Header {
   
-
+  searchTerm = signal('');
+  isMenuOpen = signal(false);
   allCartItems=signal<IproductGetObj[]>([])
   cartcount=computed(() => this.productService.cartItems().length)
     constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
    authService=inject(Auth)
    productService=inject(Product)
     ngOnInit(){
-      this.isMenuOpen.set(false);
      if (isPlatformBrowser(this.platformId)) {
     if (this.btnText() === "Login") {
       const userData = localStorage.getItem('user');
@@ -45,7 +45,7 @@ export class Header {
 
     }
 
-    isMenuOpen = signal(false);
+    
 
 
   
