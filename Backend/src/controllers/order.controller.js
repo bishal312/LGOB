@@ -9,6 +9,7 @@ export const placeOrder = async (req, res) => {
   try {
     const { items, address, location, totalAmount } = req.body;
 
+    // Validate input
     if (!items || items.length === 0) {
       return res.status(400).json({ message: "No items provided" });
     }
@@ -25,18 +26,22 @@ export const placeOrder = async (req, res) => {
         message: "Address, location and totalAmount are required",
       });
     }
+
     const validatedItems = [];
+
     for (const item of items) {
       if (!mongoose.Types.ObjectId.isValid(item.productId)) {
         return res.status(400).json({ message: "Invalid productId format" });
       }
 
       const product = await Product.findById(item.productId);
+
       if (!product) {
         return res
           .status(404)
           .json({ message: `Product not found: ${item.productId}` });
       }
+
       const itemsQuantity =
         item.quantity && item.quantity > 0 ? item.quantity : 1;
 
@@ -46,6 +51,7 @@ export const placeOrder = async (req, res) => {
       });
     }
 
+    // Create the order
     const order = new Order({
       userId: req.user._id,
       items: validatedItems,
@@ -55,15 +61,23 @@ export const placeOrder = async (req, res) => {
     });
 
     await order.save();
+
     try {
+      // Update stock with atomic update
+      await Promise.all(
+        order.items.map(async (item) => {
+          await Product.findByIdAndUpdate(
+            item.productId,
+            { $inc: { stock: -item.quantity } },
+            { new: true }
+          );
+        })
+      );
+
+      // Fetch product details again to show in email
       const orderedItemsHtmlArray = await Promise.all(
         order.items.map(async (item, i) => {
           const product = await Product.findById(item.productId);
-          if (!product) {
-            throw new Error("Product not found from id");
-          }
-          product.stock -= item.quantity;
-          await product.save();
           return `<li>Item ${i + 1}: ${product.name} — Qty: ${
             item.quantity
           }</li>`;
@@ -72,23 +86,24 @@ export const placeOrder = async (req, res) => {
 
       const orderedItemsHtml = orderedItemsHtmlArray.join("");
 
+      // Send order email
       await transporter.sendMail({
         from: '"Lumbini Chyau Organic Bhandar" <Magardadi5@gmail.com>',
         to: "zoneinfinity87@gmail.com",
         subject: `Order placed by ${req.user.fullName}`,
         html: `
-      <p>Hello sir,</p>
-      <p>You have received a new order from <strong>${address}</strong> by <strong>${req.user.fullName}</strong>.</p>
-      <p><strong>Order ID:</strong> ${order._id}</p>
-      <p><strong>Total:</strong> NPR ${order.totalAmount}</p>
-      <p><strong>Items:</strong></p>
-      <ul>${orderedItemsHtml}</ul>
-    `,
+          <p>Hello sir,</p>
+          <p>You have received a new order from <strong>${address}</strong> by <strong>${req.user.fullName}</strong>.</p>
+          <p><strong>Order ID:</strong> ${order._id}</p>
+          <p><strong>Total:</strong> NPR ${order.totalAmount}</p>
+          <p><strong>Items:</strong></p>
+          <ul>${orderedItemsHtml}</ul>
+        `,
       });
 
       console.log("Emailed for order");
-    } catch (error) {
-      console.error("Failed to send order email", error);
+    } catch (emailError) {
+      console.error("Failed to send order email", emailError);
     }
 
     res.status(201).json({ message: "Order placed successfully", order });
