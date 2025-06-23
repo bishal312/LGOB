@@ -1,8 +1,4 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cloudinary from "../config/cloudinary.js";
 import Product from "../models/product.model.js";
-import Order from "../models/order.model.js";
 
 export const getProductDetail = async (req, res) => {
   try {
