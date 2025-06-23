@@ -66,7 +66,6 @@ export async function signup(req, res) {
         return res.status(403).json({ message: "Only one admin allowed" });
       }
     }
-
     if (existingUser) {
       return res
         .status(400)
