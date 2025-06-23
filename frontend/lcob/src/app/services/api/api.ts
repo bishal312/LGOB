@@ -16,7 +16,6 @@ export class Api {
   
   //signup are here and login in auth
   userSignup(obj:IuserSignupObj):Observable<IuserSignupObj>{
-    console.log(obj)
     return this.http.post<IuserSignupObj>(`${environment.apiUrl}/auth/signup`,obj)
   }
 

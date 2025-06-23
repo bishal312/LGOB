@@ -105,7 +105,7 @@
             [value]="queryAddress()"
           />
           <div *ngIf="showSuggestions()" class="relative">
-            @if( suggestions().length < 1){
+            @if( suggestions() && suggestions().length < 1){
             <p class="p-2 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:pl-4">
               No Address found
             </p>

@@ -1,183 +1,253 @@
 <main class="container bg-[#EBF2FA] max-w-[1640px] w-full mx-auto">
-    
-    <!-- hero section -->
-    <section id="hero" class="px-2">
-         <h1 class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4">Lumbini Chyau Organic Bhandar</h1>
-         <p class="text-base md:text-lg mb-8 text-center">Bringing Nepal’s Mushroom Goodness to Your Table</p>
-        <div class="flex justify-center items-center">
-             <button 
-        class="bg-green-700 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+  <!-- hero section -->
+  <section id="hero" class="px-2">
+    <h1 class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4">
+      Lumbini Chyau Organic Bhandar
+    </h1>
+    <p class="text-base md:text-lg mb-8 text-center">
+      Bringing Nepal’s Mushroom Goodness to Your Table
+    </p>
+    <div class="flex justify-center items-center">
+      <button
+        routerLink="/shop"
+        class="bg-green-700 text-white cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
+      >
         Explore Our Products
       </button>
-        </div>
-        <div class="flex justify-center items-center mt-8">
-            <!-- Hero Image -->
-            <img src="./../../../assets/hero-image.png" alt="hero">
-        </div>
-
-    </section>
-
-    <!-- our products category -->
-     @if(showToast == false){
-
-       <section id="product-category " class="px-2 sm:px-6">
-           <h1 class="text-3xl md:text-4xl pt-6 text-center font-bold mb-6">Our Products</h1>
-           <div class="flex justify-center items-center">
-  
-               <div id="product-category" class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-8">
-                   
-                  @for(item of allProducts; track $index){
-  
-  
-                      <div id="category" class="mb-4">
-                          <div class="overflow-hidden rounded-2xl">
-                             <img class="w-[405px] h-[252px]" [src]="item.image" alt="oystermushroom">
-                          </div>
-                          <div id="detail" class="flex flex-col items-center justify-center">
-                              <h2 class="text-lg font-bold mt-3">{{item.name}}</h2>
-                              <p>Rs. {{item.price}}/kg</p>
-                              <button (click)="addToCart(item)" class="bg-green-700 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">Add to Cart</button>
-                          </div>
-      
-                      </div>
-                  }
-                
-               </div>
-           </div>
-           <div class="flex justify-center items-center">
-            <button routerLink="/shop" class="bg-green-700 mt-4 text-white  cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">See More Products</button>
-           </div>
-       </section>
-     }
-      @if(showToast == true){
-   <div  id="orderSuccessPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-     <!-- Popup box -->
-     <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-       <h2 class="text-2xl font-bold mb-4 text-green-600">Added to Cart</h2>
-       <p class="mb-6">{{toastMessage}}</p>
-       
-     </div>
-   </div>
-
- }
-
-
-     <!-- our services -->
-      <section class=" py-12 px-4 md:px-20">
-  <h2 class="text-3xl font-bold text-center  mb-10">Our Services</h2>
-
-  <div class="grid gap-8 md:grid-cols-4 sm:grid-cols-2 grid-cols-1">
-    <!-- Service Card 1 -->
-    <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
-      <img src="https://img.icons8.com/fluency/48/shopping-cart-loaded.png" alt="Delivery" class="mx-auto mb-4">
-      <h3 class="font-semibold text-lg text-green-700">Home Delivery</h3>
-      <p class="text-gray-600 text-sm">Fresh mushrooms delivered right to your door.</p>
     </div>
-
-    <!-- Service Card 2 -->
-    <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
-      <img src="https://img.icons8.com/color/48/plant-under-rain.png" alt="Organic" class="mx-auto mb-4">
-      <h3 class="font-semibold text-lg text-green-700">Organic Farming</h3>
-      <p class="text-gray-600 text-sm">100% organic, chemical-free mushrooms.</p>
+    <div class="flex justify-center items-center mt-8">
+      <!-- Hero Image -->
+      <img src="./../../../assets/hero-image.png" alt="hero" />
     </div>
+  </section>
 
-    <!-- Service Card 3 -->
-    <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
-      <img src="https://img.icons8.com/emoji/48/factory-emoji.png" alt="Bulk Order" class="mx-auto mb-4">
-      <h3 class="font-semibold text-lg text-green-700">Bulk Orders</h3>
-      <p class="text-gray-600 text-sm">Supplying mushrooms for restaurants and hotels.</p>
-    </div>
+  <!-- our products category -->
+  @if(showToast == false){
 
-    <!-- Service Card 4 -->
-    <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
-      <img  src="https://img.icons8.com/fluency/48/tractor.png" alt="Farm Visit" class="mx-auto mb-4">
-      <h3 class="font-semibold text-lg text-green-700">Farm Visit</h3>
-      <p class="text-gray-600 text-sm">Get a tour of our mushroom farm on request.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- our reviews -->
- <section class=" py-10 px-20">
-  <h2 class="text-2xl font-semibold text-center mb-6">What Our Customers Say</h2>
-  <div class="grid md:grid-cols-4 gap-6  mx-auto">
-    
-    <!-- Review Card -->
-    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-      <p class="text-gray-700 text-base mb-4">
-        "The mushrooms were fresh and organic. Loved the fast delivery and packaging!"
-      </p>
-      <div class="flex items-center gap-4 mt-2">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user" class="w-10 h-10 rounded-full object-cover" />
-        <span class="font-medium text-gray-900">Rojina Sharma</span>
-      </div>
-    </div>
-    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-      <p class="text-gray-700 text-base mb-4">
-        "The mushrooms were fresh and organic. Loved the fast delivery and packaging!"
-      </p>
-      <div class="flex items-center gap-4 mt-2">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="user" class="w-10 h-10 rounded-full object-cover" />
-        <span class="font-medium text-gray-900">Rojina Sharma</span>
-      </div>
-    </div>
-
-    
-    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-      <p class="text-gray-700 text-base mb-4">
-        "Absolutely loved the oyster mushrooms! Will definitely order again."
-      </p>
-      <div class="flex items-center gap-4 mt-2">
-        <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="user" class="w-10 h-10 rounded-full object-cover" />
-        <span class="font-medium text-gray-900">Roshan Lama</span>
-      </div>
-    </div>
-
-    <!-- Another Review -->
-    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-      <p class="text-gray-700 text-base mb-4">
-        "Great customer service and very tasty mushrooms. Highly recommend!"
-      </p>
-      <div class="flex items-center gap-4 mt-2">
-        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="user" class="w-10 h-10 rounded-full object-cover" />
-        <span class="font-medium text-gray-900">Aasha Gurung</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- our newsletter -->
- <section class="bg-green-50 py-10 px-4">
-  <div class="max-w-xl mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-4 text-green-900">Subscribe to Our Newsletter</h2>
-    <p class="mb-6 text-green-700">Get the latest updates on fresh mushrooms, offers, and tips straight to your inbox!</p>
-    
-    <form class="flex flex-col sm:flex-row gap-4 justify-center" action="#" method="POST">
-      <input
-       #subscribeemail
-        autocomplete="off"
-        type="email"
-        name="email"
-        placeholder="Enter your email"
-        required
-        class="w-full  sm:flex-1 px-4 py-3 rounded-lg border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-      />
-      <button
-       (click)="subscribe(subscribeemail.value)"
-        type="button"
-        class="bg-green-700 cursor-pointer text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition"
+  <section id="product-category " class="px-2 sm:px-6">
+    <h1 class="text-3xl md:text-4xl pt-6 text-center font-bold mb-6">
+      Our Products
+    </h1>
+    <div class="flex justify-center items-center">
+      <div
+        id="product-category"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
       >
-        Subscribe
+        @for(item of allProducts; track $index){
+
+        <div id="category" class="mb-4">
+          <div class="overflow-hidden rounded-2xl">
+            <img
+              class="w-[405px] h-[252px]"
+              [src]="item.image"
+              alt="oystermushroom"
+            />
+          </div>
+          <div id="detail" class="flex flex-col items-center justify-center">
+            <h2 class="text-lg font-bold mt-3">{{item.name}}</h2>
+            <p>Rs. {{item.price}}/kg</p>
+            <button
+              (click)="addToCart(item)"
+              class="bg-green-700 mt-4 text-white cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="flex justify-center items-center">
+      <button
+        routerLink="/shop"
+        class="bg-green-700 mt-4 text-white cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
+      >
+        See More Products
       </button>
-    </form>
-    <p class="mt-4 text-green-700" *ngIf="message">{{message}}</p>
+    </div>
+  </section>
+  } @if(showToast == true){
+  <div
+    id="orderSuccessPopup"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+  >
+    <!-- Popup box -->
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+      <h2 class="text-2xl font-bold mb-4 text-green-600">Added to Cart</h2>
+      <p class="mb-6">{{toastMessage}}</p>
+    </div>
   </div>
-</section>
 
+  }
 
+  <!-- our services -->
+  <section class="py-12 px-4 md:px-20">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Services</h2>
 
+    <div class="grid gap-8 md:grid-cols-4 sm:grid-cols-2 grid-cols-1">
+      <!-- Service Card 1 -->
+      <div
+        class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
+      >
+        <img
+          src="https://img.icons8.com/fluency/48/shopping-cart-loaded.png"
+          alt="Delivery"
+          class="mx-auto mb-4"
+        />
+        <h3 class="font-semibold text-lg text-green-700">Home Delivery</h3>
+        <p class="text-gray-600 text-sm">
+          Fresh mushrooms delivered right to your door.
+        </p>
+      </div>
 
+      <!-- Service Card 2 -->
+      <div
+        class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
+      >
+        <img
+          src="https://img.icons8.com/color/48/plant-under-rain.png"
+          alt="Organic"
+          class="mx-auto mb-4"
+        />
+        <h3 class="font-semibold text-lg text-green-700">Organic Farming</h3>
+        <p class="text-gray-600 text-sm">
+          100% organic, chemical-free mushrooms.
+        </p>
+      </div>
+
+      <!-- Service Card 3 -->
+      <div
+        class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
+      >
+        <img
+          src="https://img.icons8.com/emoji/48/factory-emoji.png"
+          alt="Bulk Order"
+          class="mx-auto mb-4"
+        />
+        <h3 class="font-semibold text-lg text-green-700">Bulk Orders</h3>
+        <p class="text-gray-600 text-sm">
+          Supplying mushrooms for restaurants and hotels.
+        </p>
+      </div>
+
+      <!-- Service Card 4 -->
+      <div
+        class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
+      >
+        <img
+          src="https://img.icons8.com/fluency/48/tractor.png"
+          alt="Farm Visit"
+          class="mx-auto mb-4"
+        />
+        <h3 class="font-semibold text-lg text-green-700">Farm Visit</h3>
+        <p class="text-gray-600 text-sm">
+          Get a tour of our mushroom farm on request.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- our reviews -->
+  <section class="py-10 px-20">
+    <h2 class="text-2xl font-semibold text-center mb-6">
+      What Our Customers Say
+    </h2>
+    <div class="grid md:grid-cols-4 gap-6 mx-auto">
+      <!-- Review Card -->
+      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <p class="text-gray-700 text-base mb-4">
+          "The mushrooms were fresh and organic. Loved the fast delivery and
+          packaging!"
+        </p>
+        <div class="flex items-center gap-4 mt-2">
+          <img
+            src="https://randomuser.me/api/portraits/women/44.jpg"
+            alt="user"
+            class="w-10 h-10 rounded-full object-cover"
+          />
+          <span class="font-medium text-gray-900">Rojina Sharma</span>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <p class="text-gray-700 text-base mb-4">
+          "The mushrooms were fresh and organic. Loved the fast delivery and
+          packaging!"
+        </p>
+        <div class="flex items-center gap-4 mt-2">
+          <img
+            src="https://randomuser.me/api/portraits/women/44.jpg"
+            alt="user"
+            class="w-10 h-10 rounded-full object-cover"
+          />
+          <span class="font-medium text-gray-900">Rojina Sharma</span>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <p class="text-gray-700 text-base mb-4">
+          "Absolutely loved the oyster mushrooms! Will definitely order again."
+        </p>
+        <div class="flex items-center gap-4 mt-2">
+          <img
+            src="https://randomuser.me/api/portraits/men/35.jpg"
+            alt="user"
+            class="w-10 h-10 rounded-full object-cover"
+          />
+          <span class="font-medium text-gray-900">Roshan Lama</span>
+        </div>
+      </div>
+
+      <!-- Another Review -->
+      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+        <p class="text-gray-700 text-base mb-4">
+          "Great customer service and very tasty mushrooms. Highly recommend!"
+        </p>
+        <div class="flex items-center gap-4 mt-2">
+          <img
+            src="https://randomuser.me/api/portraits/women/68.jpg"
+            alt="user"
+            class="w-10 h-10 rounded-full object-cover"
+          />
+          <span class="font-medium text-gray-900">Aasha Gurung</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- our newsletter -->
+  <section class="bg-green-50 py-10 px-4">
+    <div class="max-w-xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4 text-green-900">
+        Subscribe to Our Newsletter
+      </h2>
+      <p class="mb-6 text-green-700">
+        Get the latest updates on fresh mushrooms, offers, and tips straight to
+        your inbox!
+      </p>
+
+      <form
+        class="flex flex-col sm:flex-row gap-4 justify-center"
+        action="#"
+        method="POST"
+      >
+        <input
+          #subscribeemail
+          autocomplete="off"
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          class="w-full sm:flex-1 px-4 py-3 rounded-lg border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+        <button
+          (click)="subscribe(subscribeemail.value)"
+          type="button"
+          class="bg-green-700 cursor-pointer text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition"
+        >
+          Subscribe
+        </button>
+      </form>
+      <p class="mt-4 text-green-700" *ngIf="message">{{message}}</p>
+    </div>
+  </section>
 </main>

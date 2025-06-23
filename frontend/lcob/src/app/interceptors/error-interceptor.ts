@@ -12,7 +12,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
       //!req.url is check so, it not run infinitely
       if (error.status === 401 && !req.url.includes('/refresh-token')) {
-        // ✅ Check if running in the browser before using confirm()
 
         // this type of window check insures the code only runs in the browser
         if (typeof window !== 'undefined') {

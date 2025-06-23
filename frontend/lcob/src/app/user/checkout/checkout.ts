@@ -154,12 +154,13 @@ export class Checkout implements OnInit {
       this.skipNextInput = false;
       return;
     }
-    if(this.suggestions().length === 0){
+   if(this.suggestions()){
+      if(this.suggestions().length === 0){
       this.showSuggestions.set(true);
       
     }
     
-   else{
+   else if(this.suggestions().length !== 0){
      const matchedAddress = this.suggestions().find(
       (suggestion) =>
         suggestion.placePrediction?.text?.text === this.queryAddress()
@@ -168,6 +169,7 @@ export class Checkout implements OnInit {
       this.suggestions.set([]);
       return;
     }
+   }
    }
 
     this.queryAddress.set(address);

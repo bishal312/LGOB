@@ -15,7 +15,10 @@
       <!-- Repeat product card -->
        @for(item of allProducts; track $index){
          <div class="bg-white p-5 rounded-lg relative shadow-lg hover:shadow-xl transition duration-300 flex flex-col justify-between h-full">
-  <img [src]="item.image" alt="Sale Product" class="w-full h-40 object-cover rounded">
+  <img
+   (click)="navigateToProductDetails(item._id)"
+   (keypress)="navigateToProductDetails(item._id)"
+   [src]="item.image" alt="Sale Product" class="w-full h-40 object-cover cursor-pointer rounded transform transition-transform duration-300 hover:scale-105">
   
   <div class="flex-grow">
     <h3 class="mt-2 font-semibold text-lg truncate">{{ item.name }}</h3>

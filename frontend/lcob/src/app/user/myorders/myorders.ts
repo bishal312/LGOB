@@ -38,6 +38,7 @@ export class Myorders {
             totalAmount: order.totalAmount,
             items: order.items,
           }));
+          this.orderItems.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           this.getAllProducts();
         }
       },

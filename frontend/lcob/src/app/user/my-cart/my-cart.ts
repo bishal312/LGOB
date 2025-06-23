@@ -108,10 +108,11 @@ export class MyCart {
       this.skipNextInput = false;
       return;
     }
-    if(this.suggestions().length === 0){
+   if(this.suggestions()){
+      if(this.suggestions().length === 0){
       this.showSuggestions.set(true);
     }
-    else{
+    else if(this.suggestions().length !== 0){
       const matchedAddress = this.suggestions().find(
       (suggestion) =>
         suggestion.placePrediction?.text?.text === this.queryAddress()
@@ -121,6 +122,7 @@ export class MyCart {
       return;
     }
     }
+   }
 
     this.queryAddress.set(address);
   }
@@ -162,8 +164,6 @@ export class MyCart {
     this.showPopup = true;
     this.checkoutMessage = 'Please wait for a moment...';
     this.orderFormObj.controls['totalAmount'].setValue(this.total());
-    console.log(this.orderFormObj.value);
-    debugger
     const totalItems: OrderItem[] = [];
     for (let item of this.allCartItems()) {
       const newItem: OrderItem = {
