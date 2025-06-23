@@ -2,6 +2,7 @@ export interface SellerLogin {
   fullName: string;
   phoneNumber: string;
   password: string;
+  whatsapp_consent: boolean;
   role: string;
 }
 
@@ -9,6 +10,7 @@ export interface IuserSignupObj {
   fullName: string;
   phoneNumber: string;
   password: string;
+  whatsapp_consent: boolean;
   role: string;
 }
 

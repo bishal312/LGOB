@@ -51,6 +51,10 @@
             </div>
          }
     </div>
+    <div class="consent my-2">
+      <input formControlName="whatsapp_consent" type="checkbox" id="consent" name="consent" class="mr-2" />
+      <label for="consent" class="text-gray-700">I agree to receive whatsapp messages from LCOB</label>
+    </div>
       @if(sellerAlreadyRegistered == true){
          <button (click)="userSignUp()" [disabled]="userSignupObj.invalid"
            [ngClass]="{'cursor-not-allowed': userSignupObj.invalid, 'opacity-50': userSignupObj.invalid,

@@ -59,8 +59,7 @@ export class Login {
 
       
     },error=>{
-      console.log(error)
-      this.toastMessage="Error during login";
+      this.toastMessage=error.error.message;
       setTimeout(() => this.showToast = true, 2000);
     }
   )
