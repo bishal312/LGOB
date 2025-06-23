@@ -19,7 +19,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
         // this type of window check insures the code only runs in the browser
         if (typeof window !== 'undefined') {
-        return  dialogBox.open(error.error.message,'Refresh Token Expired').pipe(
+        return  dialogBox.open('Do you want to continue','Refresh Token Expired').pipe(
           switchMap((isContinue:boolean) => {
             if(!isContinue){
               router.navigate(['/login'])

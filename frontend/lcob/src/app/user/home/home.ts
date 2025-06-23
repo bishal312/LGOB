@@ -65,24 +65,16 @@ addToCart(product:IproductGetObj){
   this.productService.addToCart(product._id).subscribe((res:any)=>{
     if(res.message === 'Added to cart'){
       this.popup.show(res.message,'close',3000,'center','top',['snackbar'])
-      this.showToast=true
       this.toastMessage="Product added to cart"
       this.productService.clearCart()
       this.productService.getCartItemsByUserId().subscribe()
-      setTimeout(() => {
-        this.showToast=false
-        this.toastMessage='';
-      }, 2000);
+    
      
     }
 
   },(error)=>{
-    this.showToast=true
     this.toastMessage="The item is already in cart"
-    setTimeout(() => {
-      this.showToast=false
-      this.toastMessage='';
-    }, 2000);
+    this.popup.show(this.toastMessage,'close',3000,'center','top',['snackbar'])
   })
 }
 }

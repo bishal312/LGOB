@@ -7,6 +7,7 @@ import { Order } from '../../services/order/order';
 import { error } from 'console';
 import { Router, RouterLink } from '@angular/router';
 import { GoogleApiLoader } from '../../services/google-api-loader/google-api-loader';
+import { DialogBox } from '../../services/dialog/dialog-box';
 
 @Component({
   selector: 'app-my-cart',
@@ -49,6 +50,7 @@ export class MyCart {
   router = inject(Router);
   orderService = inject(Order);
   productService = inject(Product);
+  dialogBox=inject(DialogBox)
   ngOnInit() {
     this.productService.getCartItemsByUserId().subscribe(
       () => {},
@@ -56,6 +58,10 @@ export class MyCart {
         console.log(error);
       }
     );
+  }
+
+  openDialog(message: string, title: string) {
+   return this.dialogBox.open(message, title)
   }
 
   constructor() {
@@ -78,29 +84,40 @@ export class MyCart {
   }
 
   deleteCartItemById(id: string) {
-    this.productService.deleteCartItem(id).subscribe((res: any) => {
-      this.productService.clearCart();
-      this.productService.getCartItemsByUserId().subscribe(
-        (res: any) => {},
-        (error) => {
-          console.log(error);
-        }
-      );
-    });
+      this.openDialog('Are you sure you want to delete this item from the cart?','Clear Cart').subscribe((confirmed:boolean)=>{
+      if(confirmed){
+        this.productService.deleteCartItem(id).subscribe((res: any) => {
+          this.productService.clearCart();
+          this.productService.getCartItemsByUserId().subscribe(
+            (res: any) => {},
+            (error) => {
+              console.log(error);
+            }
+          );
+        });
+
+      };
+      
+    })
   }
 
   clearCart() {
-    this.productService.clearAllCartItems().subscribe((res: any) => {
-      this.productService.clearCart();
-      this.productService.getCartItemsByUserId().subscribe(
-        (res: any) => {
-          console.log('deleting product');
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    });
+    this.openDialog('Are you sure you want to clear the cart?','Clear Cart').subscribe((confirmed:boolean)=>{
+      if(confirmed){
+        this.productService.clearAllCartItems().subscribe((res: any) => {
+          this.productService.clearCart();
+          this.productService.getCartItemsByUserId().subscribe(
+            (res: any) => {
+              console.log('deleting product');
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        });
+
+      }
+    })
   }
 
   onAddressInput(address: string) {

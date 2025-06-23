@@ -1,6 +1,5 @@
 
 <!-- product-detail.component.html -->
- @if(showToast == false){
 
    <div class="min-h-screen bg-[#EBF2FA] p-4">
      <div
@@ -108,15 +107,4 @@
        </div>
      </div>
    </div>
- }
- @if(showToast == true){
-   <div  id="orderSuccessPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-     <!-- Popup box -->
-     <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-       <h2 class="text-2xl font-bold mb-4 text-green-600">Successfull</h2>
-       <p class="mb-6">{{toastMessage}}</p>
-       
-     </div>
-   </div>
 
- }
