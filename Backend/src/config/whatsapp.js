@@ -15,7 +15,7 @@ async function sendTemplateMessage() {
         to: process.env.WHATSAPP_RECIPIENT_NUMBER,
         type: "template",
         template: {
-          name: "hell_world",
+          name: "hello_world",
           language: {
             code: "en_US",
           },
@@ -51,8 +51,7 @@ async function sendTextMessage() {
         text: {
           body: "Hello, we will respond you as soon as possible.",
         },
-        },
-      ),
+      }),
     }
   );
 
