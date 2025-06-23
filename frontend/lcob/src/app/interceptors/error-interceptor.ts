@@ -1,13 +1,15 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { Auth } from '../services/auth/auth';
 import { Router } from '@angular/router';
+import { Loader } from '../mat-services/loader/loader';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(Auth);
   const router = inject(Router);
-
+  const loaderService=inject(Loader)
+  loaderService.isLoading.next(true)
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       //!req.url is check so, it not run infinitely
@@ -29,11 +31,14 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError(refreshErr => {
             return throwError(() => refreshErr);
-          })
+          }),
+          finalize(() => loaderService.isLoading.next(false))
         );
       }
 
       return throwError(() => error);
-    })
+    },
+  ),
+  finalize(() => loaderService.isLoading.next(false))
   );
 };

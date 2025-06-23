@@ -2,6 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IproductGetObj } from '../../models/model';
 import { Product } from '../../services/product/product';
+import { Portal } from '@angular/cdk/portal';
+import { PopupService } from '../../services/popup/popup-service';
 
 
 
@@ -22,7 +24,7 @@ export class ProductUi implements OnInit{
   productDetail:IproductGetObj | null = null
 
   productService=inject(Product)
-
+  popup=inject(PopupService)
   constructor(private route: ActivatedRoute) { }
 
   productId: string = '';
@@ -76,7 +78,8 @@ navigateToProductDetails(productId: string) {
  
   this.productService.addToCart(product!._id,this.quantity()).subscribe((res:any)=>{
 
-      if(res){
+      if(res.message === 'Added to cart'){
+      this.popup.show(res.message,'close',3000,'center','top',['snackbar'])
       this.showToast=true
       this.toastMessage="Product added to cart"
       this.productService.clearCart()

@@ -1,24 +1,25 @@
 import { Component, inject } from '@angular/core';
 import { Order } from '../../services/order/order';
 import { Product } from '../../services/product/product';
-import { filter } from 'rxjs';
 import { IproductGetObj } from '../../models/model';
-import { CommonModule, CurrencyPipe, DatePipe, NgIf } from '@angular/common';
-import { error } from 'console';
-
+import { CommonModule,  DatePipe, NgIf } from '@angular/common';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { PopupService } from '../../services/popup/popup-service';
 @Component({
   selector: 'app-myorders',
-  imports: [DatePipe, NgIf, CommonModule],
+  imports: [DatePipe, NgIf, CommonModule,MatSnackBarModule],
   templateUrl: './myorders.html',
   styleUrl: './myorders.css',
 })
 export class Myorders {
   orderService = inject(Order);
   productService = inject(Product);
+  snackbar=inject(PopupService)
 
   allProducts: IproductGetObj[] = [];
   orderItems: any[] = [];
   messageToUser: string = '';
+
 
   ngOnInit() {
     this.getOrderDetail();
@@ -28,6 +29,7 @@ export class Myorders {
     this.orderService.getOrderDetailByUserId().subscribe(
       (res: any) => {
         if (res.message === "You haven't ordered any items yet!") {
+          this.snackbar.show(res.message,"close",3000,'left','top',['snackbar-below-navbar'])
           this.messageToUser = res.message;
           this.orderItems = [];
         }
@@ -75,6 +77,14 @@ export class Myorders {
     this.orderService.cancelOrder(orderId).subscribe({
       next: (res: any) => {
         console.log(res, 'order canceled');
+        if(res.message === "Order cancelled successfully"){
+          this.snackbar.show('Order Cancelled successfully',"close",
+           3000,
+           'center',
+           'top',
+           ['snackbar']
+           )
+        }
         this.getOrderDetail();
       },
       error: (error) => {

@@ -1,14 +1,15 @@
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
-import { error } from 'console';
-
+import { Loader } from '../../mat-services/loader/loader';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { PopupService } from '../../services/popup/popup-service';
 
 @Component({
   selector: 'app-home',
-  imports: [NgIf,RouterLink],
+  imports: [NgIf, RouterLink,MatProgressSpinnerModule, AsyncPipe],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -17,6 +18,8 @@ export class Home {
   showToast = false;
   toastMessage:string='';
   allProducts:IproductGetObj[]=[]
+  loaderService=inject(Loader)
+  popup=inject(PopupService)
   
   productService=inject(Product)
   router=inject(Router)
@@ -60,7 +63,8 @@ addToCart(product:IproductGetObj){
   return;
   }
   this.productService.addToCart(product._id).subscribe((res:any)=>{
-    if(res){
+    if(res.message === 'Added to cart'){
+      this.popup.show(res.message,'close',3000,'center','top',['snackbar'])
       this.showToast=true
       this.toastMessage="Product added to cart"
       this.productService.clearCart()
@@ -69,6 +73,7 @@ addToCart(product:IproductGetObj){
         this.showToast=false
         this.toastMessage='';
       }, 2000);
+     
     }
 
   },(error)=>{

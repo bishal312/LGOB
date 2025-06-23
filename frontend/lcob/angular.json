@@ -27,7 +27,8 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "@angular/material/prebuilt-themes/cyan-orange.css"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -89,7 +90,8 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "@angular/material/prebuilt-themes/cyan-orange.css"
             ]
           }
         }

@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss"
+@import "tailwindcss";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, sans-serif; }
+.snackbar-below-navbar {
+  top: 64px !important; /* Adjust 64px to your navbar height */
+}

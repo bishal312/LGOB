@@ -2,12 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Loader } from '../../mat-services/loader/loader';
 
 
 @Component({
   selector: 'app-shop',
-  imports: [NgIf],
+  imports: [NgIf,MatProgressSpinnerModule,AsyncPipe],
   templateUrl: './shop.html',
   styleUrl: './shop.css'
 })
@@ -19,6 +21,7 @@ export class Shop {
   getProductCount:number=0
   allProducts: IproductGetObj[] = [];
   productService=inject(Product)
+  loaderService=inject(Loader)
  ngOnInit(){
     if(this.getAllProductsCount==0){
       

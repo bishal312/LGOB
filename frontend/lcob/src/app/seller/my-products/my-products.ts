@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component,  computed,  effect, inject, Renderer2, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../services/api/api';
@@ -6,16 +6,19 @@ import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
 import { sign } from 'crypto';
 import { error } from 'console';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Loader } from '../../mat-services/loader/loader';
 
 @Component({
   selector: 'app-my-products',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule,MatProgressSpinnerModule,AsyncPipe],
   templateUrl: './my-products.html',
   styleUrl: './my-products.css'
 })
 export class MyProducts {
   productService = inject(Product);
+  loaderService=inject(Loader)
   apiService = inject(Api);
   renderer = inject(Renderer2);
 
