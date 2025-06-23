@@ -41,9 +41,9 @@ const setCookies = (res, accessToken, refreshToken) => {
 };
 
 export async function signup(req, res) {
-  const { fullName, phoneNumber, password, role } = req.body;
+  const { fullName, phoneNumber, password, role, whatsapp_consent } = req.body;
   try {
-    if (!fullName || !phoneNumber || !password) {
+    if (!fullName || !phoneNumber || !password ) {
       return res.status(400).json({ message: "Please fill all the fields" });
     }
     if (phoneNumber.length !== 10) {
@@ -55,6 +55,9 @@ export async function signup(req, res) {
       return res
         .status(400)
         .json({ message: "Password must be at least 6 characters long" });
+    }
+    if (!whatsapp_consent){
+      return res.status(400).json({success: false, message: "Please give whatsapp consent" });
     }
     const existingUser = await User.findOne({ phoneNumber });
     if (role === "admin") {
@@ -74,6 +77,7 @@ export async function signup(req, res) {
       phoneNumber,
       password,
       role: role || "customer",
+      whatsapp_consent,
     });
     // const token = jwt.sign(
     //   { userId: newUser._id, role: newUser.role },

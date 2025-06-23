@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    whatsapp_consent: {
+      type: Boolean,
+      default: false,
+    },
     cartItems:[
       {
         quantity: {
