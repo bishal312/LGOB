@@ -1,15 +1,16 @@
-<main class="container bg-[#EBF2FA] max-w-[1640px] w-full mx-auto">
+<main class="container bg-[#FFFADC] max-w-[1640px] w-full mx-auto">
   <!-- hero section -->
   <section id="hero" class="px-2">
     <h1
-      class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4"
+      class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4 text-shadow-lg"
       data-aos="fade-down"
       data-aos-duration="1000"
     >
-      Lumbini Chyau Organic Bhandar
+      Lumbini Chyau Organic
+      <span class="bg-linear-to-r from-green-400 to-green-600 bg-clip-text text-transparent">Bhandar</span>
     </h1>
     <p
-      class="text-base md:text-lg mb-8 text-center"
+      class="text-base md:text-lg mb-8 text-center text-[#98CD00] font-semibold"
       data-aos="fade-up"
       data-aos-duration="1000"
       data-aos-delay="200"
@@ -55,8 +56,12 @@
       >
         @for(item of allProducts; track $index){
 
-        <div id="category" data-aos="fade-up"
-    [attr.data-aos-delay]="$index * 100" class="mb-4">
+        <div
+          id="category"
+          data-aos="fade-up"
+          [attr.data-aos-delay]="$index * 100"
+          class="mb-4"
+        >
           <div class="overflow-hidden rounded-2xl">
             <img
               class="w-[405px] h-[252px]"
@@ -258,7 +263,7 @@
 
   <!-- our newsletter -->
   <section id="newsletter" class="bg-green-50 py-10 px-4">
-    <div class="max-w-xl mx-auto text-center">
+    <div class="max-w-xl mx-auto text-center" data-aos="zoom-in-up">
       <h2 class="text-3xl font-bold mb-4 text-green-900">
         Subscribe to Our Newsletter
       </h2>

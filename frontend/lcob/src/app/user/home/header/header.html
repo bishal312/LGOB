@@ -1,4 +1,6 @@
-<header class="bg-[#DDB892] text-black shadow-md w-full transition-all duration-300 ease-in max-w-[1640px] mx-auto">
+<header
+  class="bg-[#98CD00] text-black shadow-md w-full transition-all duration-300 ease-in max-w-[1640px] mx-auto"
+>
   <div
     class="max-w-[1440px] mx-auto px-4 py-3 flex items-center justify-between"
   >
@@ -56,10 +58,45 @@
         aria-label="Desktop Nav"
         class="flex space-x-3.5 lg:space-x-6 font-medium"
       >
-        <a routerLink="/home" class="hover:underline" data-aos="fade-down-right" data-aos-delay="100">Home</a>
-        <a routerLink="/shop" class="hover:underline" data-aos="fade-down-right" data-aos-delay="200">Shop</a>
-        <a routerLink="shop/my-orders" class="hover:underline" data-aos="fade-down-right" data-aos-delay="300">My Orders</a>
-        <a routerLink="/about" class="hover:underline" data-aos="fade-down-right" data-aos-delay="400">About</a>
+        <a
+          routerLink="/home"
+          class="relative group overflow-hidden"
+          data-aos="fade-down-right"
+          data-aos-delay="100"
+          >Home<span
+            class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
+          ></span
+        ></a>
+        <a
+          routerLink="/shop"
+          class="relative group overflow-hidden"
+          data-aos="fade-down-right"
+          data-aos-delay="200"
+          >Shop
+          <span
+            class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
+          ></span
+        ></a>
+        <a
+          routerLink="shop/my-orders"
+          class="hrelative group overflow-hidden"
+          data-aos="fade-down-right"
+          data-aos-delay="300"
+          >My Orders
+          <span
+            class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
+          ></span
+        ></a>
+        <a
+          routerLink="/about"
+          class="relative group overflow-hidden"
+          data-aos="fade-down-right"
+          data-aos-delay="400"
+          >About
+          <span
+            class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
+          ></span
+        ></a>
       </nav>
 
       <div class="flex items-center space-x-4">
@@ -86,7 +123,12 @@
         </div>
 
         <!-- Cart Icon Desktop -->
-        <div class="relative cursor-pointer" routerLink="shop/my-cart" data-aos="fade-down-right" data-aos-delay="600">
+        <div
+          class="relative cursor-pointer"
+          routerLink="shop/my-cart"
+          data-aos="fade-down-right"
+          data-aos-delay="600"
+        >
           <img
             class="w-8 h-8"
             src="https://img.icons8.com/fluency/48/shopping-cart.png"
@@ -117,10 +159,21 @@
       aria-label="Mobile Menu"
       class="flex flex-col justify-end items-center space-y-3 font-medium"
     >
-      <a routerLink="/home" (click)="toggleMenu()" class="hover:underline">Home</a>
-      <a routerLink="/shop" (click)="toggleMenu()" class="hover:underline">Shop</a>
-      <a routerLink="shop/my-orders" (click)="toggleMenu()" class="hover:underline">My Orders</a>
-      <a routerLink="/about" (click)="toggleMenu()" class="hover:underline">About</a>
+      <a routerLink="/home" (click)="toggleMenu()" class="hover:underline"
+        >Home</a
+      >
+      <a routerLink="/shop" (click)="toggleMenu()" class="hover:underline"
+        >Shop</a
+      >
+      <a
+        routerLink="shop/my-orders"
+        (click)="toggleMenu()"
+        class="hover:underline"
+        >My Orders</a
+      >
+      <a routerLink="/about" (click)="toggleMenu()" class="hover:underline"
+        >About</a
+      >
     </nav>
 
     <div class="mt-4 space-y-3">
