@@ -1,13 +1,27 @@
 <main class="container bg-[#EBF2FA] max-w-[1640px] w-full mx-auto">
   <!-- hero section -->
   <section id="hero" class="px-2">
-    <h1 class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4">
+    <h1
+      class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4"
+      data-aos="fade-down"
+      data-aos-duration="1000"
+    >
       Lumbini Chyau Organic Bhandar
     </h1>
-    <p class="text-base md:text-lg mb-8 text-center">
+    <p
+      class="text-base md:text-lg mb-8 text-center"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      data-aos-delay="200"
+    >
       Bringing Nepal’s Mushroom Goodness to Your Table
     </p>
-    <div class="flex justify-center items-center">
+    <div
+      class="flex justify-center items-center"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
+      data-aos-delay="400"
+    >
       <button
         routerLink="/shop"
         class="bg-green-700 text-white cursor-pointer px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
@@ -15,7 +29,12 @@
         Explore Our Products
       </button>
     </div>
-    <div class="flex justify-center items-center mt-8">
+    <div
+      class="flex justify-center items-center mt-8"
+      data-aos="fade-up"
+      data-aos-duration="1200"
+      data-aos-delay="600"
+    >
       <!-- Hero Image -->
       <img src="./../../../assets/hero-image.png" alt="hero" />
     </div>
@@ -29,14 +48,15 @@
     </h1>
 
     <div class="flex justify-center items-center">
-     <mat-spinner *ngIf="loaderService.isLoading | async"></mat-spinner>
+      <mat-spinner *ngIf="loaderService.isLoading | async"></mat-spinner>
       <div
         id="product-category"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
       >
         @for(item of allProducts; track $index){
 
-        <div id="category" class="mb-4">
+        <div id="category" data-aos="fade-up"
+    [attr.data-aos-delay]="$index * 100" class="mb-4">
           <div class="overflow-hidden rounded-2xl">
             <img
               class="w-[405px] h-[252px]"
@@ -67,15 +87,21 @@
       </button>
     </div>
   </section>
- 
 
   <!-- our services -->
-  <section class="py-12 px-4 md:px-20">
+  <section
+    id="services"
+    class="py-12 px-4 md:px-20"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
     <h2 class="text-3xl font-bold text-center mb-10">Our Services</h2>
 
     <div class="grid gap-8 md:grid-cols-4 sm:grid-cols-2 grid-cols-1">
       <!-- Service Card 1 -->
       <div
+        data-aos="fade-up"
+        data-aos-delay="200"
         class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
       >
         <img
@@ -91,6 +117,8 @@
 
       <!-- Service Card 2 -->
       <div
+        data-aos="fade-up"
+        data-aos-delay="300"
         class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
       >
         <img
@@ -106,6 +134,8 @@
 
       <!-- Service Card 3 -->
       <div
+        data-aos="fade-up"
+        data-aos-delay="400"
         class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
       >
         <img
@@ -121,6 +151,8 @@
 
       <!-- Service Card 4 -->
       <div
+        data-aos="fade-up"
+        data-aos-delay="500"
         class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
       >
         <img
@@ -137,13 +169,22 @@
   </section>
 
   <!-- our reviews -->
-  <section class="py-10 px-20">
+  <section
+    id="reviews"
+    class="py-10 px-20"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
     <h2 class="text-2xl font-semibold text-center mb-6">
       What Our Customers Say
     </h2>
     <div class="grid md:grid-cols-4 gap-6 mx-auto">
       <!-- Review Card -->
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="200"
+        class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
+      >
         <p class="text-gray-700 text-base mb-4">
           "The mushrooms were fresh and organic. Loved the fast delivery and
           packaging!"
@@ -157,7 +198,11 @@
           <span class="font-medium text-gray-900">Rojina Sharma</span>
         </div>
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="200"
+        class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
+      >
         <p class="text-gray-700 text-base mb-4">
           "The mushrooms were fresh and organic. Loved the fast delivery and
           packaging!"
@@ -172,7 +217,11 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="200"
+        class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
+      >
         <p class="text-gray-700 text-base mb-4">
           "Absolutely loved the oyster mushrooms! Will definitely order again."
         </p>
@@ -187,7 +236,11 @@
       </div>
 
       <!-- Another Review -->
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="200"
+        class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
+      >
         <p class="text-gray-700 text-base mb-4">
           "Great customer service and very tasty mushrooms. Highly recommend!"
         </p>
@@ -204,7 +257,7 @@
   </section>
 
   <!-- our newsletter -->
-  <section class="bg-green-50 py-10 px-4">
+  <section id="newsletter" class="bg-green-50 py-10 px-4">
     <div class="max-w-xl mx-auto text-center">
       <h2 class="text-3xl font-bold mb-4 text-green-900">
         Subscribe to Our Newsletter

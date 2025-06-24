@@ -2,8 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Header } from "../../user/home/header/header";
 import { Footer } from "../../footer/footer/footer";
-import { Auth } from '../../services/auth/auth';
-import { error } from 'console';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-main-layout',
@@ -13,4 +12,14 @@ import { error } from 'console';
 })
 export class MainLayout {
 
+  ngOnInit() {
+    AOS.init({
+      duration: 1000,
+      once:false
+    })
+  }
+
+  ngAfterViewInit() {
+    AOS.refreshHard()
+  }
 }

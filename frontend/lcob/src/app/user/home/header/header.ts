@@ -4,7 +4,6 @@ import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../services/auth/auth';
 import { Product } from '../../../services/product/product';
 import {  IproductGetObj } from '../../../models/model';
-import { sign } from 'crypto';
 
 
 

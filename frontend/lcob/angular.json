@@ -28,7 +28,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "@angular/material/prebuilt-themes/cyan-orange.css"
+              "@angular/material/prebuilt-themes/cyan-orange.css",
+              "node_modules/aos/dist/aos.css"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -91,7 +92,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "@angular/material/prebuilt-themes/cyan-orange.css"
+              "@angular/material/prebuilt-themes/cyan-orange.css",
+              "node_modules/aos/dist/aos.css"
             ]
           }
         }

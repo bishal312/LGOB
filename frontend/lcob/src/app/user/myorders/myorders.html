@@ -11,7 +11,7 @@
   @else {
 
     @for(order of orderItems; track order.createdAt) {
-      <div class="mb-10">
+      <div class="mb-10" [attr.data-aos]="'fade-up'" [attr.data-aos-delay]="order.createdAt ? 0 : 0">
         <!-- Order Header -->
         <div class="flex items-center justify-between mb-4">
           <p class="text-sm text-gray-500 md:text-base">

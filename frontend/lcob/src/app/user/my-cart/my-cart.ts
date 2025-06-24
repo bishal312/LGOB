@@ -120,6 +120,20 @@ export class MyCart {
     })
   }
 
+  clearCartSilently(){
+    this.productService.clearAllCartItems().subscribe((res: any) => {
+      this.productService.clearCart();
+      this.productService.getCartItemsByUserId().subscribe(
+        (res: any) => {
+          console.log('deleting product');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
+  }
+
   onAddressInput(address: string) {
     if (this.skipNextInput) {
       this.skipNextInput = false;
@@ -204,7 +218,7 @@ export class MyCart {
             this.showPopup = false;
             this.router.navigate(['/shop/my-orders']);
             this.checkoutMessage = '';
-            this.clearCart();
+            this.clearCartSilently();
           });
         }
       },
