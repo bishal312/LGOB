@@ -222,15 +222,28 @@ export const getMyOrders = async (req, res) => {
     const userId = req.user.id;
 
     const orderedProducts = await Order.find({ userId }).populate("items");
-    const onlyItems = orderedProducts.map((order) => ({
-      items: order.items.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-      })),
-      createdAt: order.createdAt,
-      totalAmount: order.totalAmount,
-      orderId: order._id,
-    }));
+
+    const onlyItems = await Promise.all(
+      orderedProducts.map(async (order) => {
+        const mappedItems = await Promise.all(
+          order.items.map(async (item) => {
+            const product = await Product.findById(item.productId);
+            return {
+              productId: item.productId,
+              quantity: item.quantity,
+              price: product?.price || 0,
+            };
+          })
+        );
+
+        return {
+          items: mappedItems,
+          createdAt: order.createdAt,
+          totalAmount: order.totalAmount,
+          orderId: order._id,
+        };
+      })
+    );
 
     if (!orderedProducts.length) {
       return res.status(200).json({
