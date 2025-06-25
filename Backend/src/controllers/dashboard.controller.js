@@ -8,7 +8,7 @@ dotenv.config();
 
 export const addProduct = async (req, res) => {
   try {
-    const { name, price, description, image, stock, userId } = req.body;
+    const { name, price, description, image, stock, userId, isFeatured } = req.body;
 
     const existingProduct = await Product.findOne({ name, userId });
 
@@ -31,6 +31,7 @@ export const addProduct = async (req, res) => {
       stock,
       image: result.secure_url,
       imagePublicId: result.public_id,
+      isFeatured,
     });
 
     await newProduct.save();
