@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../services/product/product';
@@ -9,7 +9,7 @@ import { PopupService } from '../../services/popup/popup-service';
 
 @Component({
   selector: 'app-home',
-  imports: [NgIf, RouterLink,MatProgressSpinnerModule, AsyncPipe],
+  imports: [NgIf, RouterLink,MatProgressSpinnerModule, AsyncPipe,NgClass],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

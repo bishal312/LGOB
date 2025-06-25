@@ -58,17 +58,25 @@
          <div class="flex gap-2 sm:gap-4 mt-4">
            
            <button (click)="navigateToCheckout(productDetail?._id)"
+           [ngClass]="{ 'opacity-40 cursor-not-allowed': !productDetail?.stock || productDetail?.stock! <= 0 || quantity() > productDetail?.stock! }"
+           [disabled]="!productDetail?.stock || productDetail?.stock! <= 0 || quantity() > productDetail?.stock! "
              class="bg-green-700 cursor-pointer hover:bg-green-600 text-white px-3 sm:px-6 py-3 rounded-lg font-semibold"
            >
              Place Order
            </button>
            <button
+           [ngClass]="{ 'opacity-40 cursor-not-allowed': !productDetail?.stock || productDetail?.stock! <= 0 || quantity() > productDetail?.stock! }"
+           [disabled]="!productDetail?.stock || productDetail?.stock! <= 0 || quantity() > productDetail?.stock! "
+             
              (click)="addToCart()"
              class="bg-gray-800 cursor-pointer hover:bg-gray-700 text-white px-3 sm:px-6 py-3 rounded-lg font-semibold"
            >
              Add to Cart
            </button>
-         </div>
+          </div>
+           <p
+            class="text-red-500 text-sm mt-2"
+            *ngIf="!productDetail?.stock || productDetail?.stock! <= 0 || quantity() > productDetail?.stock! ">We have only {{productDetail?.stock}} kg available</p>
        </div>
    
        

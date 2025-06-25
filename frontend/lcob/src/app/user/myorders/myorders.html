@@ -26,7 +26,7 @@
           </p>
           <button
           (click)="cancelOrder(order.orderId)"
-         class="text-sm text-red-500 border border-red-500 px-3 py-1 cursor-pointer rounded hover:bg-red-50 transition-colors"
+         class="text-sm bg-linear-to-tl from-[#ffecec] to-[#fff2f2] hover:scale-105 transition-colors duration-300 ease-in-out text-red-500 border border-red-500 px-3 py-1 cursor-pointer rounded hover:bg-red-50"
             
           >
             Cancel Order
@@ -37,7 +37,7 @@
         <div class="space-y-6 md:space-y-8">
           @for(item of order.items; track $index) {
             <article
-              class="bg-white rounded-lg shadow-md p-4 transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer
+              class="bg-linear-to-r from-[#ffffff] to-[#e8f5e9] hover:bg-[#e8f5e9] rounded-lg shadow-md p-4 transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer
                      flex flex-col md:flex-row md:grid md:grid-cols-[80px_1fr_100px] md:items-center md:gap-x-6 md:p-6 gap-4"
             >
               <ng-container *ngIf="getProductById(item.productId) as product">
@@ -55,12 +55,14 @@
                 </div>
   
                 <!-- Product Info -->
-                <div class="flex-1 min-w-0">
+                <div class="flex-1 min-w-0 ml-2">
                   <h2 class="text-lg font-semibold text-gray-900 truncate">{{ product.name }}</h2>
                   <p class="text-sm text-gray-600 mt-1 truncate">{{ product.description || 'No description' }}</p>
                   <p class="text-sm text-gray-700 mt-2">
                     Quantity: <span class="font-semibold">{{ item.quantity }}</span>
                   </p>
+                <p class="text-sm text-gray-700 mt-2">Status: <span class="font-light ">Delivery In process</span></p>
+
                 </div>
   
                 <!-- Price -->

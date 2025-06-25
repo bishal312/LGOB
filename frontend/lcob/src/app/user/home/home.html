@@ -78,6 +78,8 @@
             <h2 class="text-lg font-bold mt-3">{{item.name}}</h2>
             <p>Rs. {{item.price}}/kg</p>
             <button
+              [ngClass]="{ 'opacity-40 cursor-not-allowed': item.stock <= 0 }"
+              [disabled]="item.stock <= 0"
               (click)="addToCart(item)"
               class="bg-lime-600 mt-4 text-white hover:scale-105 cursor-pointer px-4 py-2 rounded-md hover:bg-lime-500 transition duration-300"
             >

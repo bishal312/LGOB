@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgIf } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgIf } from '@angular/common';
 import { Component, computed, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../services/auth/auth';
@@ -9,7 +9,7 @@ import {  IproductGetObj } from '../../../models/model';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,NgIf],
+  imports: [RouterLink,NgIf,NgClass],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })

@@ -4,12 +4,13 @@ import { IproductGetObj } from '../../models/model';
 import { Product } from '../../services/product/product';
 import { Portal } from '@angular/cdk/portal';
 import { PopupService } from '../../services/popup/popup-service';
+import { NgClass, NgIf } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-product-ui',
-  imports: [],
+  imports: [NgClass,NgIf],
   templateUrl: './product.html',
   styleUrl: './product.css'
 })
