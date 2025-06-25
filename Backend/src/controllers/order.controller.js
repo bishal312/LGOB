@@ -232,6 +232,7 @@ export const getMyOrders = async (req, res) => {
               productId: item.productId,
               quantity: item.quantity,
               price: product?.price || 0,
+              status: order.status,
             };
           })
         );
