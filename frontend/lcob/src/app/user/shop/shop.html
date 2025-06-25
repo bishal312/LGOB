@@ -1,22 +1,22 @@
 <div class="bg-[#ebf2fa] min-h-screen w-full mx-auto max-w-[1640px]">
   <!-- Hero Section with Image Slider -->
-  <div class="relative w-full h-[300px] md:h-[500px] overflow-hidden">
+  <div class="relative w-full h-[300px] md:h-[500px] overflow-hidden shadow-lg">
     <div class="w-full h-full flex animate-slider">
-      <img src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750668494/153d790f-ad4c-4eb4-bd4d-6e6c706c99e2_jlmdrp.jpg" alt="Hero 1" class="w-full h-full object-cover flex-shrink-0">
-      <img src="assets/hero-image.png" alt="Hero 2" class="w-full h-full object-cover flex-shrink-0">
-      <img src="assets/hero-image.png" alt="Hero 3" class="w-full h-full object-cover flex-shrink-0">
+      <img src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750668494/153d790f-ad4c-4eb4-bd4d-6e6c706c99e2_jlmdrp.jpg " alt="Hero 1" class="w-full h-full object-cover flex-shrink-0">
+      <img src="assets/img3.jpg" alt="Hero 2" class="w-full h-full object-cover flex-shrink-0">
+      <img src="assets/img4.jpg" alt="Hero 3" class="w-full h-full object-cover flex-shrink-0">
     </div>
   </div>
 
   <!-- Flash Sale Section -->
   <section class="py-8 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-red-600">Flash Sale On {{getProductCount}} Products</h2>
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00] text-shadow-lg">Flash Sale On {{getProductCount}} Products</h2>
     @if(loaderService.isLoading | async){
       <mat-spinner class="mx-auto"/>
       
     }@else {
 
-      <div class="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
         <!-- Repeat product card -->
          @for(item of allProducts; track $index){
            <div class="bg-white p-5 rounded-lg relative shadow-lg hover:shadow-xl transition duration-300 flex flex-col justify-between h-full">
@@ -41,7 +41,7 @@
     
     (click)="navigateToProductDetails(item._id)"
       
-      class="bg-green-700 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-600 transition mt-4 w-full">
+      class="bg-lime-600 hover:scale-105 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-lime-400 transition mt-4 w-full">
       Buy Now
     </button>
             </div>
@@ -53,7 +53,7 @@
 
   <!-- All Products Section -->
   <section class="py-8 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-blue-800">Our Products</h2>
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00]">Our Products</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <!-- Repeat product card -->
       <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300">
