@@ -12,7 +12,7 @@ import * as AOS from 'aos';
 })
 export class MainLayout {
 
-  ngOnInit() {
+  ngOnInit(): void {
     AOS.init({
       duration: 1000,
       once:false

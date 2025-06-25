@@ -4,8 +4,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Api } from '../../services/api/api';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
-import { sign } from 'crypto';
-import { error } from 'console';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Loader } from '../../mat-services/loader/loader';
 
@@ -56,7 +54,8 @@ export class MyProducts {
       description: new FormControl('', [
         Validators.required,
         Validators.minLength(10)
-      ])
+      ]),
+      isFeatured: new FormControl(false)
     });
   }
 
@@ -89,7 +88,6 @@ export class MyProducts {
       image: this.imageBase64,
       userId: userData._id
     };
-
     this.apiService.addProduct(payload).subscribe(
       (res: any) => {
         this.productService.clearCache();
