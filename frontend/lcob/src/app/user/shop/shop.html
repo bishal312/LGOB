@@ -23,7 +23,7 @@
     <img
      (click)="navigateToProductDetails(item._id)"
      (keypress)="navigateToProductDetails(item._id)"
-     [src]="item.image" alt="Sale Product" class="w-full h-40 object-cover cursor-pointer rounded transform transition-transform duration-300 hover:scale-105">
+     [src]="item.image" alt="Sale Product" class="w-full h-40 object-cover shadow-sm cursor-pointer rounded transform transition-transform duration-300 hover:scale-105">
     
     <div class="flex-grow">
       <h3 class="mt-2 font-semibold text-lg truncate">{{ item.name }}</h3>
@@ -33,7 +33,7 @@
       </div>
       <div class="mt-2 absolute -top-3 right-4">
          <span *ngIf="item.stock > 0" class="text-green-600 font-bold text-sm">In Stock</span>
-         <span *ngIf="item.stock <= 0" class="text-red-600 font-bold text-sm">Out of Stock</span>
+         <span *ngIf="item.stock <= 0" class="text-red-700 font-bold text-sm">Out of Stock</span>
       </div>
     </div>
   
@@ -57,7 +57,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <!-- Repeat product card -->
       <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300">
-        <img src="assets/product1.jpg" alt="Product" class="w-full h-40 object-cover rounded">
+        <img src="assets/img4.jpg" alt="Product" class="w-full h-40 object-cover rounded shadow-sm">
         <h3 class="mt-2 font-semibold text-lg truncate">Product Name</h3>
         <div class="text-green-600 font-bold text-lg mt-1">$29.99</div>
         <div class="text-yellow-500 text-sm">★★★★★</div>
