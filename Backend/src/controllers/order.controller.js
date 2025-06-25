@@ -232,7 +232,6 @@ export const getMyOrders = async (req, res) => {
               productId: item.productId,
               quantity: item.quantity,
               price: product?.price || 0,
-              status: order.status,
             };
           })
         );
@@ -242,6 +241,7 @@ export const getMyOrders = async (req, res) => {
           createdAt: order.createdAt,
           totalAmount: order.totalAmount,
           orderId: order._id,
+          orderStatus: order.status,
         };
       })
     );
