@@ -35,6 +35,7 @@ export class Myorders {
   getOrderDetail() {
     this.orderService.getOrderDetailByUserId().subscribe(
       (res: any) => {
+        console.log(res);
         if (res.message === "You haven't ordered any items yet!") {
 
           this.snackbar.show(res.message,"close",3000,'left','top',['snackbar-below-navbar'])
