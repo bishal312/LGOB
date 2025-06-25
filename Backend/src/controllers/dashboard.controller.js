@@ -8,7 +8,8 @@ dotenv.config();
 
 export const addProduct = async (req, res) => {
   try {
-    const { name, price, description, image, stock, userId, isFeatured } = req.body;
+    const { name, price, description, image, stock, userId, isFeatured } =
+      req.body;
 
     const existingProduct = await Product.findOne({ name, userId });
 
@@ -61,15 +62,15 @@ export const getMyProducts = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
-    const existingProduct = await Product.findOne({
-      _id: req.params.id,
-    });
+    const existingProduct = await Product.findById(req.params.id);
 
     if (!existingProduct) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
     }
+
     if (req.body.imageBase64) {
       if (existingProduct.imagePublicId) {
         await cloudinary.uploader.destroy(existingProduct.imagePublicId);
@@ -83,15 +84,27 @@ export const updateProduct = async (req, res) => {
       req.body.imagePublicId = newImg.public_id;
 
       delete req.body.imageBase64;
+    } else {
+      req.body.image = existingProduct.image;
+      req.body.imagePublicId = existingProduct.imagePublicId;
     }
 
     Object.assign(existingProduct, req.body);
 
     await existingProduct.save();
-    res.status(200).json(existingProduct);
+
+    res.status(200).json({
+      success: true,
+      message: "Product updated successfully",
+      product: existingProduct,
+    });
   } catch (error) {
-    console.log("Error while updating product", error);
-    res.status(500).json({ success: false, message: "product Update fail" });
+    console.error("Error while updating product:", error);
+    res.status(500).json({
+      success: false,
+      message: "Product update failed",
+      error: error.message,
+    });
   }
 };
 
