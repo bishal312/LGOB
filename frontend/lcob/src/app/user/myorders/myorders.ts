@@ -1,13 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Order } from '../../services/order/order';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
-import { CommonModule,  DatePipe, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule,  DatePipe, NgIf } from '@angular/common';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { PopupService } from '../../services/popup/popup-service';
+import { DialogBox } from '../../services/dialog/dialog-box';
+import { Loader } from '../../mat-services/loader/loader';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingComponent } from "../../services/loading-component/loading-component/loading-component";
 @Component({
   selector: 'app-myorders',
-  imports: [DatePipe, NgIf, CommonModule,MatSnackBarModule],
+  imports: [DatePipe, NgIf, CommonModule, MatSnackBarModule,AsyncPipe, MatProgressSpinnerModule, LoadingComponent],
   templateUrl: './myorders.html',
   styleUrl: './myorders.css',
 })
@@ -15,6 +19,9 @@ export class Myorders {
   orderService = inject(Order);
   productService = inject(Product);
   snackbar=inject(PopupService)
+  dialogBox=inject(DialogBox)
+  loaderService=inject(Loader)
+  loader=signal<boolean>(false)
 
   allProducts: IproductGetObj[] = [];
   orderItems: any[] = [];
@@ -29,11 +36,13 @@ export class Myorders {
     this.orderService.getOrderDetailByUserId().subscribe(
       (res: any) => {
         if (res.message === "You haven't ordered any items yet!") {
+
           this.snackbar.show(res.message,"close",3000,'left','top',['snackbar-below-navbar'])
           this.messageToUser = res.message;
           this.orderItems = [];
         }
         if (res.message === 'Your Orders:-') {
+
           this.orderItems = res.onlyItems.map((order: any) => ({
             orderId: order.orderId,
             createdAt: order.createdAt,

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogState } from '@angular/material/dialog';
 import { DialogUi } from './dialog-ui/dialog-ui';
 
 @Injectable({
@@ -18,4 +18,20 @@ export class DialogBox {
       }
     }).afterClosed();  //retrun observable
   }
+
+  openWithoutContinue(message: string, title: string = 'Alert', duration: number = 1500, showActions: boolean = true) {
+  const dialogRef = this.dialog.open(DialogUi, {
+    width: '400px',
+    data: { title, message, showActions },
+  });
+
+  // Auto-close after `duration` ms
+  setTimeout(() => {
+    if (dialogRef.getState() === MatDialogState.OPEN) {
+      dialogRef.close();
+    }
+  }, duration);
+
+  return dialogRef.afterClosed();
+}
 }

@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Product } from '../../services/product/product';
-import { NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OrderItem, Suggestion } from '../../models/model';
 import { Order } from '../../services/order/order';
@@ -8,10 +8,12 @@ import { error } from 'console';
 import { Router, RouterLink } from '@angular/router';
 import { GoogleApiLoader } from '../../services/google-api-loader/google-api-loader';
 import { DialogBox } from '../../services/dialog/dialog-box';
+import { Loader } from '../../mat-services/loader/loader';
+import { LoadingComponent } from "../../services/loading-component/loading-component/loading-component";
 
 @Component({
   selector: 'app-my-cart',
-  imports: [NgIf, RouterLink, NgClass],
+  imports: [NgIf, RouterLink, NgClass, LoadingComponent, AsyncPipe],
   templateUrl: './my-cart.html',
   styleUrl: './my-cart.css',
 })
@@ -51,6 +53,7 @@ export class MyCart {
   orderService = inject(Order);
   productService = inject(Product);
   dialogBox=inject(DialogBox)
+  loaderService=inject(Loader)
   ngOnInit() {
     this.productService.getCartItemsByUserId().subscribe(
       () => {},
@@ -192,7 +195,8 @@ export class MyCart {
   }
 
   checkoutProcess() {
-    this.showPopup = true;
+          this.dialogBox.openWithoutContinue('In a moment, your order will be placed!',"In Progress",1000,false).subscribe(() => {});
+    
     this.checkoutMessage = 'Please wait for a moment...';
     this.orderFormObj.controls['totalAmount'].setValue(this.total());
     const totalItems: OrderItem[] = [];
@@ -208,6 +212,7 @@ export class MyCart {
     this.orderService.placeOrder(this.orderFormObj.value).subscribe(
       (res: any) => {
         if (res.message === 'Order placed successfully') {
+          this.dialogBox.openWithoutContinue(res.message,"Success",1000,false).subscribe(() => {});
           
           this.productService.updateStockAfterOrder(res.order);
           

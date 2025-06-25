@@ -1,6 +1,6 @@
- <h2 mat-dialog-title>{{ data.title }}</h2>
-    <mat-dialog-content>{{ data.message }}</mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button class="ml-3 px-2 py-1 bg-red-700 cursor-pointer hover:bg-red-600 text-white rounded-2xl" (click)="dialogRef.close(false)" mat-button mat-dialog-close>Cancel</button>
+ <h2 mat-dialog-title class="text-2xl font-bold text-center" >{{ data.title }}</h2>
+    <mat-dialog-content class="text-center">{{ data.message }}</mat-dialog-content>
+    <mat-dialog-actions align="end" *ngIf="data.showActions !== false">
+      <button  class="ml-3 px-2 py-1 bg-red-700 cursor-pointer hover:bg-red-600 text-white rounded-2xl" (click)="dialogRef.close(false)" mat-button mat-dialog-close>Cancel</button>
       <button class="ml-3 px-2 py-1 bg-green-700 cursor-pointer hover:bg-green-600 text-white rounded-2xl"  (click)="dialogRef.close(true)" mat-button mat-dialog-close>Continue</button>
     </mat-dialog-actions>

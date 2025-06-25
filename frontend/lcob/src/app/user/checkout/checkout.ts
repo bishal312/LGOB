@@ -12,13 +12,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IproductGetObj, OrderItem, Suggestion } from '../../models/model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../services/order/order';
-import { NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { GoogleApiLoader } from '../../services/google-api-loader/google-api-loader';
-import { retry } from 'rxjs';
+
+import { DialogBox } from '../../services/dialog/dialog-box';
+import { MatDialogModule } from '@angular/material/dialog';
+import { Loader } from '../../mat-services/loader/loader';
+import { LoadingComponent } from "../../services/loading-component/loading-component/loading-component";
 
 @Component({
   selector: 'app-checkout',
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, MatDialogModule, AsyncPipe, LoadingComponent],
   templateUrl: './checkout.html',
   styleUrl: './checkout.css',
 })
@@ -33,6 +37,8 @@ export class Checkout implements OnInit {
     }),
   });
 
+  dialogBox = inject(DialogBox);
+  loaderService = inject(Loader);
   quantity = signal(1);
   name: string = '';
   phonenumber: string = '';
@@ -109,44 +115,42 @@ export class Checkout implements OnInit {
   }
 
   checkoutProcess() {
-    this.showPopup = true;
-    this.checkoutMessage = 'Please wait for a moment...';
-    this.orderFormObj.controls['totalAmount'].setValue(this.totalOrderAmount());
-    const newItem: OrderItem = {
-      productId: this.productId,
-      quantity: this.quantity(),
-    };
-
-    this.orderFormObj.controls['items'].setValue([newItem]);
-    const value = this.orderFormObj.value;
-
-    this.orderService.placeOrder(value).subscribe(
-      (res: any) => {
-        this.showPopup = true;
-        if (res.message === 'Order placed successfully') {
-          
-
+    this.dialogBox
+      .openWithoutContinue(
+        'In a moment, your order will be placed!',
+        'In Progress',
+        1500,
+        false
+      )
+      .subscribe(() => {
         
+        this.orderFormObj.controls['totalAmount'].setValue(this.totalOrderAmount());
+        const newItem: OrderItem = {
+          productId: this.productId,
+          quantity: this.quantity(),
+        };
+        this.orderFormObj.controls['items'].setValue([newItem]);
+        const value = this.orderFormObj.value;
+        this.orderService.placeOrder(value).subscribe(
+          (res: any) => {
+            if (res.message === 'Order placed successfully') {
+              this.dialogBox
+                .openWithoutContinue(res.message, 'Success', 1500, false)
+                .subscribe(() => {});
+    
+              this.router.navigate(['/shop/my-orders']);
+            }
+          },
+          (error) => {
+            console.log('error while placing order', error);
+            this.dialogBox
+              .openWithoutContinue(error.message, 'Success', 1500, false)
+              .subscribe(() => {});
+          }
+        );
+      });
 
-          this.checkoutMessage = res.message;
-         
-          setTimeout(() => {
-            this.showPopup = false;
-            this.router.navigate(['/shop/my-orders']);
-            this.checkoutMessage = '';
-          }, 2000);
-        }
-      },
-      (error) => {
-        console.log('error while placing order', error);
-        this.showPopup = true;
-        this.checkoutMessage = error.message;
-        setTimeout(() => {
-          this.showPopup = false;
-          this.checkoutMessage = '';
-        });
-      }
-    );
+
   }
 
   onAddressInput(address: string) {
@@ -154,23 +158,20 @@ export class Checkout implements OnInit {
       this.skipNextInput = false;
       return;
     }
-   if(this.suggestions()){
-      if(this.suggestions().length === 0){
-      this.showSuggestions.set(true);
-      
+    if (this.suggestions()) {
+      if (this.suggestions().length === 0) {
+        this.showSuggestions.set(true);
+      } else if (this.suggestions().length !== 0) {
+        const matchedAddress = this.suggestions().find(
+          (suggestion) =>
+            suggestion.placePrediction?.text?.text === this.queryAddress()
+        );
+        if (matchedAddress) {
+          this.suggestions.set([]);
+          return;
+        }
+      }
     }
-    
-   else if(this.suggestions().length !== 0){
-     const matchedAddress = this.suggestions().find(
-      (suggestion) =>
-        suggestion.placePrediction?.text?.text === this.queryAddress()
-    );
-    if (matchedAddress) {
-      this.suggestions.set([]);
-      return;
-    }
-   }
-   }
 
     this.queryAddress.set(address);
   }
