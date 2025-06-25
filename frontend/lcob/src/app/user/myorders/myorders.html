@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-50 p-4 max-w-md mx-auto md:max-w-3xl lg:max-w-5xl">
+<div class="min-h-screen bg-gray-50 p-4 max-w-md mx-auto md:max-w-3xl lg:max-w-[1640px]">
   <h1 class="text-2xl font-semibold mb-6 text-center text-gray-800">My Orders</h1>
   
   @if(loaderService.isLoading | async) {
@@ -14,7 +14,7 @@
   @else {
 
     @for(order of orderItems; track order.createdAt) {
-      <div class="mb-10" [attr.data-aos]="'fade-up'" [attr.data-aos-delay]="order.createdAt ? 0 : 0">
+      <div class="mb-10  w-full mx-auto max-w-[1200px]" [attr.data-aos]="'fade-up'" [attr.data-aos-delay]="order.createdAt ? 0 : 0" >
         <!-- Order Header -->
         <div class="flex items-center justify-between mb-4">
           <p class="text-sm text-gray-500 md:text-base">
