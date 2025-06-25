@@ -25,6 +25,8 @@
             </span>
           </p>
           <button
+          [ngClass]="{ 'opacity-40 cursor-not-allowed': order.status === 'Delivered' || order.status === 'Cancelled' || order.status === 'Delivery in process' }"
+          [disabled]="order.status === 'Delivered' || order.status === 'Cancelled' || order.status === 'Delivery in process'"
           (click)="cancelOrder(order.orderId)"
          class="text-sm bg-linear-to-tl from-[#ffecec] to-[#fff2f2] hover:scale-105 transition-colors duration-300 ease-in-out text-red-500 border border-red-500 px-3 py-1 cursor-pointer rounded hover:bg-red-50"
             
@@ -61,7 +63,7 @@
                   <p class="text-sm text-gray-700 mt-2">
                     Quantity: <span class="font-semibold">{{ item.quantity }}</span>
                   </p>
-                <p class="text-sm text-gray-700 mt-2">Status: <span class="font-light ">Delivery In process</span></p>
+                <p class="text-sm text-gray-700 mt-2">Status: <span class="font-light ">{{order.status}}</span></p>
 
                 </div>
   

@@ -146,7 +146,8 @@
           (click)="onLogin(btnText())"
           data-aos="fade-down-right"
           data-aos-delay="700"
-          class="bg-lime-600 hover:bg-red-600 hover:scale-105 transition-colors duration-300 cursor-pointer text-white px-4 py-2 rounded-md"
+          [ngClass]="{ 'bg-red-600': btnText() == 'Logout' }"
+          class="bg-lime-600  hover:scale-105 transition-colors duration-300 cursor-pointer text-white px-4 py-2 rounded-md"
         >
           {{ btnText() }}
         </button>

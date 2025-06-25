@@ -48,6 +48,7 @@ export class Myorders {
             createdAt: order.createdAt,
             totalAmount: order.totalAmount,
             items: order.items,
+            status: order.orderStatus
           }));
           this.orderItems.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           this.getAllProducts();
@@ -85,7 +86,6 @@ export class Myorders {
   cancelOrder(orderId: string) {
     this.orderService.cancelOrder(orderId).subscribe({
       next: (res: any) => {
-        console.log(res, 'order canceled');
         if(res.message === "Order cancelled successfully"){
           this.snackbar.show('Order Cancelled successfully',"close",
            3000,
