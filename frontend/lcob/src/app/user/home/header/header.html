@@ -1,11 +1,11 @@
 <header
-  class="bg-[#98CD00] text-black shadow-md w-full transition-all duration-300 ease-in max-w-[1640px] mx-auto"
+  class="bg-[#98CD00] text-black shadow-md w-full px-10  transition-all duration-300 ease-in max-w-[1640px] mx-auto"
 >
   <div
-    class="max-w-[1440px] mx-auto px-4 py-3 flex items-center justify-between"
+    class="max-w-[1640px] mx-auto  py-3 flex items-center justify-between"
   >
     <!-- Logo -->
-    <div class="flex items-center space-x-4" data-aos="fade-down">
+    <div class="flex items-center" data-aos="fade-down">
       <img
         src="./../../../../assets/LogoofLCOB.png"
         alt="logo"
@@ -60,7 +60,7 @@
       >
         <a
           routerLink="/home"
-          class="relative group overflow-hidden hover:scale-110 transition-all duration-1000"
+          class="relative group overflow-hidden"
           data-aos="fade-down-right"
           data-aos-delay="100"
           >Home<span
@@ -69,7 +69,7 @@
         ></a>
         <a
           routerLink="/shop"
-          class="relative group overflow-hidden hover:scale-110 transition-all duration-1000"
+          class="relative group overflow-hidden"
           data-aos="fade-down-right"
           data-aos-delay="200"
           >Shop
@@ -79,7 +79,7 @@
         ></a>
         <a
           routerLink="shop/my-orders"
-          class="relative group overflow-hidden hover:scale-110 transition-all duration-1000"
+          class="hrelative group overflow-hidden"
           data-aos="fade-down-right"
           data-aos-delay="300"
           >My Orders
@@ -89,7 +89,7 @@
         ></a>
         <a
           routerLink="/about"
-          class="relative group overflow-hidden hover:scale-110 transition-all duration-1000"
+          class="relative group overflow-hidden"
           data-aos="fade-down-right"
           data-aos-delay="400"
           >About
@@ -124,7 +124,7 @@
 
         <!-- Cart Icon Desktop -->
         <div
-          class="relative cursor-pointer hover:scale-105 transition-transform duration-300"
+          class="relative cursor-pointer"
           routerLink="shop/my-cart"
           data-aos="fade-down-right"
           data-aos-delay="600"
@@ -144,9 +144,7 @@
 
         <button
           (click)="onLogin(btnText())"
-          data-aos="fade-down-right"
-          data-aos-delay="700"
-          class="bg-lime-600 hover:bg-red-600 hover:scale-105 transition-colors duration-300 cursor-pointer text-white px-4 py-2 rounded-md"
+          class="bg-green-700 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
         >
           {{ btnText() }}
         </button>
@@ -155,44 +153,27 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div *ngIf="isMenuOpen() === true" class="md:hidden px-4 pb-4">
+  <div *ngIf="isMenuOpen() === true" class="md:hidden  pb-4">
     <hr />
     <nav
       aria-label="Mobile Menu"
       class="flex flex-col justify-end items-center space-y-3 font-medium"
     >
-      <a
-        routerLink="/home"
-        (click)="toggleMenu()"
-        class="relative group overflow-hidden hover:scale-110 transition-all duration-500"
-        >Home<span
-          class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
-        ></span
-      ></a>
-      <a
-        routerLink="/shop"
-        (click)="toggleMenu()"
-        class="relative group overflow-hidden hover:scale-110 transition-all duration-500"
-        >Shop<span
-          class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
-        ></span
-      ></a>
+      <a routerLink="/home" (click)="toggleMenu()" class="hover:underline"
+        >Home</a
+      >
+      <a routerLink="/shop" (click)="toggleMenu()" class="hover:underline"
+        >Shop</a
+      >
       <a
         routerLink="shop/my-orders"
         (click)="toggleMenu()"
-        class="relative group overflow-hidden hover:scale-110 transition-all duration-500"
-        >My Orders<span
-          class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
-        ></span
-      ></a>
-      <a
-        routerLink="/about"
-        (click)="toggleMenu()"
-        class="relative group overflow-hidden hover:scale-110 transition-all duration-500"
-        >About<span
-          class="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"
-        ></span
-      ></a>
+        class="hover:underline"
+        >My Orders</a
+      >
+      <a routerLink="/about" (click)="toggleMenu()" class="hover:underline"
+        >About</a
+      >
     </nav>
 
     <div class="mt-4 space-y-3">

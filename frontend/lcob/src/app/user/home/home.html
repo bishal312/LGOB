@@ -1,6 +1,6 @@
-<main class="container bg-[#FBFBFB] max-w-[1640px] w-full mx-auto">
+<main class="container bg-[#ebf2fa] max-w-[1640px] w-full mx-auto">
   <!-- hero section -->
-  <section id="hero" class="px-2">
+  <section id="hero" class="py-12 px-4 md:px-1">
     <h1
       class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4 text-shadow-lg"
       data-aos="fade-down"
@@ -46,14 +46,14 @@
 
   <!-- our products category -->
 
-  <section id="product-category " class="px-2 sm:px-6">
+  <section id="product-category " class="px-10">
     <h1
       class="text-3xl md:text-4xl pt-6 text-center font-bold mb-4 text-shadow-lg"
     >
       Our Products
     </h1>
 
-    <div class="flex justify-center items-center">
+    <div class="flex justify-start items-center">
       <mat-spinner *ngIf="loaderService.isLoading | async"></mat-spinner>
       <div
         id="product-category"
@@ -71,7 +71,7 @@
             <img
               class="w-[405px] h-[252px]"
               [src]="item.image"
-              alt="oystermushroom"
+              [alt]="item.name"
             />
           </div>
           <div id="detail" class="flex flex-col items-center justify-center">
@@ -103,7 +103,7 @@
   <!-- our services -->
   <section
     id="services"
-    class="py-12 px-4 md:px-20"
+    class="py-12 px-4 md:px-10"
     data-aos="fade-up"
     data-aos-delay="100"
   >
@@ -183,7 +183,7 @@
   <!-- our reviews -->
   <section
     id="reviews"
-    class="py-10 px-20"
+    class="py-10 px-4 md:px-10"
     data-aos="fade-up"
     data-aos-delay="100"
   >
