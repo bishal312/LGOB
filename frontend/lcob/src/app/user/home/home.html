@@ -69,7 +69,7 @@
         >
           <div class="overflow-hidden rounded-2xl">
             <img
-              class="w-[405px] h-[252px]"
+              class="w-[405px] h-[252px] object-cover"
               [src]="item.image"
               alt="oystermushroom"
             />
@@ -88,12 +88,26 @@
         }
       </div>
     </div>
-    <div class="flex justify-center items-center">
+    <!-- <div class="flex justify-center items-center">
       <button
         routerLink="/shop"
         data-aos="fade-up"
         data-aos-delay="50"
-        class="text-white hover:scale-105 bg-gradient-to-r from-lime-500 via-lime-600 to-lime-700 hover:brightness-110 hover:saturate-150 focus:ring-4 focus:outline-none focus:ring-lime-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition-all duration-1000 ease-in-out shadow-lg hover:shadow-xl"
+        class="text-white bg-gradient-to-r from-lime-500 via-lime-600 to-lime-700 focus:ring-4 focus:outline-none focus:ring-lime-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg hover:shadow-xl transition-all duration-1000 ease-in-out transform hover:scale-105 filter hover:brightness-110 hover:saturate-150"
+      >
+        See More Products
+      </button>
+      
+    </div> -->
+    <div
+      class="flex justify-center items-center"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      data-aos-delay="50"
+    >
+      <button
+        routerLink="/shop"
+        class="text-white hover:scale-105 bg-gradient-to-r from-lime-500 via-lime-600 to-lime-700 hover:brightness-110 hover:saturate-150 focus:ring-4 focus:outline-none focus:ring-lime-400 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl"
       >
         See More Products
       </button>
@@ -269,12 +283,17 @@
   </section>
 
   <!-- our newsletter -->
-  <section id="newsletter" class=" py-10 px-4" data-aos="fade-up" data-aos-delay="100">
+  <section
+    id="newsletter"
+    class="py-10 px-4"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
     <div class="max-w-xl mx-auto text-center">
       <h2 class="text-3xl font-bold mb-4 text-green-900">
         Subscribe to Our Newsletter
       </h2>
-      <p class="mb-6 ">
+      <p class="mb-6">
         Get the latest updates on fresh mushrooms, offers, and tips straight to
         your inbox!
       </p>
