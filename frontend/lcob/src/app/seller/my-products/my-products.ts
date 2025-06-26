@@ -1,6 +1,18 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component,  computed,  effect, inject, Renderer2, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  Renderer2,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Api } from '../../services/api/api';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
@@ -12,19 +24,19 @@ import { Loader } from '../../mat-services/loader/loader';
 @Component({
   selector: 'app-my-products',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule,MatProgressSpinnerModule,AsyncPipe],
+  imports: [NgIf, ReactiveFormsModule, MatProgressSpinnerModule, AsyncPipe],
   templateUrl: './my-products.html',
-  styleUrl: './my-products.css'
+  styleUrl: './my-products.css',
 })
 export class MyProducts {
   productService = inject(Product);
-  loaderService=inject(Loader)
+  loaderService = inject(Loader);
   apiService = inject(Api);
   renderer = inject(Renderer2);
 
   readonly product = computed(() => this.productService.products());
   showForm = false;
-  isEditing:boolean=false;
+  isEditing: boolean = false;
   imageBase64: string = '';
   editingProductId: string = '';
   productObj: FormGroup = new FormGroup({});
@@ -40,23 +52,16 @@ export class MyProducts {
     this.productObj = new FormGroup({
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Z][a-zA-Z ]+$') // Starts with uppercase
+        Validators.pattern('^[A-Z][a-zA-Z ]+$'), // Starts with uppercase
       ]),
-      price: new FormControl(0, [
-        Validators.required,
-        Validators.min(0)
-      ]),
-      stock: new FormControl(0, [
-        Validators.required,
-        Validators.min(0)
-      ]),
-      image: new FormControl('', [
-        Validators.required
-      ]),
+      price: new FormControl(0, [Validators.required, Validators.min(0)]),
+      stock: new FormControl(0, [Validators.required, Validators.min(0)]),
+      image: new FormControl('', [Validators.required]),
       description: new FormControl('', [
         Validators.required,
-        Validators.minLength(10)
-      ])
+        Validators.minLength(10),
+      ]),
+      isFeatured: new FormControl(false),
     });
   }
 
@@ -87,7 +92,7 @@ export class MyProducts {
     const payload = {
       ...this.productObj.value,
       image: this.imageBase64,
-      userId: userData._id
+      userId: userData._id,
     };
 
     this.apiService.addProduct(payload).subscribe(
@@ -98,7 +103,7 @@ export class MyProducts {
         // Add JSON-LD script for the newly added product
         this.addJsonLd({
           ...payload,
-          _id: res._id ?? 'new-product-id' // fallback id if not returned
+          _id: res._id ?? 'new-product-id', // fallback id if not returned
         });
       },
       (error) => {
@@ -109,30 +114,30 @@ export class MyProducts {
   }
 
   loadProducts() {
-this.productService.getAllProducts().subscribe({
-  next: (products) => {
-    console.log('Products');
-  },
-  error: (err) => {
-    console.error('Error loading products:', err);
-  }
-});
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        console.log('Products');
+      },
+      error: (err) => {
+        console.error('Error loading products:', err);
+      },
+    });
   }
 
   addJsonLd(product: any) {
     const jsonLd = {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": product.name,
-      "image": product.image,
-      "description": product.description,
-      "sku": product._id,
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "USD",
-        "price": product.price,
-        "availability": "https://schema.org/InStock"
-      }
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: product.name,
+      image: product.image,
+      description: product.description,
+      sku: product._id,
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'USD',
+        price: product.price,
+        availability: 'https://schema.org/InStock',
+      },
     };
 
     const script = this.renderer.createElement('script');
@@ -141,49 +146,48 @@ this.productService.getAllProducts().subscribe({
     this.renderer.appendChild(document.head, script);
   }
 
-  editProduct(product:IproductGetObj){
-    
-    this.editingProductId=product._id
-    this.productObj.patchValue(product)
-    this.isEditing=true
+  editProduct(product: IproductGetObj) {
+    this.editingProductId = product._id;
+    this.productObj.patchValue(product);
+    this.isEditing = true;
 
-    this.showForm=true
+    this.showForm = true;
   }
 
-  updateProduct(){
-   
-    
-    this.showForm=false
-    this.isEditing=false
-      const payload = {
+  updateProduct() {
+    this.showForm = false;
+    this.isEditing = false;
+    const payload = {
       ...this.productObj.value,
       image: this.imageBase64,
-      _id:this.editingProductId
-      
+      _id: this.editingProductId,
     };
     // run load again due to update in products
-    this.productService.updateProduct(payload).subscribe((res:any)=>{
-      if(res){
-        this.productService.clearCache()
-        this.loadProducts();
+    this.productService.updateProduct(payload).subscribe(
+      (res: any) => {
+        if (res) {
+          this.productService.clearCache();
+          this.loadProducts();
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-     
-    },(error)=>{
-      console.log(error)
-    })
+    );
   }
-  
 
-  deleteProduct(id:string){
-    console.log(id)
-    this.productService.deleteProduct(id).subscribe((res:any)=>{
-      if(res){
-        this.productService.clearCache()
-        this.loadProducts();
+  deleteProduct(id: string) {
+    console.log(id);
+    this.productService.deleteProduct(id).subscribe(
+      (res: any) => {
+        if (res) {
+          this.productService.clearCache();
+          this.loadProducts();
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-    },(error)=>{
-      console.log(error)
-    })
+    );
   }
-  
 }
