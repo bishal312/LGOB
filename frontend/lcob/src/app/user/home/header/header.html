@@ -118,6 +118,8 @@
 
         <!-- Cart Icon Desktop -->
         <div
+          (click)="toggleMenu()"
+          (keypress)="toggleMenu()"
           class="relative cursor-pointer hover:scale-110 transition-transform duration-300"
           routerLink="shop/my-cart"
           data-aos="fade-down-right"
@@ -152,9 +154,11 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div *ngIf="isMenuOpen() === true" class="md:hidden px-4 pb-4">
+  <div data-aos="fade-down-left"
+      data-aos-delay="200" *ngIf="isMenuOpen() === true" class="md:hidden px-4 pb-4">
     <hr />
     <nav
+      
       aria-label="Mobile Menu"
       class="flex flex-col justify-end items-center space-y-3 font-medium"
     >
@@ -217,6 +221,8 @@
 
       <!-- Cart Icon Mobile -->
       <div
+      (click)="toggleMenu()"
+          (keypress)="toggleMenu()"
         class="relative cursor-pointer flex justify-center"
         routerLink="shop/my-cart"
       >
@@ -236,7 +242,9 @@
       </div>
 
       <button
+        (keypress)="toggleMenu()"
         (click)="onLogin(btnText())"
+        [ngClass]="{ 'bg-red-600': btnText() == 'Logout' }"
         class="w-full text-white bg-lime-600 px-4 py-2 rounded-md transition"
       >
         {{ btnText() }}
