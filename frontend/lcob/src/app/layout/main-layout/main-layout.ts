@@ -4,6 +4,8 @@ import { Header } from "../../user/home/header/header";
 import { Footer } from "../../footer/footer/footer";
 import * as AOS from 'aos';
 
+
+
 @Component({
   selector: 'app-main-layout',
   imports: [RouterOutlet, Header, Footer],

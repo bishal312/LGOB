@@ -164,7 +164,7 @@
         data-aos="flip-left"
         [attr.data-aos-delay]="$index * 100"
         class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300"
-      >
+      >  
         <img
           (click)="navigateToProductDetails(item._id)"
           (keypress)="navigateToProductDetails(item._id)"
@@ -173,10 +173,12 @@
           alt="Product"
           class="w-full h-40 object-cover rounded shadow-sm"
         />
-        <h3 class="mt-2 font-semibold text-lg truncate tracking-wide">{{item.name}}</h3>
-        <div class="text-green-600 font-bold text-lg mt-1">
+        <h3 class="mt-2 font-semibold text-base sm:text-lg truncate tracking-wide" style="word-spacing: 0.2rem;">{{item.name}}</h3>
+        <div class="text-green-600 font-bold text-base sm:text-lg mt-1">
           RS {{item.price}} /kg
         </div>
+        <p *ngIf="item.stock <= 0" class="text-red-700 font-bold text-sm absolute top-0 right-4">Out of Stock</p>
+
         <div class="text-yellow-500 text-sm">★★★★★</div>
       </div>
       } }
