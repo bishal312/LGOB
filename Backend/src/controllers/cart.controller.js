@@ -1,14 +1,20 @@
 import { Cart } from "../models/cart.model.js";
 import User from "../models/User.model.js";
 
-
 export const addToCart = async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ message: "Please login first" });
+    }
+
     const { productId, quantity } = req.body;
     const userId = req.user.id;
     const qty = parseInt(quantity) || 1;
 
     const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found or login first" });
+    }
     if (user?.role === "admin") {
       return res
         .status(403)
@@ -55,8 +61,6 @@ export const getCartProduct = async (req, res) => {
       .json({ message: "Failed to get cart", error: error.message });
   }
 };
-
-
 
 export const removeFromCart = async (req, res) => {
   try {
