@@ -12,6 +12,8 @@
       <button (click)="toggleMenu()">
         <!-- Hamburger Icon -->
         <svg
+          data-aos="fade-down-left"
+          data-aos-delay="100"
           *ngIf="isMenuOpen() === false"
           class="w-8 cursor-pointer h-8 text-black"
           fill="none"
@@ -29,6 +31,8 @@
 
         <!-- Close Icon -->
         <svg
+          data-aos="fade-down-right"
+          data-aos-delay="100"
           *ngIf="isMenuOpen()=== true"
           class="w-8 cursor-pointer h-8 text-black"
           fill="none"
