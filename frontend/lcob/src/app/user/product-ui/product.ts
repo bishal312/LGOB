@@ -74,6 +74,13 @@ navigateToProductDetails(productId: string) {
 }
 
  addToCart(){
+   const user = localStorage.getItem('user');
+  if (!user) {
+  alert('Please log in to add items to your cart.');
+  
+  return;
+  }
+  
   const product=this.productDetail
   
  
