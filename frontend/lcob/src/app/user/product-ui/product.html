@@ -76,7 +76,10 @@
           </div>
            <p
             class="text-red-500 text-sm mt-2"
-            *ngIf="!productDetail?.stock || productDetail?.stock! <= 0 || quantity() > productDetail?.stock! ">We have only {{productDetail?.stock}} kg available</p>
+            *ngIf="!productDetail?.stock || productDetail?.stock! <= 0">We have  0 kg available</p>
+           <p
+            class="text-red-500 text-sm mt-2"
+            *ngIf="quantity() > productDetail?.stock! && productDetail?.stock! > 0">We have only {{productDetail?.stock}} kg available</p>
        </div>
    
        

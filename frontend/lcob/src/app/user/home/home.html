@@ -58,7 +58,77 @@
       <div
         id="product-category"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
-      >
+      > 
+      @if(allProducts.length === 0 ){
+        
+        <div
+          id="category"
+          data-aos="flip-right"
+          class="mb-4"
+        >
+          <div class="overflow-hidden rounded-2xl">
+            <img 
+              class="w-[405px] h-[252px] object-cover"
+              src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750894996/ecommerce_products/mmj4pdjapthrlakrn5dj.webp"
+              alt="oystermushroom"
+            />
+          </div>
+          <div id="detail" class="flex flex-col items-center justify-center">
+            <h2 class="text-lg font-bold mt-3">Oyster Mushroom</h2>
+            <p>Rs. 120/kg</p>
+            <button
+              class="bg-lime-600 mt-4 text-white hover:scale-105 cursor-pointer px-4 py-2 rounded-md hover:bg-lime-500 transition duration-300"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div
+          id="category"
+          data-aos="flip-right"
+          class="mb-4"
+        >
+          <div class="overflow-hidden rounded-2xl">
+            <img 
+              class="w-[405px] h-[252px] object-cover"
+              src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750837691/ecommerce_products/rhoxk6xhj06hpzhp7sg2.jpg"
+              alt="mango pickles"
+            />
+          </div>
+          <div id="detail" class="flex flex-col items-center justify-center">
+            <h2 class="text-lg font-bold mt-3">Aaap Ko Achaar</h2>
+            <p>Rs. 150/kg</p>
+            <button
+              class="bg-lime-600 mt-4 text-white hover:scale-105 cursor-pointer px-4 py-2 rounded-md hover:bg-lime-500 transition duration-300"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div
+          id="category"
+          data-aos="flip-right"
+          class="mb-4"
+        >
+          <div class="overflow-hidden rounded-2xl">
+            <img 
+              class="w-[405px] h-[252px] object-cover"
+              src="http://res.cloudinary.com/dczu6yzeq/image/upload/v1750837519/ecommerce_products/swcdrbgl3su4df09z07o.jpg"
+              alt="moomko daal"
+            />
+          </div>
+          <div id="detail" class="flex flex-col items-center justify-center">
+            <h2 class="text-lg font-bold mt-3">Moom Ko Daal</h2>
+            <p>Rs. 110/kg</p>
+            <button
+              class="bg-lime-600 mt-4 text-white hover:scale-105 cursor-pointer px-4 py-2 rounded-md hover:bg-lime-500 transition duration-300"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      }
+      @else {
         @for(item of allProducts; track $index){
 
         <div
@@ -88,6 +158,8 @@
           </div>
         </div>
         }
+
+      }
       </div>
     </div>
     <div

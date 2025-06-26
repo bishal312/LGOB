@@ -30,9 +30,9 @@
   <!-- Flash Sale Section -->
   <section class="py-8 px-4">
     <h2
-      class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00] text-shadow-lg"
+      class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00] text-shadow-[#98CD00] hover:text-shadow-[#98CD00] hover:text-[#98CD00] transition duration-300 ease-in-out"
     >
-      Flash Sale On {{getProductCount}} Products
+      Featured Products
     </h2>
     @if(loaderService.isLoading | async){
     <mat-spinner class="mx-auto" />
@@ -42,8 +42,36 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
-      <!-- Repeat product card -->
-      @for(item of featureProducts; track $index){
+      @if(featureProducts.length==0){
+      <div
+        data-aos="flip-left"
+        data-aos-duration="1000"
+        class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300"
+      >
+        <img
+          src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750894996/ecommerce_products/mmj4pdjapthrlakrn5dj.webp"
+          alt="Product"
+          class="w-full h-40 object-cover rounded shadow-sm"
+        />
+        <h3 class="mt-2 font-semibold text-lg truncate">Oyster Mushroom</h3>
+        <div class="text-green-600 font-bold text-lg mt-1">RS 120</div>
+        <div class="text-yellow-500 text-sm">★★★★★</div>
+      </div>
+      <div
+        data-aos="flip-left"
+        data-aos-duration="1000"
+        class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300"
+      >
+        <img
+          src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750837519/ecommerce_products/swcdrbgl3su4df09z07o.jpg"
+          alt="Product"
+          class="w-full h-40 object-cover rounded shadow-sm"
+        />
+        <h3 class="mt-2 font-semibold text-lg truncate">Moom Daal</h3>
+        <div class="text-green-600 font-bold text-lg mt-1">RS 110</div>
+        <div class="text-yellow-500 text-sm">★★★★★</div>
+      </div>
+      } @else { @for(item of featureProducts; track $index){
       <div
         data-aos="fade-up"
         [attr.data-aos-delay]="$index * 100"
@@ -90,7 +118,7 @@
         </button>
       </div>
 
-      }
+      } }
     </div>
     }
   </section>
@@ -101,7 +129,36 @@
       Our Products
     </h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      @for(item of allProducts;track $index){
+      @if(allProducts.length==0){
+      <div
+        data-aos="flip-left"
+        data-aos-duration="1000"
+        class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300"
+      >
+        <img
+          src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750894996/ecommerce_products/mmj4pdjapthrlakrn5dj.webp"
+          alt="Product"
+          class="w-full h-40 object-cover rounded shadow-sm"
+        />
+        <h3 class="mt-2 font-semibold text-lg truncate">Oyster Mushroom</h3>
+        <div class="text-green-600 font-bold text-lg mt-1">RS 120</div>
+        <div class="text-yellow-500 text-sm">★★★★★</div>
+      </div>
+      <div
+        data-aos="flip-left"
+        data-aos-duration="1000"
+        class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300"
+      >
+        <img
+          src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750837691/ecommerce_products/rhoxk6xhj06hpzhp7sg2.jpg"
+          alt="Product"
+          class="w-full h-40 object-cover rounded shadow-sm"
+        />
+        <h3 class="mt-2 font-semibold text-lg truncate">Aaap ko Achaar</h3>
+        <div class="text-green-600 font-bold text-lg mt-1">RS 150</div>
+        <div class="text-yellow-500 text-sm">★★★★★</div>
+      </div>
+      } @else { @for(item of allProducts;track $index){
 
       <div
         data-aos="flip-left"
@@ -122,7 +179,7 @@
         </div>
         <div class="text-yellow-500 text-sm">★★★★★</div>
       </div>
-      }
+      } }
     </div>
   </section>
 </div>

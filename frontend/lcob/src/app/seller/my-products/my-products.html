@@ -214,7 +214,7 @@
           <span class="text-green-600 font-medium">Rs. {{item.price}}/kg</span>
         </p>
         <p class="text-gray-600 text-sm">
-          Stock: <span class="font-medium">{{item.stock}} kg</span>
+          Stock: <span *ngIf="item.stock > 0" class="font-medium">{{item.stock}} kg</span> <span *ngIf="item.stock < 0" class="font-medium">0 kg</span>
         </p>
         <p class="text-gray-500 text-sm mt-2">{{item.description}}</p>
         <div class="buttons flex items-center justify-end gap-2 mt-4">

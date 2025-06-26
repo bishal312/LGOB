@@ -24,22 +24,26 @@ export class Header {
    productService=inject(Product)
     ngOnInit(){
      if (isPlatformBrowser(this.platformId)) {
+       const userData = localStorage.getItem('user');
     if (this.btnText() === "Login") {
-      const userData = localStorage.getItem('user');
       if (userData !== null) {
         this.btnText.set("Logout");
       }
     }
-  }
-  this.productService.clearCart()
-  this.productService.getCartItemsByUserId().subscribe(
-    ()=>{
-    
-     
-    },(error)=>{
-      console.log(error)
+    if(userData !== null){
+      this.productService.clearCart()
+      this.productService.getCartItemsByUserId().subscribe(
+        ()=>{
+        
+         
+        },(error)=>{
+          console.log(error)
+        }
+      )
+      
     }
-  )
+
+  }
   
 
     }
