@@ -17,7 +17,7 @@
       (click)="clearCart()"
       class="bg-red-700 hover:bg-red-600 text-white font-medium py-2 sm:py-1 px-2 cursor-pointer mb-2 rounded shadow transition duration-300"
     >
-      <img
+      <img loading="lazy"
         width="28"
         height="28"
         class="hidden sm:inline-block"
@@ -57,7 +57,7 @@
         class="bg-white relative rounded-lg shadow p-4 flex flex-col md:flex-row items-center md:items-start gap-6"
       >
         <!-- Product Image -->
-        <img
+        <img loading="lazy"
           [src]="item.productId.image"
           alt="Button Mushroom"
           class="w-64 md:w-32 h-36 sm:h-32 object-cover rounded"

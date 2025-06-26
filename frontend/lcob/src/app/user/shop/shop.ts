@@ -20,6 +20,7 @@ export class Shop {
   getAllProductsCount:number=0
   getProductCount:number=0
   allProducts: IproductGetObj[] = [];
+  featureProducts: IproductGetObj[] = [];
   productService=inject(Product)
   loaderService=inject(Loader)
  ngOnInit(){
@@ -30,6 +31,7 @@ export class Shop {
          this.getAllProductsCount++
          this.getProductCount=res.products?.length
          this.allProducts=res.products
+         this.featureProducts=this.allProducts.filter((p:any)=>p.isFeatured === true)
        })
     }
     else{

@@ -16,8 +16,6 @@ import {
 import { Api } from '../../services/api/api';
 import { Product } from '../../services/product/product';
 import { IproductGetObj } from '../../models/model';
-import { sign } from 'crypto';
-import { error } from 'console';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Loader } from '../../mat-services/loader/loader';
 
@@ -59,9 +57,15 @@ export class MyProducts {
       image: new FormControl('', [Validators.required]),
       description: new FormControl('', [
         Validators.required,
+<<<<<<< HEAD
         Validators.minLength(10),
       ]),
       isFeatured: new FormControl(false),
+=======
+        Validators.minLength(10)
+      ]),
+      isFeatured: new FormControl(false)
+>>>>>>> a030cd86468466e878a1e82fc03fb84337c0b342
     });
   }
 
@@ -94,7 +98,6 @@ export class MyProducts {
       image: this.imageBase64,
       userId: userData._id,
     };
-
     this.apiService.addProduct(payload).subscribe(
       (res: any) => {
         this.productService.clearCache();

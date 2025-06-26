@@ -110,6 +110,18 @@
           </p>
         </div>
 
+        <!-- Feature Product Checkbox -->
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            formControlName="isFeatured"
+            id="isFeatured"
+            class="h-4 w-4 text-blue-600 border-gray-300 rounded"
+          />
+          <label for="isFeatured" class="ml-2 block text-sm text-gray-700">
+            Feature Product
+          </label>
+        </div>
         <!-- Image -->
         <div>
           <label for="" class="block text-sm font-medium text-gray-700"
@@ -191,6 +203,7 @@
       @for(item of product(); track item._id){
       <div class="bg-gray-50 p-4 rounded-xl shadow hover:shadow-md transition">
         <img
+          loading="lazy"
           [src]="item.image"
           alt="Oyster Mushroom"
           class="md:w-[300px] h-40 object-cover rounded-md mb-4"

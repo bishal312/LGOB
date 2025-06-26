@@ -1,70 +1,128 @@
 <div class="bg-[#ebf2fa] min-h-screen w-full mx-auto max-w-[1640px]">
   <!-- Hero Section with Image Slider -->
   <div class="relative w-full h-[300px] md:h-[500px] overflow-hidden shadow-lg">
-    <div class="w-full h-full flex animate-slider">
-      <img src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750668494/153d790f-ad4c-4eb4-bd4d-6e6c706c99e2_jlmdrp.jpg " alt="Hero 1" class="w-full h-full object-cover flex-shrink-0">
-      <img src="assets/img3.jpg" alt="Hero 2" class="w-full h-full object-cover flex-shrink-0">
-      <img src="assets/img4.jpg" alt="Hero 3" class="w-full h-full object-cover flex-shrink-0">
+    <div
+      data-aos="fade-right"
+      data-aos-duration="1000"
+      class="w-full h-full flex animate-slider"
+    >
+      <img
+        loading="lazy"
+        src="https://res.cloudinary.com/dczu6yzeq/image/upload/v1750668494/153d790f-ad4c-4eb4-bd4d-6e6c706c99e2_jlmdrp.jpg "
+        alt="Hero 1"
+        class="w-full h-full object-cover flex-shrink-0"
+      />
+      <img
+        loading="lazy"
+        src="assets/img3.jpg"
+        alt="Hero 2"
+        class="w-full h-full object-cover flex-shrink-0"
+      />
+      <img
+        loading="lazy"
+        src="assets/img4.jpg"
+        alt="Hero 3"
+        class="w-full h-full object-cover flex-shrink-0"
+      />
     </div>
   </div>
 
   <!-- Flash Sale Section -->
   <section class="py-8 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00] text-shadow-lg">Flash Sale On {{getProductCount}} Products</h2>
+    <h2
+      class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00] text-shadow-lg"
+    >
+      Flash Sale On {{getProductCount}} Products
+    </h2>
     @if(loaderService.isLoading | async){
-      <mat-spinner class="mx-auto"/>
-      
+    <mat-spinner class="mx-auto" />
+
     }@else {
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
-        <!-- Repeat product card -->
-         @for(item of allProducts; track $index){
-           <div class="bg-white p-5 rounded-lg relative shadow-lg hover:shadow-xl transition duration-300 flex flex-col justify-between h-full">
-    <img
-     (click)="navigateToProductDetails(item._id)"
-     (keypress)="navigateToProductDetails(item._id)"
-     [src]="item.image" alt="Sale Product" class="w-full h-40 object-cover shadow-sm cursor-pointer rounded transform transition-transform duration-300 hover:scale-105">
-    
-    <div class="flex-grow">
-      <h3 class="mt-2 font-semibold text-lg truncate">{{ item.name }}</h3>
-      <div class="flex items-center gap-2 mt-1">
-        <span class="text-red-500 font-bold text-xl">RS {{ item.price }}</span>
-        <span class="line-through text-gray-400">RS {{ item.price * 2 }}</span>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+    >
+      <!-- Repeat product card -->
+      @for(item of featureProducts; track $index){
+      <div
+        data-aos="fade-up"
+        [attr.data-aos-delay]="$index * 100"
+        class="bg-white p-5 rounded-lg relative shadow-lg hover:shadow-xl transition duration-300 flex flex-col justify-between h-full"
+      >
+        <img
+          loading="lazy"
+          (click)="navigateToProductDetails(item._id)"
+          (keypress)="navigateToProductDetails(item._id)"
+          [src]="item.image"
+          alt="Sale Product"
+          class="w-full h-40 object-cover shadow-sm cursor-pointer rounded transform transition-transform duration-300 hover:scale-105"
+        />
+
+        <div class="flex-grow">
+          <h3 class="mt-2 font-semibold text-lg truncate">{{ item.name }}</h3>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-red-500 font-bold text-xl"
+              >RS {{ item.price }}</span
+            >
+            <span class="line-through text-gray-400"
+              >RS {{ item.price * 2 }}</span
+            >
+          </div>
+          <div class="mt-2 absolute -top-3 right-4">
+            <span
+              *ngIf="item.stock > 0"
+              class="text-green-600 font-bold text-sm"
+              >In Stock</span
+            >
+            <span *ngIf="item.stock <= 0" class="text-red-700 font-bold text-sm"
+              >Out of Stock</span
+            >
+          </div>
+        </div>
+
+        <button
+          (click)="navigateToProductDetails(item._id)"
+          [ngClass]="{ 'opacity-40 cursor-not-allowed': item.stock <= 0 }"
+          [disabled]="item.stock <= 0"
+          class="bg-lime-600 hover:scale-105 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-lime-400 transition mt-4 w-full"
+        >
+          Buy Now
+        </button>
       </div>
-      <div class="mt-2 absolute -top-3 right-4">
-         <span *ngIf="item.stock > 0" class="text-green-600 font-bold text-sm">In Stock</span>
-         <span *ngIf="item.stock <= 0" class="text-red-700 font-bold text-sm">Out of Stock</span>
-      </div>
+
+      }
     </div>
-  
-    <button
-    
-    (click)="navigateToProductDetails(item._id)"
-      [ngClass]="{ 'opacity-40 cursor-not-allowed': item.stock <= 0 }"
-      [disabled]="item.stock <= 0"
-      class="bg-lime-600 hover:scale-105 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-lime-400 transition mt-4 w-full">
-      Buy Now
-    </button>
-            </div>
-  
-         }
-      </div>
     }
   </section>
 
   <!-- All Products Section -->
   <section class="py-8 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00]">Our Products</h2>
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-[#98CD00]">
+      Our Products
+    </h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Repeat product card -->
-      <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300">
-        <img src="assets/img4.jpg" alt="Product" class="w-full h-40 object-cover rounded shadow-sm">
-        <h3 class="mt-2 font-semibold text-lg truncate">Product Name</h3>
-        <div class="text-green-600 font-bold text-lg mt-1">$29.99</div>
+      @for(item of allProducts;track $index){
+
+      <div
+        data-aos="flip-left"
+        [attr.data-aos-delay]="$index * 100"
+        class="bg-white p-4 rounded-lg shadow hover:shadow-md transition duration-300"
+      >
+        <img
+          (click)="navigateToProductDetails(item._id)"
+          (keypress)="navigateToProductDetails(item._id)"
+          loading="lazy"
+          [src]="item.image"
+          alt="Product"
+          class="w-full h-40 object-cover rounded shadow-sm"
+        />
+        <h3 class="mt-2 font-semibold text-lg truncate">{{item.name}}</h3>
+        <div class="text-green-600 font-bold text-lg mt-1">
+          RS {{item.price}}
+        </div>
         <div class="text-yellow-500 text-sm">★★★★★</div>
       </div>
-      <!-- Repeat above div for other products -->
+      }
     </div>
   </section>
-
-  </div>
+</div>

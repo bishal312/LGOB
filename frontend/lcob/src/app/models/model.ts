@@ -18,6 +18,7 @@ export interface IproductObj {
   name: string;
   price: number;
   stock: number;
+  isFeatured: boolean;
   description: string;
   image: string;
 }
@@ -26,6 +27,7 @@ export interface IproductGetObj {
   name: string;
   price: number;
   stock: number;
+  isFeatured: boolean;
   description: string;
   image: string;
   _id: string;

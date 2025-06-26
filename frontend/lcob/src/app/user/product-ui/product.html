@@ -8,7 +8,7 @@
      >
        <!-- Product Image -->
        <div class="md:col-span-5 p-4">
-         <img
+         <img loading="lazy"
            [src]="productDetail?.image"
            alt="Food product"
            class="w-xs sm:w-full h-40 sm:h-80 object-cover rounded-lg mb-4"
@@ -97,7 +97,7 @@
          productDetail?._id){ } @else {
    
          <div class="bg-white rounded-lg p-4 shadow-md">
-           <img
+           <img loading="lazy"
              [src]="item.image"
              alt="Related Product"
              class="w-full h-40 object-cover rounded"
