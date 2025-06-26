@@ -13,7 +13,7 @@ export const addProduct = async (req, res) => {
 
     const existingProduct = await Product.findOne({ name, userId });
 
-    if (existingProduct) {
+    if (existingProduct.name === name && existingProduct.userId === userId) {
       return res.status(409).json({
         success: false,
         message: "Product already exists. Consider updating the stock.",

@@ -41,7 +41,11 @@ export const placeOrder = async (req, res) => {
           .status(404)
           .json({ message: `Product not found: ${item.productId}` });
       }
-
+      if (product.stock < (item.quantity || 1)) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Insufficient stock" });
+      }
       const itemsQuantity =
         item.quantity && item.quantity > 0 ? item.quantity : 1;
 
