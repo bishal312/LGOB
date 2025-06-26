@@ -12,6 +12,13 @@ export const protectRoute = async (req, res, next) => {
     }
 
     try {
+      // ✅ Extract and check token
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Unauthorized - No token provided" });
+    }
+
+    const accessToken = authHeader.split(" ")[1]; // ✅ Extract token
       const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
       const user = await User.findById(decoded.userId).select("-password");
 
