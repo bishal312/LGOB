@@ -57,15 +57,9 @@ export class MyProducts {
       image: new FormControl('', [Validators.required]),
       description: new FormControl('', [
         Validators.required,
-<<<<<<< HEAD
-        Validators.minLength(10),
-      ]),
-      isFeatured: new FormControl(false),
-=======
         Validators.minLength(10)
       ]),
-      isFeatured: new FormControl(false)
->>>>>>> a030cd86468466e878a1e82fc03fb84337c0b342
+      isFeatured: new FormControl(false),
     });
   }
 
