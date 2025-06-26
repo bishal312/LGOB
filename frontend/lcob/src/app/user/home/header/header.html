@@ -1,16 +1,10 @@
 <header
   class="bg-[#98CD00] text-black shadow-md w-full transition-all duration-300 ease-in max-w-[1640px] mx-auto"
 >
-  <div
-    class="mx-auto px-10 py-3 flex items-center justify-between"
-  >
+  <div class="mx-auto px-10 py-3 flex items-center justify-between">
     <!-- Logo -->
     <div class="flex items-center space-x-4" data-aos="fade-down">
-      <img loading="lazy" loading="lazy"
-        src="./../../../../assets/LogoofLCOB.png"
-        alt="logo"
-        class="h-12 w-auto"
-      />
+      <a routerLink="/home"><h1 class="glow-animate hover:scale-110 text-3xl">LCOB</h1></a>
     </div>
 
     <!-- Hamburger / Close Toggle -->
@@ -129,7 +123,9 @@
           data-aos="fade-down-right"
           data-aos-delay="600"
         >
-          <img loading="lazy" loading="lazy"
+          <img
+            loading="lazy"
+            loading="lazy"
             class="w-8 h-8"
             src="https://img.icons8.com/fluency/48/shopping-cart.png"
             alt="shopping-cart"
@@ -147,7 +143,7 @@
           data-aos="fade-down-right"
           data-aos-delay="700"
           [ngClass]="{ 'bg-red-600': btnText() == 'Logout' }"
-          class="bg-lime-600  hover:scale-105 transition-colors duration-300 cursor-pointer text-white px-4 py-2 rounded-md"
+          class="bg-lime-600 hover:scale-105 transition-colors duration-300 cursor-pointer text-white px-4 py-2 rounded-md"
         >
           {{ btnText() }}
         </button>
@@ -224,7 +220,9 @@
         class="relative cursor-pointer flex justify-center"
         routerLink="shop/my-cart"
       >
-        <img loading="lazy" loading="lazy"
+        <img
+          loading="lazy"
+          loading="lazy"
           class="w-8 h-8"
           src="https://img.icons8.com/fluency/48/shopping-cart.png"
           alt="shopping-cart"
