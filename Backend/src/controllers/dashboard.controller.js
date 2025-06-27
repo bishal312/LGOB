@@ -11,13 +11,17 @@ export const addProduct = async (req, res) => {
     const { name, price, description, image, stock, userId, isFeatured } =
       req.body;
 
+
     const existingProduct = await Product.findOne({ name, userId });
 
-    if (existingProduct.name === name && existingProduct.userId === userId) {
+    if (existingProduct) {
       return res.status(409).json({
         success: false,
         message: "Product already exists. Consider updating the stock.",
       });
+    }
+    if (!image || !image.startsWith("data:image")) {
+      return res.status(400).json({ message: "Invalid or missing image data" });
     }
 
     const result = await cloudinary.uploader.upload(image, {

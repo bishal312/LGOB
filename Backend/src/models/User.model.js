@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { type } from "os";
 const userSchema = new mongoose.Schema(
   {
     fullName: {
@@ -41,6 +42,10 @@ const userSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    refreshToken: {
+      type: String,
+      default: null,
     },
     lastLogin: {
       type: Date,

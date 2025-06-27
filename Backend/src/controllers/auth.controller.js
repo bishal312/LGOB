@@ -17,33 +17,35 @@ const generateTokens = (userId) => {
 };
 
 const storeRefreshToken = async (userId, refreshToken) => {
-  await redis.set(
-    `refresh_token:${userId}`,
-    refreshToken,
-    "EX",
-    7 * 24 * 60 * 60
-  ); // 7days
+  try {
+    await User.findByIdAndUpdate(userId, { refreshToken });
+  } catch (error) {
+    console.error("Error storing refresh token:", error);
+  }
 };
 
 const setCookies = (res, accessToken, refreshToken) => {
+  const isProduction = process.env.NODE_ENV === "production";
+
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "Lax",
-    maxAge: 15 * 60 * 1000, // 15 minutes
+    secure: isProduction,
+    sameSite: isProduction ? "strict" : "Lax",
+    maxAge: 15 * 60 * 1000,
   });
+
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "Lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    secure: isProduction,
+    sameSite: isProduction ? "strict" : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };
 
 export async function signup(req, res) {
   const { fullName, phoneNumber, password, role, whatsapp_consent } = req.body;
   try {
-    if (!fullName || !phoneNumber || !password ) {
+    if (!fullName || !phoneNumber || !password) {
       return res.status(400).json({ message: "Please fill all the fields" });
     }
     if (phoneNumber.length !== 10) {
@@ -56,8 +58,10 @@ export async function signup(req, res) {
         .status(400)
         .json({ message: "Password must be at least 6 characters long" });
     }
-    if (!whatsapp_consent){
-      return res.status(400).json({success: false, message: "Please give whatsapp consent" });
+    if (!whatsapp_consent) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please give whatsapp consent" });
     }
     const existingUser = await User.findOne({ phoneNumber });
     if (role === "admin") {

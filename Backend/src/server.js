@@ -24,10 +24,10 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
-    origin: "https://lumbinichyau.netlify.app", // Angular app URL
+    origin: "https://lumbinichyau.netlify.app", // Angular app URL http://localhost:4200
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // If using cookies/auth headers
+    credentials: true,
   })
 );
 app.use(cookieParser());
