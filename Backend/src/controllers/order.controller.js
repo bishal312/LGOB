@@ -1,4 +1,4 @@
-import Order from "../models/order.model.js";
+import Order from "../models/Order.model.js";
 import Product from "../models/product.model.js";
 import mongoose from "mongoose";
 import { transporter } from "../utils/mailer.js";
