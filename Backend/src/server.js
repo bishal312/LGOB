@@ -16,8 +16,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5002;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(
