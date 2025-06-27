@@ -17,13 +17,11 @@ body {
 
 .snackbar-below-navbar {
     top: 64px !important;
-    /* Adjust 64px to your navbar height */
 }
 
 @keyframes glowPulse {
     0% {
         text-shadow: 0 0 0px #ccff33;
-        /* start with no glow */
     }
 
     50% {
@@ -32,7 +30,6 @@ body {
 
     100% {
         text-shadow: 0 0 0px #ccff33;
-        /* glow fades back */
     }
 }
 

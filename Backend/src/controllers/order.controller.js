@@ -92,8 +92,8 @@ export const placeOrder = async (req, res) => {
 
       // Send order email
       await transporter.sendMail({
-        from: '"Lumbini Chyau Organic Bhandar" <Magardadi5@gmail.com>',
-        to: "zoneinfinity87@gmail.com",
+        from: '"Lumbini Chyau Organic Bhandar" <lumbiniorganicbhandarservice@gmail.com>',
+        to: "lumbiniorganicbhandar@gmail.com",
         subject: `Order placed by ${req.user.fullName}`,
         html: `
           <p>Hello sir,</p>
