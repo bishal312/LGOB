@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";
+// import path from "path";
 // import { fileURLToPath } from "url";
-// import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import dashBoardRoute from "./routes/dashboard.route.js";
 import { connectDb } from "./lib/db.js";
