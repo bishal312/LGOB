@@ -47,7 +47,7 @@ app.use("/api/orders", orderRoutes);
 
 //Now arranging the path for static files
 // Serve Angular build files
-const angularDistPath = path.join(__dirname, "../frontend/lcob/dist/lcob");
+const angularDistPath = path.join(__dirname, "frontend/lcob/dist/lcob");
 console.log("Angular Dist Path:", angularDistPath);
 app.use(express.static(angularDistPath));
 app.get("/", (req, res) => {
