@@ -1,7 +1,6 @@
 import User from "../models/User.model.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { redis } from "../lib/redis.js";
 dotenv.config();
 
 const generateTokens = (userId) => {
