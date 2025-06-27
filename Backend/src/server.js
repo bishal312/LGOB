@@ -20,6 +20,8 @@ const PORT = process.env.PORT || 5002;
 // const __dirname = path.dirname(__filename);
 
 // Middleware
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
     origin: "https://lumbinichyau.netlify.app", // Angular app URL http://localhost:4200
@@ -28,8 +30,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
 // Routes
