@@ -14,5 +14,4 @@ router.post("/add", protectRoute, addToCart);
 router.delete("/remove/:id", protectRoute, removeFromCart);
 router.delete("/clear", protectRoute, clearCart);
 
-//llleojofjoesf
 export default router;
