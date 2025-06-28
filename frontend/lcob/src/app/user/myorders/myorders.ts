@@ -29,13 +29,13 @@ export class Myorders {
 
 
   ngOnInit() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.getOrderDetail();
   }
 
   getOrderDetail() {
     this.orderService.getOrderDetailByUserId().subscribe(
       (res: any) => {
-        console.log(res);
         if (res.message === "You haven't ordered any items yet!") {
 
           this.snackbar.show(res.message,"close",3000,'left','top',['snackbar-below-navbar'])

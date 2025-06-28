@@ -55,9 +55,13 @@ export class MyCart {
   dialogBox=inject(DialogBox)
   loaderService=inject(Loader)
   ngOnInit() {
+    this.showPopup = true;
     this.productService.getCartItemsByUserId().subscribe(
-      () => {},
+      () => {
+        this.showPopup=false
+      },
       (error) => {
+         this.showPopup=false
         console.log(error);
       }
     );
@@ -217,23 +221,19 @@ export class MyCart {
           this.productService.updateStockAfterOrder(res.order);
           
 
-          this.showPopup = true;
-          this.checkoutMessage = res.message;
+          
+          
           setTimeout(() => {
-            this.showPopup = false;
+            
             this.router.navigate(['/shop/my-orders']);
-            this.checkoutMessage = '';
             this.clearCartSilently();
-          });
+          },1000);
         }
       },
       (error) => {
-        this.showPopup = true;
+        console.log('error while placing order', error);
         this.checkoutMessage = error.message;
-        setTimeout(() => {
-          this.showPopup = false;
-          this.checkoutMessage = '';
-        });
+    
       }
     );
   }

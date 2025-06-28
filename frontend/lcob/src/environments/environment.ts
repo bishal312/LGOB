@@ -1,5 +1,5 @@
 // (development)
 export const environment = {
   production: false,
-  apiUrl: '/api'  // your backend URL here
+  apiUrl: '/api'  // your backend URL 
 };
