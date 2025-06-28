@@ -29,14 +29,15 @@ const setCookies = (res, accessToken, refreshToken) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? "strict" : "Lax",
+    sameSite: "None",
     maxAge: 15 * 60 * 1000,
   });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? "strict" : "Lax",
+    sameSite: "None",
+    // sameSite: isProduction ? "strict" : "Lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };

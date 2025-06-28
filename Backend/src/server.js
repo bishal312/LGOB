@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
+// import path from "path";
+// import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import dashBoardRoute from "./routes/dashboard.route.js";
@@ -16,20 +16,21 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5002;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 // Middleware
+app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
     origin: "https://lumbinichyau.netlify.app", // Angular app URL http://localhost:4200
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
-app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -47,16 +48,16 @@ app.use("/api/orders", orderRoutes);
 
 //Now arranging the path for static files
 // Serve Angular build files
-const angularDistPath = path.join(__dirname, "../frontend/lcob/dist/lcob");
-console.log("Angular Dist Path:", angularDistPath);
-app.use(express.static(angularDistPath));
-app.get("/", (req, res) => {
-  res.redirect("/home");
-});
+// const angularDistPath = path.join(__dirname, "../frontend/lcob/dist/lcob");
+// console.log("Angular Dist Path:", angularDistPath);
+// app.use(express.static(angularDistPath));
+// app.get("/", (req, res) => {
+//   res.redirect("/home");
+// });
 // Fallback route for Angular
-app.get("/*splat", (req, res) => {
-  res.sendFile(path.join(angularDistPath, "index.html"));
-});
+// app.get("/*splat", (req, res) => {
+//   res.sendFile(path.join(angularDistPath, "index.html"));
+// });
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
   connectDb();
