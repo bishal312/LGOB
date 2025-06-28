@@ -27,7 +27,7 @@ app.use(
   cors({
     origin: "https://lumbinichyau.netlify.app", // Angular app URL http://localhost:4200
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
