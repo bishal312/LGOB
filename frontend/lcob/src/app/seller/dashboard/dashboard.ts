@@ -128,7 +128,6 @@ export class Dashboard {
 
     //to get 5 top products
     const top5products = topOrderedProduct.slice(0, 5);
-    console.log(top5products);
     this.top5products = top5products;
     //calling piechart here so, that it can be updated
     this.piechartBrowser();

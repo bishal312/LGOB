@@ -18,12 +18,12 @@
       Pending
     </button>
     <button
-  (click)="filterOrders('Delivery in process')"
-  class="px-4 py-1 rounded-full text-sm border hover:bg-blue-100"
-  [class.bg-blue-100]="currentFilter === 'Delivery in process'"
->
-  Delivery In Process
-</button>
+      (click)="filterOrders('Delivery in process')"
+      class="px-4 py-1 rounded-full text-sm border hover:bg-blue-100"
+      [class.bg-blue-100]="currentFilter === 'Delivery in process'"
+    >
+      Delivery In Process
+    </button>
 
     <button
       (click)="filterOrders('Delivered')"
@@ -39,7 +39,6 @@
     >
       Cancelled
     </button>
-    
   </div>
 
   <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
@@ -60,24 +59,24 @@
             {{ getSlicedAddress(order?.address) || 'N/A' }}
           </td>
           <td class="p-2 capitalize">
-         <select 
-  #statusSelect
-  (change)="changeOrderStatus(order._id, statusSelect.value)"
-  [value]="order.status || 'Pending'" 
-  class="text-sm px-3 py-1.5 border rounded-xl transition-colors duration-300 ease-in-out w-full"
-  [ngClass]="{
+            <select
+              id="statusSelect"
+              #statusSelect
+              (change)="changeOrderStatus(order._id, statusSelect.value)"
+              [value]="order.status || 'Pending'"
+              class="text-sm px-3 py-1.5 border rounded-xl transition-colors duration-300 ease-in-out w-full"
+              [ngClass]="{
     ' text-yellow-500 border-yellow-600': (order.status || 'Pending') === 'Pending',
     ' text-blue-500 border-blue-600': (order.status || 'Pending') === 'Delivery in process',
     ' text-green-600 border-green-700': (order.status || 'Pending') === 'Delivered',
     ' text-red-600 border-red-700': (order.status || 'Pending') === 'Cancelled'
   }"
->
-  <option value="Pending">Pending</option>
-  <option value="Delivery in process">Delivery in process</option>
-  <option value="Delivered">Delivered</option>
-  <option value="Cancelled">Cancelled</option>
-</select>
-
+            >
+              <option value="Pending">Pending</option>
+              <option value="Delivery in process">Delivery in process</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
           </td>
           <td class="p-4 lg:text-right md:text-center">
             <button

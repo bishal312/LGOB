@@ -55,10 +55,11 @@
       >
         <!-- Name -->
         <div>
-          <label for="" class="block text-sm font-medium text-gray-700"
+          <label for="productName" class="block text-sm font-medium text-gray-700"
             >Name</label
           >
           <input
+            id="productName"
             formControlName="name"
             type="text"
             class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -74,10 +75,11 @@
 
         <!-- Price -->
         <div>
-          <label for="" class="block text-sm font-medium text-gray-700"
+          <label for="price" class="block text-sm font-medium text-gray-700"
             >Price</label
           >
           <input
+            id="price"
             formControlName="price"
             type="number"
             class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -93,10 +95,11 @@
 
         <!-- Stock -->
         <div>
-          <label for="" class="block text-sm font-medium text-gray-700"
+          <label for="stock" class="block text-sm font-medium text-gray-700"
             >Stock</label
           >
           <input
+            id="stock"
             formControlName="stock"
             type="number"
             class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -110,24 +113,12 @@
           </p>
         </div>
 
-        <!-- Feature Product Checkbox
-        <div class="flex items-center">
-          <input
-            type="checkbox"
-            formControlName="isFeatured"
-            id="isFeatured"
-            class="h-4 w-4 text-blue-600 border-gray-300 rounded"
-          />
-          <label for="isFeatured" class="ml-2 block text-sm text-gray-700">
-            Feature Product
-          </label>
-        </div> -->
-        <!-- Image -->
         <div>
-          <label for="" class="block text-sm font-medium text-gray-700"
+          <label for="image" class="block text-sm font-medium text-gray-700"
             >Image</label
           >
           <input
+            id="image"
             type="file"
             (change)="onFileSelect($event)"
             class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -155,10 +146,11 @@
 
         <!-- Description -->
         <div>
-          <label for="" class="block text-sm font-medium text-gray-700"
+          <label for="description" class="block text-sm font-medium text-gray-700"
             >Description</label
           >
           <textarea
+            id="description"
             formControlName="description"
             rows="4"
             class="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
