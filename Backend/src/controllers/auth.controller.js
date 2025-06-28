@@ -24,18 +24,18 @@ const storeRefreshToken = async (userId, refreshToken) => {
 };
 
 const setCookies = (res, accessToken, refreshToken) => {
-  const isProduction = process.env.NODE_ENV === "production";
+  // const isProduction = process.env.NODE_ENV === "production";
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: isProduction,
+    secure: true,
     sameSite: "None",
     maxAge: 15 * 60 * 1000,
   });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: isProduction,
+    secure: true,
     sameSite: "None",
     // sameSite: isProduction ? "strict" : "Lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -168,7 +168,9 @@ export const logout = async (req, res) => {
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET
       );
-      await redis.del(`refresh_token:${decoded.userId}`);
+      await User.findByIdAndUpdate(decoded.userId, {
+        $unset: { refreshToken: "" },
+      });
     }
 
     res.clearCookie("accessToken");
@@ -189,9 +191,11 @@ export const refreshToken = async (req, res) => {
     }
 
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    const storedToken = await redis.get(`refresh_token:${decoded.userId}`);
+    const storedToken = await User.findById(decoded.userId).select(
+      "refreshToken"
+    );
 
-    if (storedToken !== refreshToken) {
+    if (!storedToken || storedToken.refreshToken !== refreshToken) {
       return res.status(401).json({ message: "Invalid refresh token" });
     }
 
@@ -203,7 +207,7 @@ export const refreshToken = async (req, res) => {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure:true,
+      secure: true,
       sameSite: "None",
       maxAge: 15 * 60 * 1000,
     });
