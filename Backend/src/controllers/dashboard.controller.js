@@ -116,7 +116,7 @@ export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findOne({
       _id: req.params.id,
-      userId: req.userId,
+      userId: req.user._id,
     });
     if (!product) {
       return res.status(404).json({

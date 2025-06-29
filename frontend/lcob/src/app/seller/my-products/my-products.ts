@@ -50,7 +50,7 @@ export class MyProducts {
     this.productObj = new FormGroup({
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Z][a-zA-Z ]+$'), // Starts with uppercase
+        Validators.pattern(''), // Starts with uppercase
       ]),
       price: new FormControl(0, [Validators.required, Validators.min(0)]),
       stock: new FormControl(0, [Validators.required, Validators.min(0)]),
