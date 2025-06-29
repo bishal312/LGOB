@@ -13,6 +13,10 @@ body {
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
+    background: linear-gradient(145deg, #C8FF00, #228B22, #C8FF00);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .snackbar-below-navbar {
@@ -35,7 +39,7 @@ body {
 
 
 .glow-animate {
-  animation: glowPulse 3s ease-in-out forwards infinite;
+    animation: glowPulse 3s ease-in-out forwards infinite;
 }
 
 
@@ -138,4 +142,10 @@ select {
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #2933a1, #118240);
+}
+
+.shadowAll {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7),
+        0 10px 10px -5px rgba(0, 0, 0, 0.5);
+    ;
 }
