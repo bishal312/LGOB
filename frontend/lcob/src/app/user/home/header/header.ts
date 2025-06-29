@@ -15,8 +15,10 @@ import {  IproductGetObj } from '../../../models/model';
 })
 export class Header {
   
+  productsName:string[]=[]
   searchTerm = signal('');
   isMenuOpen = signal(false);
+  suggestions:string[]=[]
   allCartItems=signal<IproductGetObj[]>([])
   cartcount=computed(() => this.productService.cartItems().length)
     constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
@@ -49,7 +51,13 @@ export class Header {
     }
 
     
+  AllProductsName(){
+    this.productService.getAllProducts().subscribe((res:any)=>{
+      const allProducts=res.products
+      this.productsName=allProducts.map((p:any)=>p.name)
+    })
 
+  }
 
   
   toggleMenu(): void {
@@ -80,6 +88,14 @@ export class Header {
  }
 
 
-
+onSearchChange(query: string): void {
+  if (query.trim()) {
+    this.suggestions = this.productsName.filter(name =>
+      name.toLowerCase().includes(query.toLowerCase())
+    );
+  } else {
+    this.suggestions = [];
+  }
+}
 
 }

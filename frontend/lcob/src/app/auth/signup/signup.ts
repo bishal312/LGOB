@@ -36,7 +36,7 @@ export class Signup implements OnInit {
     this.userSignupObj = new FormGroup({
       fullName: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[A-Z][a-z]+( [A-Z][a-z]+)*$/),
+        Validators.pattern(/^[a-zA-Z]+( [a-zA-Z]+)*$/),
       ]),
       phoneNumber: new FormControl('', [
         Validators.required,

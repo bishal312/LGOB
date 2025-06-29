@@ -16,7 +16,7 @@ export class Product {
     Array<{ productId: IproductGetObj; quantity: number; _id: string }>
   >([]);
 
-  private readonly productCache=signal<IproductGetObj[]>([])
+   productCache=signal<IproductGetObj[]>([])
    readonly products = computed(() => this.productCache());
 
   constructor(private http: HttpClient) {}

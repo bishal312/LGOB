@@ -4,7 +4,9 @@
   <div class="mx-auto px-4 sm:px-10 py-3 flex items-center justify-between">
     <!-- Logo -->
     <div class="flex items-center space-x-4" data-aos="fade-down">
-      <a routerLink="/home"><h1 class="glow-animate hover:scale-110 text-3xl">LCOB</h1></a>
+      <a routerLink="/home"
+        ><h1 class="glow-animate hover:scale-110 text-3xl">LCOB</h1></a
+      >
     </div>
 
     <!-- Hamburger / Close Toggle -->
@@ -100,6 +102,8 @@
       <div class="flex items-center space-x-4">
         <div class="relative" data-aos="fade-down-right" data-aos-delay="500">
           <input
+             #searchTerm
+          (change)="onSearchChange(searchTerm.value)"
             id="searchInputDesktop"
             type="text"
             placeholder="Search..."
@@ -119,6 +123,21 @@
               d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"
             />
           </svg>
+          <!-- Search Suggestions -->
+          @for(suggestion of suggestions; track $index){
+          <ul
+            *ngIf="suggestions.length"
+            class="absolute z-50 mt-2 w-full bg-white border rounded-md shadow-md"
+          >
+            <li
+              
+              class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+             
+            >
+              {{ suggestion }}
+            </li>
+          </ul>
+          }
         </div>
 
         <!-- Cart Icon Desktop -->
@@ -159,11 +178,14 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div data-aos="fade-down-left"
-      data-aos-delay="200" *ngIf="isMenuOpen() === true" class="md:hidden px-4 pb-4">
+  <div
+    data-aos="fade-down-left"
+    data-aos-delay="200"
+    *ngIf="isMenuOpen() === true"
+    class="md:hidden px-4 pb-4"
+  >
     <hr />
     <nav
-      
       aria-label="Mobile Menu"
       class="flex flex-col justify-end items-center space-y-3 font-medium"
     >
@@ -204,6 +226,8 @@
     <div class="mt-4 space-y-3">
       <div class="relative">
         <input
+         #searchTerm
+          (change)="onSearchChange(searchTerm.value)"
           id="searchInputMobile"
           type="text"
           placeholder="Search..."
@@ -223,12 +247,28 @@
             d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"
           />
         </svg>
+           
+           <!-- Search Suggestions -->
+          @for(suggestion of suggestions; track $index){
+          <ul
+            *ngIf="suggestions.length"
+            class="absolute z-50 mt-2 w-full bg-white border rounded-md shadow-md"
+          >
+            <li
+              
+              class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+             
+            >
+              {{ suggestion }}
+            </li>
+          </ul>
+          }
       </div>
 
       <!-- Cart Icon Mobile -->
       <div
-      (click)="toggleMenu()"
-          (keypress)="toggleMenu()"
+        (click)="toggleMenu()"
+        (keypress)="toggleMenu()"
         class="relative cursor-pointer flex justify-center"
         routerLink="shop/my-cart"
       >
