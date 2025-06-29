@@ -15,6 +15,10 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5002;
+const allowedUrls = [
+  "https://lumbinichyau.netlify.app",
+  "http://localhost:4200",
+]
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -25,7 +29,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
-    origin: "https://lumbinichyau.netlify.app", // Angular app URL http://localhost:4200
+    origin: allowedUrls, // Angular app URL http://localhost:4200
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     // allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
