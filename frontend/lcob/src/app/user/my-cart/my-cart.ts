@@ -45,7 +45,7 @@ export class MyCart {
       .reduce((total, item) => total + item.productId.price * item.quantity, 0)
   );
 
-  deliveryFee = computed(() => this.subTotal() * 0.1);
+  deliveryFee = computed(() => this.subTotal() * 0);  // Assuming 0% delivery fee for now 
   allCartItems = computed(() => this.productService.cartItems());
   total = computed(() => this.subTotal() + this.deliveryFee());
 

@@ -51,7 +51,7 @@ export class Checkout implements OnInit {
   totalAmount = computed(
     () => (this.productDetail()?.price ?? 0) * this.quantity()
   );
-  deliveryFee = computed(() => this.totalAmount() * 0.1);
+  deliveryFee = computed(() => this.totalAmount() * 0); // 10% of total //for now it is set to 0
   totalOrderAmount = computed(() => this.totalAmount() + this.deliveryFee());
 
   skipNextInput = false;
