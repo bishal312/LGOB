@@ -116,8 +116,8 @@ export class Dashboard {
         const product = this.allProducts.find((p) => p._id === productId);
         return {
           productId,
-          name: product.name,
-          image: product.image,
+          name: product ? product.name : 'Deleted Product',
+          image: product ? product.image : 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081',
           quantity: totalQuantity,
         };
       }

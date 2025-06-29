@@ -68,7 +68,7 @@ export class Product {
   }
 
   deleteProduct(_id: string) {
-    return this.http.delete(`${environment.apiUrl}/dashboard/products/${_id}`)
+    return this.http.delete(`${environment.apiUrl}/dashboard/products/${_id}`, {observe: "response"})
   }
 
   getProductDetailById(id: string) {

@@ -174,10 +174,10 @@ export class MyProducts {
   }
 
   deleteProduct(id: string) {
-    console.log(id);
     this.productService.deleteProduct(id).subscribe(
-      (res: any) => {
-        if (res) {
+      (res) => {
+        if (res.status === 204) //the backend is sending 204 for deletinng item succesfully
+           {
           this.productService.clearCache();
           this.loadProducts();
         }

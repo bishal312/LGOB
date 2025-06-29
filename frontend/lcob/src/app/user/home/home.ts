@@ -27,7 +27,8 @@ export class Home {
   ngOnInit(){
     this.navigateIfAuthenticated()
     this.productService.getProductUser().subscribe((res:any)=>{
-      this.allProducts=res.products.filter((p:any)=>p.isFeatured === true)
+      const allProducts=res.products.filter((p:any)=>p.isFeatured === true)
+      this.allProducts=allProducts.slice(0,3)
     }
     , error=>{console.log(error)})
   }
