@@ -177,9 +177,7 @@ export const autoCompleteAddress = async (req, res) => {
       },
       body: JSON.stringify({
         input,
-        locationBias: {
-            regionCode: "NP", // restrict to Nepal
-          },
+        regionCode: "NP", // restrict to Nepal
       }),
     }
   );
