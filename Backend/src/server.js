@@ -16,7 +16,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5002;
 const allowedUrls = [
-  "https://lumbinichyau.netlify.app",
+  "https://lumbinichaubhandar.netlify.app/",
   "http://localhost:4200",
 ]
 
